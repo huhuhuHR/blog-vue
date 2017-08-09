@@ -1,8 +1,10 @@
 import axios from 'axios';
 import URLSearchParams from 'url-search-params';
 
-
+// / Override timeout default for the library
+// Now all requests will wait 10 seconds before timing out
 const globalConfig = (axios) => {
+  //设置超时时间
   axios.defaults.timeout = 10000;
 };
 
@@ -12,14 +14,14 @@ const transformRequest = (axios) => {
     if (data === undefined) {
       return;
     }
-    // emulateJSON => json
+    // emulateJSON => json json格式的参数
     if (!data.emulateJSON) {
       headers['Content-Type'] = 'application/json;charset=UTF-8';
       console.log('!emulateJSON');
       return JSON.stringify(data);
     }
 
-    // emulateJSON => x-www-form-urlencoded
+    // emulateJSON => x-www-form-urlencoded form表单
     headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
     let params = new URLSearchParams();
     Object.keys(data).forEach(function (key) {
@@ -30,6 +32,10 @@ const transformRequest = (axios) => {
     return params;
   }];
 };
+// 入参序列化
+// const paramsSerializer = function (params) {
+//   return Qs.stringify(params, {arrayFormat: 'brackets'})
+// };
 
 // intercept requests or responses before they are handled by then or catch
 const addRequestInterceptors = (axios) => {

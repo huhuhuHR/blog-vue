@@ -87,7 +87,6 @@
         });
       },
       exit: function () {
-        console.log('1111');
         this.$router.go(-1);
       },
       getWindows: function () {
@@ -106,14 +105,13 @@
     background-color: #ffffff;
     .exit {
       font-size: 16px;
-      position: fixed;
-      right: 60px;
-      top: 30px;
       color: #2097f3;
-
+      margin-top: 10px;
+      margin-right: 15px;
+      text-align: right;
     }
     .login-box {
-      padding-top: 90px;
+      padding-top: 30px;
       text-align: center;
       margin-left: 10px;
       margin-right: 10px;

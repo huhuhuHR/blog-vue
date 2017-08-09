@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import {vuexDemo, login} from '../pages/index';
+import {vuexDemo, login, ValidateCode} from '../pages/index';
 Vue.use(Router);
 
 const router = new Router({
@@ -17,6 +17,11 @@ const router = new Router({
       path: '/vuexDemo',
       component: vuexDemo,
       meta: {title: 'vuexDemo'}
+    },
+    {
+      path: '/getValidateCode',
+      component: ValidateCode,
+      meta: {title: 'getValidateCode'}
     }
   ]
 });
