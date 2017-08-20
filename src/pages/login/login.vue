@@ -77,6 +77,7 @@
           url: '/huhuhu/toLogin/login',
           params: condition,
           emulateJSON: true,
+          useLoadLayer: true,
           successCallback: function (data) {
             this.error = data.result;
             //todo  跳落地页

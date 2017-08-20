@@ -5,10 +5,9 @@ import main from './modules/main';
 
 Vue.use(Vuex);
 
-const state = new Vuex.Store({
+
+export default new Vuex.Store({
   modules: {
     main
   }
 });
-
-export default state;

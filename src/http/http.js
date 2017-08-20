@@ -1,5 +1,7 @@
 import axios from 'axios';
 import URLSearchParams from 'url-search-params';
+import {CHANGE_LOAD_SHOW_STATE} from '../store/mutation-types';
+import store from '../store';
 
 // / Override timeout default for the library
 // Now all requests will wait 10 seconds before timing out
@@ -40,16 +42,22 @@ const transformRequest = (axios) => {
 // intercept requests or responses before they are handled by then or catch
 const addRequestInterceptors = (axios) => {
   axios.interceptors.request.use(function (config) {
+    if (config.useLoadLayer) {
+      store.commit('CHANGE_LOAD_SHOW_STATE', true);
+    }
     return config;
   }, function (error) {
+    store.commit(CHANGE_LOAD_SHOW_STATE, false);
     return Promise.reject(error);
   });
 };
 
 const addResponseInterceptors = (axios) => {
   axios.interceptors.response.use(function (response) {
+    store.commit(CHANGE_LOAD_SHOW_STATE, false);
     return response;
   }, function (error) {
+    store.commit(CHANGE_LOAD_SHOW_STATE, false);
     return Promise.reject(error);
   });
 };
@@ -66,9 +74,9 @@ const config = (Vue) => {
   accessInVueInstance(Vue, axios);
 };
 
-const api = ({url, method = 'POST', params = {}, emulateJSON = false, successCallback, errorCallback}) => {
+const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLayer = true, successCallback, errorCallback}) => {
   let reqConf = {
-    method, url,
+    method, url, useLoadLayer,
     cancelToken: new axios.CancelToken(function (cancel) {
       console.log('request is canceled');
     })
