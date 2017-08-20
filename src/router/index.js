@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import {vuexDemo, login, ValidateCode} from '../pages/index';
+import {vuexDemo, login, ValidateCode, theLifeCycle} from '../pages/index';
 Vue.use(Router);
 
 const router = new Router({
@@ -22,6 +22,11 @@ const router = new Router({
       path: '/getValidateCode',
       component: ValidateCode,
       meta: {title: 'getValidateCode'}
+    },
+    {
+      path: '/theLifeCycle',
+      component: theLifeCycle,
+      meta: {title: '生命周期'}
     }
   ]
 });
