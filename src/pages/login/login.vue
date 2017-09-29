@@ -1,5 +1,24 @@
 <template>
-  <div class="root" ref="myApp">
+  <div class="rootLogin" ref="myApp">
+    <vue-particles
+      class="particles"
+      color="#dedede"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#dedede"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
+    </vue-particles>
     <div class="exit" @click="exit">退出</div>
     <div class="login-box">
       <div class="title">
@@ -20,16 +39,20 @@
         </div>
       </div>
       <div class="to-operation">
-        <div class="input-submit-in" @click="login">登录</div>
-        <div class="input-submit-up">注册</div>
+        <div style="width:230px;">
+          <div class="input-submit-in" @click="login">登录</div>
+          <div class="input-submit-up">注册</div>
+        </div>
       </div>
     </div>
     <div class="error">{{error}}</div>
   </div>
 </template>
 <script>
-  import {setStyle} from '../../assets/js/dom';
+  import Vue from 'vue';
+  import {setStyle}  from  '../../assets/js/dom';
   import http from '../../http/http';
+  import auth from '../../auth';
   export default{
     data () {
       return {
@@ -79,10 +102,13 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
-            this.error = data.result;
-            //todo  跳落地页
+            auth.saveCookie(data.cookie, data.id);
+            auth.cookie.cookieName = data.cookie;
+            console.log(auth.cookie.accountId);
+            this.$router.push({path: '/record', query: {'id': data.id}});
           }.bind(this),
           errorCallback: function (data) {
+            auth.clearCookie();
             this.error = this.errorList[2];
           }.bind(this)
         });
@@ -98,26 +124,45 @@
         console.log(_this);
         setStyle(_this, 'height', this.contentHeight + 'px');
       }
+    },
+    mounted () {
+      Vue.nextTick(function () {
+        let winowHeight = window.screen.availHeight;
+        setStyle(document.getElementById('.particles'), 'height', winowHeight + 'px');
+      }.bind(this));
     }
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-  .root {
-    background-color: #ffffff;
+  .rootLogin {
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../../src/assets/img/1.jpg");
+      background-repeat: no-repeat;
+      -moz-background-size: 100% 100%;
+      background-size: cover;
+      background-position: 50% 50%;
+    }
     .exit {
+      position: relative;
       font-size: 16px;
-      color: #2097f3;
+      color: lightblue;
       margin-top: 10px;
       margin-right: 15px;
       text-align: right;
     }
     .login-box {
+      position: relative;
+      z-index: 10000;
+      border: 1px lightblue;
       padding-top: 30px;
       text-align: center;
       margin-left: 10px;
       margin-right: 10px;
       .title {
-        color: #2097f3;
+        color: lightblue;
       }
       .login-logo {
         margin-top: 40px;
@@ -143,18 +188,19 @@
         justify-content: center;
         font-size: 16px;
         .input-submit-in {
+          float: left;
           border-radius: 5px;
-          border: 1px solid #2097f3;
-          background-color: #2097f3;
-          color: #ffffff;
-          margin-right: 50px;
+          border: 1px solid lightblue;
+          background-color: lightblue;
+          color: #4F4F4F;
           width: 100px;
         }
         .input-submit-up {
+          float: right;
           border-radius: 5px;
-          border: 1px solid #2097f3;
-          background-color: #2097f3;
-          color: #ffffff;
+          border: 1px solid lightblue;
+          background-color: lightblue;
+          color: #4F4F4F;
           width: 100px;
         }
       }
@@ -170,7 +216,7 @@
       padding-left: 28px;
     }
     .iconfont {
-      color: #2097f3;
+      color: lightblue;
     }
     .error {
       color: red;

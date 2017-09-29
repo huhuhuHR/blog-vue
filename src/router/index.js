@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import {vuexDemo, login, ValidateCode, theLifeCycle} from '../pages/index';
+import auth from '../auth';
+import {vuexDemo, login, recordList, ValidateCode, theLifeCycle} from '../pages/index';
 Vue.use(Router);
+
 
 const router = new Router({
   mode: 'hash',
@@ -12,6 +14,12 @@ const router = new Router({
       name: '登录',
       component: login,
       meta: {title: '登录'}
+    },
+    {
+      path: '/record',
+      name: '工作记录',
+      component: recordList,
+      meta: {title: '工作记录'}
     },
     {
       path: '/vuexDemo',
@@ -33,6 +41,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   to.meta.customTitle = from.meta.customTitle;
+  auth.checkAuth();
+  if (to.path != '/' && !auth.cookie.authenticated) {
+    console.log('登录失败标记');
+    next({
+      path: '/'
+    });
+    return;
+  }
   next();
 });
 

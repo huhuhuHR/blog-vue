@@ -32,7 +32,7 @@
   export default {
     computed: {
       isLoadLayer () {
-        console.log('aaaaa' + this.$store.getters.isLoadLayer);
+//        console.log('aaaaa' + this.$store.getters.isLoadLayer);
         return this.$store.getters.isLoadLayer;
       }
     },
@@ -49,7 +49,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    top: 0px;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 100001
   }

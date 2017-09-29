@@ -88,6 +88,7 @@ const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLay
 
   return axios(reqConf).then((response) => {
     let rspCode = response.data.code;
+    console.log(rspCode);
     if (rspCode === '0') {
       successCallback && successCallback(response.data.data);
     } else {

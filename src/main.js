@@ -4,13 +4,16 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import rem from './assets/js/RemUtil';
+import auth from './auth';
 import http from './http/http';
 import store from './store';
 import {sync} from 'vuex-router-sync';
-
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles);
 http.config(Vue);
+auth.checkAuth();
 
-rem.initFontSize();
+// rem.initFontSize();
 
 Vue.config.productionTip = false;
 // 主要是把 vue-router 的狀態放進 vuex 的 state 中，

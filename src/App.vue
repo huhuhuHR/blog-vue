@@ -24,6 +24,6 @@
     opacity: 0
   }
 
-  @import "assets/css/reset.css";
+  /*@import "assets/css/reset.css";*/
   @import "assets/icon/iconfont.css";
 </style>
