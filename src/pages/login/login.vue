@@ -19,7 +19,6 @@
       clickMode="push"
     >
     </vue-particles>
-    <div class="exit" @click="exit">退出</div>
     <div class="login-box">
       <div class="title">
         <h1>欢迎</h1>
@@ -39,10 +38,8 @@
         </div>
       </div>
       <div class="to-operation">
-        <div style="width:230px;">
-          <div class="input-submit-in" @click="login">登录</div>
-          <div class="input-submit-up">注册</div>
-        </div>
+        <div class="input-submit-in" @click="login">登录</div>
+        <div class="input-submit-up">注册</div>
       </div>
     </div>
     <div class="error">{{error}}</div>
@@ -69,6 +66,10 @@
     },
     mounted (){
       this.pageInit();
+      Vue.nextTick(function () {
+        let winowHeight = window.screen.availHeight;
+        setStyle(document.getElementById('.particles'), 'height', winowHeight + 'px');
+      }.bind(this));
     },
     watch: {
       name: function () {
@@ -121,15 +122,8 @@
       },
       pageInit: function () {
         let _this = this.$refs.myApp;
-        console.log(_this);
-        setStyle(_this, 'height', this.contentHeight + 'px');
+        setStyle(_this, 'height', this.clientHeight + 'px');
       }
-    },
-    mounted () {
-      Vue.nextTick(function () {
-        let winowHeight = window.screen.availHeight;
-        setStyle(document.getElementById('.particles'), 'height', winowHeight + 'px');
-      }.bind(this));
     }
   };
 </script>
@@ -188,20 +182,22 @@
         justify-content: center;
         font-size: 16px;
         .input-submit-in {
-          float: left;
+          position: relative;
           border-radius: 5px;
           border: 1px solid lightblue;
           background-color: lightblue;
           color: #4F4F4F;
           width: 100px;
+          right: 15px;
         }
         .input-submit-up {
-          float: right;
+          position: relative;
           border-radius: 5px;
           border: 1px solid lightblue;
           background-color: lightblue;
           color: #4F4F4F;
           width: 100px;
+          left: 40px;
         }
       }
     }

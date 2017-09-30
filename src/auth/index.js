@@ -1,5 +1,5 @@
 const TOKEN_KEY = 'uuid';
-const TOKEN_KEY_EXPIRE_TIME = 1000 * 60 * 30;
+const TOKEN_KEY_EXPIRE_TIME = 1000 * 60 * 60 * 6;
 
 const checkAuth = () => {
   let token = getCookieValue(TOKEN_KEY);
