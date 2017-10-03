@@ -1,7 +1,20 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import auth from '../auth';
-import {vuexDemo, login, recordList, ValidateCode, theLifeCycle} from '../pages/index';
+import {
+  homePage,
+  articleList,
+  articleDetail,
+  workCareer,
+  toolkit,
+  projectRecord,
+  photoWall,
+  vuexDemo,
+  login,
+  recordList,
+  ValidateCode,
+  theLifeCycle
+} from '../pages/index';
 Vue.use(Router);
 
 
@@ -16,10 +29,52 @@ const router = new Router({
       meta: {title: '登录'}
     },
     {
-      path: '/record',
+      path: '/homePage',
+      name: '主页',
+      component: homePage,
+      meta: {title: 'homePage'}
+    },
+    {
+      path: '/articleList',
+      name: '文章',
+      component: articleList,
+      meta: {title: 'articleList'}
+    },
+    {
+      path: '/articleDetail',
+      name: '文章详情',
+      component: articleDetail,
+      meta: {title: 'articleDetail'}
+    },
+    {
+      path: '/workCareer',
+      name: '简历',
+      component: workCareer,
+      meta: {title: 'workCareer'}
+    },
+    {
+      path: '/toolkit',
+      name: '工具箱',
+      component: toolkit,
+      meta: {title: '工具箱'}
+    },
+    {
+      path: '/projectRecord',
       name: '工作记录',
-      component: recordList,
+      component: projectRecord,
       meta: {title: '工作记录'}
+    },
+    {
+      path: '/photoWall',
+      name: '照片墙',
+      component: photoWall,
+      meta: {title: '照片墙'}
+    },
+    {
+      path: '/recordList',
+      name: '记录list',
+      component: recordList,
+      meta: {title: '记录list'}
     },
     {
       path: '/vuexDemo',

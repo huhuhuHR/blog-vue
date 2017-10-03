@@ -106,7 +106,7 @@
             auth.saveCookie(data.cookie, data.id);
             auth.cookie.cookieName = data.cookie;
             console.log(auth.cookie.accountId);
-            this.$router.push({path: '/record', query: {'id': data.id}});
+            this.$router.push({path: '/homePage', query: {'id': data.id}});
           }.bind(this),
           errorCallback: function (data) {
             auth.clearCookie();
