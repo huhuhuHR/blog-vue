@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import auth from '../auth';
 import {
   homePage,
-  articleList,
+  articleCenter,
   articleDetail,
   workCareer,
   toolkit,
@@ -11,9 +11,10 @@ import {
   photoWall,
   vuexDemo,
   login,
-  recordList,
+  acticleList,
   ValidateCode,
-  theLifeCycle
+  theLifeCycle,
+  acticleAdd
 } from '../pages/index';
 Vue.use(Router);
 
@@ -35,10 +36,22 @@ const router = new Router({
       meta: {title: 'homePage'}
     },
     {
-      path: '/articleList',
+      path: '/articleCenter',
       name: '文章',
-      component: articleList,
-      meta: {title: 'articleList'}
+      component: articleCenter,
+      meta: {title: 'articleCenter'}
+    },
+    {
+      path: '/acticleList',
+      name: '文章列表',
+      component: acticleList,
+      meta: {title: '记录list'}
+    },
+    {
+      path: '/acticleAdd',
+      name: '添加',
+      component: acticleAdd,
+      meta: {title: '添加'}
     },
     {
       path: '/articleDetail',
@@ -69,12 +82,6 @@ const router = new Router({
       name: '照片墙',
       component: photoWall,
       meta: {title: '照片墙'}
-    },
-    {
-      path: '/recordList',
-      name: '记录list',
-      component: recordList,
-      meta: {title: '记录list'}
     },
     {
       path: '/vuexDemo',

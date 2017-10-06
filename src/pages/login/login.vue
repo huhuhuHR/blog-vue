@@ -1,5 +1,5 @@
 <template>
-  <div class="rootLogin" ref="myApp">
+  <div class="rootLogin">
     <vue-particles
       class="particles"
       color="#dedede"
@@ -65,7 +65,6 @@
       this.getWindows();
     },
     mounted (){
-      this.pageInit();
       Vue.nextTick(function () {
         let winowHeight = window.screen.availHeight;
         setStyle(document.getElementById('.particles'), 'height', winowHeight + 'px');
@@ -119,10 +118,6 @@
       },
       getWindows: function () {
         this.contentHeight = window.screen.availHeight;
-      },
-      pageInit: function () {
-        let _this = this.$refs.myApp;
-        setStyle(_this, 'height', this.clientHeight + 'px');
       }
     }
   };

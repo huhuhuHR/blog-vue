@@ -1,19 +1,20 @@
 import login from './login/login';
 import homePage from './blog/HomePage.vue';
-import articleList from './blog/ArticleList.vue';
+import articleCenter from './blog/Article/ArticleCenter.vue';
 import workCareer from './blog/WorkCareer.vue';
-import articleDetail from './blog/ArticleDetail.vue';
+import articleDetail from './blog/Article/ArticleDetail.vue';
 import toolkit from './blog/Toolkit.vue';
 import projectRecord from './blog/ProjectRecord.vue';
 import photoWall from './blog/PhotoWall.vue';
 import vuexDemo from './Demo/VuexDemo.vue'
 import ValidateCode from './ValidateCode/ValidateCode.vue'
 import theLifeCycle from  './Demo/TheLifeCycle.vue';
-import recordList from './record/recordList.vue';
+import acticleList from './blog/Article/ActicleList.vue';
+import acticleAdd from './blog/Article/ActicleAdd.vue';
 export {
   login,
   homePage,
-  articleList,
+  articleCenter,
   articleDetail,
   workCareer,
   toolkit,
@@ -22,5 +23,6 @@ export {
   vuexDemo,
   ValidateCode,
   theLifeCycle,
-  recordList
+  acticleList,
+  acticleAdd
 }

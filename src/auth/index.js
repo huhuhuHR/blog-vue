@@ -35,5 +35,7 @@ export default {
   cookie,
   checkAuth,
   saveCookie,
-  clearCookie
+  clearCookie,
+  getCookieValue,
+  TOKEN_KEY
 };
