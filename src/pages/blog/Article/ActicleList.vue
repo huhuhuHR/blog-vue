@@ -2,9 +2,12 @@
   <div class="person-article-list" id="article">
     <goBack @goBack="goBack"
             @goHome="goHome"></goBack>
-    <div class="article-list" v-for="article in personRecordList" key="article.id">
+    <div style="border-top: 2px solid #8c8c8c;margin: 0 30px 0 30px;"></div>
+    <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
+         @click="goDetail(article.id)">
       <div class="article-title">{{article.title}}</div>
-      <div class="article-body">{{article.body}}</div>
+      <div class="article-body" v-html="article.body">
+      </div>
       <div class="article-time">{{article.createTime}}</div>
     </div>
   </div>
@@ -44,20 +47,36 @@
       },
       goHome(){
         this.$router.push({path: '/homePage', query: {'id': this.id}});
+      },
+      goDetail(vale){
+        this.$router.push({path: '/articleDetail', query: {'id': vale}});
       }
     },
     components: {
       goBack
+    },
+    filters: {
+      filterLength(val){
+        return val.length > 50 ? val.substring(0, 50) + '...' : val;
+      }
     }
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .person-article-list {
+    color: #808080;
     .article-list {
-      background-color: #ffffff;
+      margin: 0 30px 0 30px;
+      background-color: #f3f4f8;
       border-bottom: 2px solid #8c8c8c;
       .article-time {
         text-align: right;
+      }
+      .article-body {
+        height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
