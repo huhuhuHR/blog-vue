@@ -1,5 +1,5 @@
 <template>
-  <div class="rootLogin">
+  <div class="rootLogin" @keyup.enter="login">
     <vue-particles
       class="particles"
       color="#dedede"

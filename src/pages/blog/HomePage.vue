@@ -10,6 +10,19 @@
         <div class="router-name">{{router.name}}</div>
       </div>
     </div>
+    <div class="article-recommend">
+      <div class="recent">关于我:</div>
+      <ul class="time-vertical">
+        <li><b></b><span>1</span>
+          常熟理工学院－2012—2016年五月<br>
+          大学学过c语言，c++，java，嵌入式。<br>
+          大学自己看书做过飞机大战，捕鱼达人等java小游戏。
+        </li>
+        <li><b></b><span>2</span>
+          瑞奕惟扬－2017-5月至今<br>
+        </li>
+      </ul>
+    </div>
     <div class="right-list">
       <div class="about">联系我:</div>
       <div class="about-me">
@@ -130,5 +143,65 @@
         }
       }
     }
+    .article-recommend {
+      color: #808080;
+      margin: 20px 30px 20px 30px;
+      .recent {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      .liter-article {
+        font-size: 14px;
+        max-height: 40px;
+        word-wrap: break-word;
+        word-break: normal;
+        overflow-y: hidden;
+      }
+    }
+  }
+
+  /*纵向时间轴*/
+  .time-vertical {
+    list-style-type: none;
+    border-left: 1px solid #707070;
+    padding: 0;
+    height: auto;
+  }
+
+  .time-vertical li {
+    height: 100px;
+    position: relative;
+  }
+
+  .time-vertical li a {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000;
+  }
+
+  .time-vertical li b:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #98FB98;
+    border-radius: 10px;
+    background: #98FB98;
+  }
+
+  .time-vertical li span {
+    position: absolute;
+    color: #fff;
+    top: 18px;
+    left: -6px;
+  }
+
+  li {
+    padding-left: 24px;
+    padding-top: 18px;
   }
 </style>

@@ -23,7 +23,7 @@
   .goBack {
     display: flex;
     justify-content: space-between;
-    margin: 30px 30px 30px 30px;
+    margin: 20px 30px 20px 30px;
     i {
       font-size: 30px;
     }

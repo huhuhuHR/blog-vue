@@ -1,24 +1,31 @@
 <template>
   <div class="article-detail">
-    <div class="title">
-      {{article.title}}
+    <div v-if="editTag !== '1'">
+      <div class="title">
+        {{article.title}}
+      </div>
+      <div class="author">
+        --{{article.author}}
+      </div>
+      <div v-html="article.body" class="body"></div>
+      <div class="time">
+        {{article.createTime | dataFilter}}
+      </div>
     </div>
-    <div class="author">
-      --{{article.author}}
-    </div>
-    <div v-html="article.body" class="body"></div>
-    <div class="time">
-      {{article.createTime | dataFilter}}
+    <div v-if="editTag === '1'">
+      <editorArticle :article="article"></editorArticle>
     </div>
   </div>
 </template>
 <script>
+  import editorArticle from '../../../components/ueditor/editorArticle.vue';
   import dataFormate from '../../../assets/js/dataOperation';
   import http from '../../../http/http';
   export default{
     data () {
       return {
         id: this.$route.query.id,
+        editTag: this.$route.query.edit,
         article: {}
       };
     },
@@ -40,6 +47,9 @@
       dataFilter(val){
         return dataFormate(new Date(val), 'yyyy年MM月dd日 hh:mm:ss');
       }
+    },
+    components: {
+      editorArticle
     },
     methods: {}
   };
