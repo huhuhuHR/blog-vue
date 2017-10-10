@@ -6,7 +6,7 @@
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
            @click="goDetail(article.id)">
-        <div class="article-title">标题:<span style="margin-left: 5px">{{article.title |filterLength}}</span></div>
+        <div class="article-title">标题:<span style="margin-left: 5px">{{article.title}}</span></div>
         <div class="article-time">日期：{{article.createTime | dataFilter}}</div>
         <div class="last-line">
           <div class="operation">
