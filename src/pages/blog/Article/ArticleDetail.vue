@@ -1,5 +1,6 @@
 <template>
   <div class="article-detail">
+    <i class="iconfont icon-fanhui" @click="goBack()"></i>
     <div v-if="editTag !== '1'">
       <div class="title">
         {{article.title}}
@@ -51,13 +52,20 @@
     components: {
       editorArticle
     },
-    methods: {}
+    methods: {
+      goBack(){
+        this.$router.go(-1);
+      }
+    }
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .article-detail {
     color: #808080;
     margin: 30px;
+    i {
+      font-size: 24px;
+    }
     .title {
       font-weight: bold;
       font-size: 30px;

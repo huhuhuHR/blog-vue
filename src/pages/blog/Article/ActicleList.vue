@@ -2,7 +2,7 @@
   <div class="person-article-list" id="article">
     <goBack @goBack="goBack"
             @goHome="goHome"></goBack>
-    <div class="add" @click="goAdd()">添加新的文章:<i class="iconfont icon-icon02"></i></div>
+    <div class="add" @click="goAdd()">添加新的文章</div>
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
            @click="goDetail(article.id)">
@@ -102,13 +102,14 @@
   .person-article-list {
     color: #808080;
     .add {
-      font-size: 30px;
-      margin-left: 30px;
-      margin-bottom: 20px;
-      i {
-        font-size: 35px;
-        margin-left: 5px;
-      }
+      background-color: #8ec31e;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 100px;
+      line-height: 32px;
+      margin: 0 30px 20px 30px;
+      color: #FFFFFF;
+      text-align: center;
     }
     .list-box {
       margin: 0 30px 0 30px;
@@ -116,10 +117,11 @@
       justify-content: space-between;
       flex-wrap: wrap;
       .article-list {
+        background-color: #FFFFFF;
         padding: 5px 5px 0 5px;
-        background-color: #f3f4f8;
         border: 1px solid #8c8c8c;
-        width: 29%;
+        width: 30%;
+        border-radius: 5px;
         margin-top: 5px;
         .article-title {
           display: block;

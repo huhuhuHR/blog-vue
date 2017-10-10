@@ -24,6 +24,7 @@
     display: flex;
     justify-content: space-between;
     margin: 20px 30px 20px 30px;
+    color: #06addd;
     i {
       font-size: 30px;
     }
