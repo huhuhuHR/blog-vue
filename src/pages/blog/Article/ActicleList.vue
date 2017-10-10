@@ -7,18 +7,17 @@
     <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
          @click="goDetail(article.id)">
       <div class="article-title">标题:{{article.title}}</div>
-      <div :class="{'toggleShow':toggleShowTag[index],'article-body':true}" v-html="article.body">
-      </div>
+      <!--<div :class="{'toggleShow':toggleShowTag[index],'article-body':true}" v-html="article.body"></div>-->
       <div class="article-time">日期：{{article.createTime | dataFilter}}</div>
       <div class="last-line">
-        <div class="hidden" @click.stop="toggle(index)">
-          <div v-show="check(article.body) && toggleShowTag[index]">
-            <i class="iconfont icon-zhankai"></i>展开
-          </div>
-          <div v-show="check(article.body) && !toggleShowTag[index]">
-            <i class="iconfont icon-shouqi"></i>收起
-          </div>
-        </div>
+        <!--<div class="hidden" @click.stop="toggle(index)">-->
+        <!--<div v-show="toggleShowTag[index]">-->
+        <!--<i class="iconfont icon-zhankai"></i>展开-->
+        <!--</div>-->
+        <!--<div v-show="!toggleShowTag[index]">-->
+        <!--<i class="iconfont icon-shouqi"></i>收起-->
+        <!--</div>-->
+        <!--</div>-->
         <div class="operation">
           <div class="edit"><i class="iconfont icon-75bianji" @click.stop="goEdit(article.id)"></i></div>
           <div class="delete" @click.stop="deleteArticle(article.id)"><i class="iconfont icon-shanchu"></i></div>
@@ -128,7 +127,7 @@
       }
     }
     .article-list {
-      margin: 30px 30px 30px 30px;
+      margin: 20px 30px 30px 30px;
       background-color: #f3f4f8;
       padding: 0 5px 0 5px;
       border-bottom: 2px solid #8c8c8c;
@@ -148,8 +147,6 @@
         text-overflow: ellipsis;
       }
       .last-line {
-        display: flex;
-        justify-content: space-between;
         margin-top: 10px;
         margin-bottom: 10px;
         .hidden {
