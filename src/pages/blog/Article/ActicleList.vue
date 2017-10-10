@@ -128,7 +128,7 @@
       }
     }
     .article-list {
-      margin: 0 30px 0 30px;
+      margin: 30px 30px 30px 30px;
       background-color: #f3f4f8;
       padding: 0 5px 0 5px;
       border-bottom: 2px solid #8c8c8c;
