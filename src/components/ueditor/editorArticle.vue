@@ -55,7 +55,7 @@
         this.title = this.article.title;
         this.author = this.article.author;
         this.body = this.article.body;
-        console.log(this.body);
+//        console.log(this.body);
       }
     },
     created(){
@@ -72,7 +72,7 @@
       },
       input(val) {
         this.inputMsg = val.content;
-        console.log(this.inputMsg)
+//        console.log(this.inputMsg);
       },
       save(){
         http.api({

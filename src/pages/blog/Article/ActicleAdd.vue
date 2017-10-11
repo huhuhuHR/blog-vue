@@ -68,7 +68,7 @@
       },
       input(val) {
         this.inputMsg = val.content;
-        console.log(this.inputMsg)
+//        console.log(this.inputMsg);
       }
     }
   };

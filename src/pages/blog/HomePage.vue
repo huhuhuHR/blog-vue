@@ -49,7 +49,7 @@
     },
     methods: {
       goPage (val) {
-        console.log(val);
+//        console.log(val);
         this.$router.push({path: '/' + val, query: {'id': this.accountId}});
       }
     },

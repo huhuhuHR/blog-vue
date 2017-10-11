@@ -24,7 +24,7 @@
     },
     created () {
       this.$nextTick(function () {
-        console.log(this.id);
+//        console.log(this.id);
         this.$refs.editor.id = this.id;
         this.editor = UE.getEditor(this.id, {
           UEDITOR_HOME_URL: '../../../static/utf8-jsp/',
