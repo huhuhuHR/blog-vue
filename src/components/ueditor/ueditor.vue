@@ -27,7 +27,7 @@
         console.log(this.id);
         this.$refs.editor.id = this.id;
         this.editor = UE.getEditor(this.id, {
-          UEDITOR_HOME_URL: '../../../static/utf8-jsp/',
+          UEDITOR_HOME_URL: './static/utf8-jsp/',
           initialFrameWidth: null,
           initialFrameHeight: 320
         });
@@ -35,7 +35,7 @@
     },
     mounted () {
       this.$nextTick(function () {
-        this.editor.ready(function f2() {
+        this.editor.ready(function () {
           this.editor.setContent(this.value);
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
