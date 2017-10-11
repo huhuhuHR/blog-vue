@@ -20,6 +20,10 @@
     background-color: #f3f4f8;
   }
 
+  body {
+    overflow: scroll;
+  }
+
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }

@@ -6,7 +6,7 @@
         {{article.title}}
       </div>
       <div class="author">
-        --{{article.author}}
+        {{article.author}}
       </div>
       <div v-html="article.body" class="body"></div>
       <div class="time">
@@ -61,23 +61,40 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .article-detail {
-    color: #808080;
+    border: 1px solid #aa7700;
+    background-color: #FFFFFF;
+    padding: 30px 20px 30px 20px;
     margin: 30px;
+    border-radius: 10px;
     i {
       font-size: 24px;
+      color: #8ec31e;
     }
     .title {
+      padding-top: 20px;
+      margin-top: 20px;
+      border-top: 1px dashed #111;
+      border-left: 1px dashed #111;
+      border-right: 1px dashed #111;
+      text-align: center;
       font-weight: bold;
       font-size: 30px;
-      margin-bottom: 20px;
-      text-align: center;
+      padding-bottom: 20px;
+      word-wrap: break-word;
     }
     .author {
+      border-left: 1px dashed #111;
+      border-right: 1px dashed #111;
       font-size: 18px;
       text-align: right;
-      margin-bottom: 20px;
+      padding-bottom: 20px;
+      color: #00a0e9;
+      padding-right: 50px;
     }
     .body {
+      padding: 10px;
+      border: 1px dashed #111;
+      margin-bottom: 30px;
     }
     .time {
       text-align: right;

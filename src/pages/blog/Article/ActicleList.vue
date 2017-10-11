@@ -2,7 +2,9 @@
   <div class="person-article-list" id="article">
     <goBack @goBack="goBack"
             @goHome="goHome"></goBack>
-    <div class="add" @click="goAdd()">添加新的文章</div>
+    <div class="add-box">
+      <div class="add" @click="goAdd()">添加新的文章</div>
+    </div>
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
            @click="goDetail(article.id)">
@@ -100,24 +102,38 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .person-article-list {
-    color: #808080;
-    .add {
-      background-color: #8ec31e;
-      border-radius: 5px;
-      font-size: 14px;
-      width: 100px;
-      line-height: 32px;
-      margin: 0 30px 20px 30px;
-      color: #FFFFFF;
-      text-align: center;
+    border: 1px dashed #111;
+    margin: 30px;
+    background-color: #FFFFFF;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    .add-box {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 1px dashed #8c8c8c;
+      .add {
+        margin-top: 9px;
+        margin-right: 30px;
+        float: right;
+        background-color: #00a0e9;
+        border-radius: 5px;
+        font-size: 14px;
+        width: 100px;
+        line-height: 32px;
+        color: #FFFFFF;
+        text-align: center;
+        padding-right: 30px;
+      }
     }
     .list-box {
-      margin: 0 30px 0 30px;
+      margin: 30px 30px 30px 30px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       .article-list {
-        background-color: #FFFFFF;
+        color: #FFFFFF;
+        background-color: #8c8c8c;
         padding: 5px 5px 0 5px;
         border: 1px solid #8c8c8c;
         width: 30%;
@@ -156,6 +172,7 @@
           }
           .operation {
             display: flex;
+            justify-content: space-between;
             .delete {
               margin-left: 20px;
             }
