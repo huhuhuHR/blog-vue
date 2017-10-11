@@ -12,18 +12,8 @@
       <div class="edit-area">
         <ueditor v-bind:value=article.body @input="input"></ueditor>
       </div>
-      <div style="display: flex;
-                  justify-content: center;
-                  margin-top: 40px;">
-        <div @click="save()" style="width: 200px;
-                                    height: 50px;
-                                    line-height: 50px;
-                                    border: 1px solid #00a0e9;
-                                    text-align: center;
-                                    background-color: #00a0e9;
-                                    color: #FFFFFF;
-                                    margin-right: 30px;">保存
-        </div>
+      <div class="save-box">
+        <div @click="save()" class="save">保存</div>
       </div>
     </div>
   </div>
@@ -97,24 +87,46 @@
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-  .acticle-add-root {
+  .article-editor {
     color: #808080;
-    margin-bottom: 40px;
+    margin: 20px 0 40px 0;
+    padding: 20px 10px 20px 10px;
+    border: 1px solid #8c8c8c;
+    border-radius: 5px;
     .acticle-add-body {
       margin: 0 30px 0 30px;
       .title {
         font-size: 24px;
         margin-bottom: 20px;
         input {
-          width: 90%;
+          width: 100%;
+          border-radius: 5px;
+          color: #8c8c8c;
         }
       }
       .author {
         font-size: 24px;
         margin: 20px 0 20px 0;
         input {
-          width: 90%;
+          width: 100%;
+          border-radius: 5px;
+          color: #8c8c8c;
         }
+      }
+    }
+    .save-box {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      .save {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #00a0e9;
+        text-align: center;
+        background-color: #00a0e9;
+        color: #FFFFFF;
+        margin-right: 30px;
       }
     }
   }

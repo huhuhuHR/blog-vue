@@ -1,6 +1,8 @@
 <template>
   <div class="article-detail">
-    <i class="iconfont icon-fanhui" @click="goBack()"></i>
+    <div>
+      <i class="iconfont icon-fanhui" @click="goBack()"></i>
+    </div>
     <div v-if="editTag !== '1'">
       <div class="title">
         {{article.title}}
@@ -67,7 +69,7 @@
     margin: 30px;
     border-radius: 10px;
     i {
-      font-size: 24px;
+      font-size: 30px;
       color: #8ec31e;
     }
     .title {
