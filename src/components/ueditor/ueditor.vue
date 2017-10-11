@@ -7,6 +7,7 @@
   import '../../../static/utf8-jsp/ueditor.config'
   import '../../../static/utf8-jsp/ueditor.all';
   import '../../../static/utf8-jsp/lang/zh-cn/zh-cn';
+  import {config} from  './ueditor.config';
   export default {
     name: 'editor-box',
     data () {
@@ -19,24 +20,20 @@
     props: {
       value: {
         type: String,
-        default: null
+        require: true
       }
-    },
-    created () {
-      this.$nextTick(function () {
-        console.log(this.id);
-        this.$refs.editor.id = this.id;
-        this.editor = UE.getEditor(this.id, {
-          UEDITOR_HOME_URL: './static/utf8-jsp/',
-          initialFrameWidth: null,
-          initialFrameHeight: 320
-        });
-      }.bind(this));
     },
     mounted () {
       this.$nextTick(function () {
+        console.log(this.id);
+        this.$refs.editor.id = this.id;
+        this.editor = UE.getEditor(this.id,
+          config
+        );
         this.editor.ready(function () {
-          this.editor.setContent(this.value);
+          setTimeout(()=> {
+            this.editor.setContent(this.value);
+          }, 1000);
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
             const content = this.editor.getContent();
