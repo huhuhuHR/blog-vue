@@ -33,7 +33,7 @@
         this.editor.ready(function () {
           setTimeout(()=> {
             this.editor.setContent(this.value);
-          }, 1000);
+          }, 2000);
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
             const content = this.editor.getContent();
