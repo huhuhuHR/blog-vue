@@ -13,7 +13,7 @@
       return {
         editor: '',
         uedata: [],
-        id: Math.round(Math.random() * 100000) + 'ueditorId',
+        id: new Date().getUTCMilliseconds() + 'ueditorId',
       }
     },
     props: {
