@@ -14,16 +14,18 @@
       <div class="edit-area">
         <ueditor v-bind:value=defaultMsg @input="input"></ueditor>
       </div>
-      <div class="submit">
-        <div class="save" @click="save()">保存</div>
-        <div class="saveAndOnline">保存并发布</div>
-      </div>
+    </div>
+    <div style="width: 100%;border-bottom: 1px dashed #111;margin-top: 40px;"></div>
+    <div class="submit">
+      <div class="save" @click="save()">保存</div>
+      <div class="saveAndOnline">保存并发布</div>
     </div>
   </div>
 </template>
 
 <script>
   import http from '../../../http/http';
+  import auth from '../../../auth';
   import ueditor from '../../../components/ueditor/ueditor.vue';
   import {goBack} from '../../../components/index';
   export default {
@@ -76,21 +78,24 @@
 <style scoped lang="less" rel="stylesheet/less">
   .acticle-add-root {
     color: #808080;
-    margin-bottom: 40px;
+    margin: 40px 30px 40px 30px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
     .acticle-add-body {
       margin: 0 30px 0 30px;
+      padding-top: 20px;
       .title {
         font-size: 24px;
         margin-bottom: 20px;
         input {
-          width: 90%;
+          width: 100%;
         }
       }
       .author {
         font-size: 24px;
         margin: 20px 0 20px 0;
         input {
-          width: 90%;
+          width: 100%;
         }
       }
     }
@@ -98,6 +103,7 @@
       display: flex;
       justify-content: center;
       margin-top: 40px;
+      padding-bottom: 40px;
       .save {
         width: 200px;
         height: 50px;

@@ -5,12 +5,12 @@
       <div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>
     </div>
     <div class="left-list">
-      <div class="float-box" v-for="(router,index) in routerList"
+      <div :class="{'float-box':true,'selected':selectedList[index]}" v-for="(router,index) in routerList"
            key="router.id"
            @click="goPage(router.router)"
            @mouseover="showTip(index)"
            @mouseout="hideTip(index)">
-        <div :class="{'box-element': true,'selected': selectedList[index]}"><i :class="router.iconName"></i></div>
+        <div class="box-element"><i :class="router.iconName"></i></div>
         <div class="router-name">{{router.name}}</div>
       </div>
     </div>
@@ -44,18 +44,13 @@
       };
     },
     methods: {
-      getColor(index){
-        console.log('111122');
-        return this.selectedList[index];
-      },
       showTip(index){
-        console.log(index);
         this.selectedList[index] = true;
-        console.log('in' + this.selectedList[index]);
+        this.selectedList.push();
       },
       hideTip(index){
         this.selectedList[index] = false;
-        console.log('out' + this.selectedList[index]);
+        this.selectedList.push();
       },
       goPage (val) {
         this.$router.push({path: '/' + val, query: {'id': this.accountId}});
@@ -122,17 +117,18 @@
         .box-element {
           text-align: center;
         }
-        .selected {
-          color: #8ec31e;
-        }
         .router-name {
           text-align: center;
           font-size: 12px;
         }
       }
+      .selected {
+        color: #8ec31e;
+      }
     }
     .fast-go {
       margin: 20px 30px 20px 30px;
+      color: #8c8c8c;
     }
     .right-list {
       border-top: 1px dashed #8c8c8c;

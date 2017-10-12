@@ -131,8 +131,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       .article-list {
-        color: #FFFFFF;
-        background-color: #8c8c8c;
+        color: #02ac1a;
+        background-color: #000000;
         padding: 5px 5px 0 5px;
         border: 1px solid #8c8c8c;
         width: 30%;

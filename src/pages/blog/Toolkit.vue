@@ -4,22 +4,26 @@
       <i class="iconfont icon-fanhui" @click="goBack()"></i>
     </div>
     <div class="toolkit-list">
-      <div class="add-new">
+      <div class="add-new" @click="ToggleAdd()">
         添加
       </div>
-      <div class="add-box" v-show="false">
+      <div style="width: 100%;border-bottom: 1px solid #8ec31e;"></div>
+      <div class="add-box" v-show="showAdd">
         <div class="add-iu">
           <span>icon:</span><input v-model="iconName"/>
         </div>
         <div class="add-iu">
           <span>url:</span><input v-model="url"/>
         </div>
-        <div class="add-submit">add</div>
+        <div style="display: flex;">
+          <div class="add-submit" style="margin-right: 20px" @click="submit">add</div>
+          <div class="add-submit" @click="cancel()">cancel</div>
+        </div>
       </div>
-      <div class="box-toolkit">
-        <div class="toolkits">
-          <a href="http://tool.oschina.net/codeformat/json">
-            <i class="iconfont icon-jsongeshihua"></i>
+      <div class="box-toolkit" v-show="!showAdd">
+        <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id">
+          <a :href="toolKit.url">
+            <i :class="toolKit.iconName"></i>
           </a>
         </div>
       </div>
@@ -27,32 +31,77 @@
   </div>
 </template>
 <script>
+  import auth from '../../auth';
   import http from '../../http/http';
   export default{
     data () {
       return {
         id: this.$route.query.id,
         iconName: '',
-        url: ''
+        url: '',
+        showAdd: false,
+        toolKitList: []
       };
     },
     methods: {
+      init(){
+        http.api({
+          url: '/huhuhu/ToolKit/selectTookies',
+          params: {'userId': this.id},
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.toolKitList = data.toolKitList;
+          }.bind(this),
+          errorCallback: function (data) {
+            console.log("error");
+          }.bind(this)
+        });
+      },
+      submit(){
+        let condition = Object.assign({}, {'cookie': auth.getCookieValue(auth.TOKEN_KEY)}, {'iconName': this.iconName}, {'url': this.url});
+        http.api({
+          url: '/huhuhu/ToolKit/inserToolKit',
+          params: condition,
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.init();
+            this.cancel();
+          }.bind(this),
+          errorCallback: function (data) {
+            console.log("error");
+          }.bind(this)
+        });
+      },
+      cancel(){
+        this.url = '';
+        this.iconName = '';
+        this.showAdd = false;
+      },
       goBack(){
         this.$router.go(-1);
+      },
+      ToggleAdd(){
+        this.showAdd = !this.showAdd;
       }
     },
     mounted (){
-//      console.log(this.id);
     },
     created(){
+      this.init();
     },
     components: {}
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .toolkit-root {
+    border: 1px dashed #111;
+    border-radius: 5px;
+    margin: 0 30px 0 30px;
     .goBack {
-      padding: 20px 0 10px 30px;
+      margin: 20px 30px 10px 30px;
+      border-bottom: 1px solid #8ec31e;
       i {
         font-size: 30px;
         color: #8ec31e;
