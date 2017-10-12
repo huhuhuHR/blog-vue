@@ -5,22 +5,17 @@
       <div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>
     </div>
     <div class="left-list">
-      <div class="float-box" v-for="router in routerList" key="router.id" @click="goPage(router.router)">
-        <div class="box-element"><i :class="router.iconName"></i></div>
+      <div class="float-box" v-for="(router,index) in routerList"
+           key="router.id"
+           @click="goPage(router.router)"
+           @mouseover="showTip(index)"
+           @mouseout="hideTip(index)">
+        <div :class="{'box-element': true,'selected': selectedList[index]}"><i :class="router.iconName"></i></div>
         <div class="router-name">{{router.name}}</div>
       </div>
     </div>
-    <div class="article-recommend">
-      <div class="recent">关于我:</div>
-      <ul class="time-vertical">
-        <li><b></b><span>1</span>
-          常熟理工学院－2012—2016年五月<br>
-          大学学过c语言，c++，java，嵌入式。<br>
-        </li>
-        <li><b></b><span>2</span>
-          瑞奕惟扬－2017-5月至今<br>
-        </li>
-      </ul>
+    <div class="fast-go">
+      新文章推荐:
     </div>
     <div class="right-list">
       <div class="about">联系我:</div>
@@ -44,12 +39,25 @@
     data () {
       return {
         accountId: this.$route.query.id,
-        routerList: []
+        routerList: [],
+        selectedList: []
       };
     },
     methods: {
+      getColor(index){
+        console.log('111122');
+        return this.selectedList[index];
+      },
+      showTip(index){
+        console.log(index);
+        this.selectedList[index] = true;
+        console.log('in' + this.selectedList[index]);
+      },
+      hideTip(index){
+        this.selectedList[index] = false;
+        console.log('out' + this.selectedList[index]);
+      },
       goPage (val) {
-//        console.log(val);
         this.$router.push({path: '/' + val, query: {'id': this.accountId}});
       }
     },
@@ -64,6 +72,7 @@
         useLoadLayer: true,
         successCallback: function (data) {
           this.routerList = data.routerList;
+          this.selectedList = new Array(this.routerList.length).fill(false);
         }.bind(this),
         errorCallback: function (data) {
         }.bind(this)
@@ -75,12 +84,13 @@
   .home-root {
     .head-title-motto {
       border-bottom: 2px solid #10b0de;
-      margin-top: 20px;
       padding-bottom: 20px;
+      padding-top: 20px;
+      background-color: #2181cb;
       .head-title {
         font-size: 30px;
         font-weight: bold;
-        color: #DA70D6;
+        color: #FFFFFF;
         text-align: start;
         margin-left: 30px;
       }
@@ -88,7 +98,7 @@
         margin-right: 30px;
         font-size: 16px;
         text-align: right;
-        color: #EE6AA7;
+        color: #FFFFFF;
       }
     }
     .left-list {
@@ -112,13 +122,22 @@
         .box-element {
           text-align: center;
         }
+        .selected {
+          color: #8ec31e;
+        }
         .router-name {
           text-align: center;
           font-size: 12px;
         }
       }
     }
+    .fast-go {
+      margin: 20px 30px 20px 30px;
+    }
     .right-list {
+      border-top: 1px dashed #8c8c8c;
+      border-bottom: 1px dashed #8c8c8c;
+      margin: 0 30px 0 30px;
       .about {
         color: #8c8c8c;
         margin: 20px 0 20px 30px;
@@ -126,6 +145,7 @@
       .about-me {
         display: flex;
         justify-content: space-around;
+        margin-bottom: 20px;
         .qq {
           width: 100px;
           height: 100px;
@@ -142,65 +162,5 @@
         }
       }
     }
-    .article-recommend {
-      color: #808080;
-      margin: 20px 30px 20px 30px;
-      .recent {
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-      .liter-article {
-        font-size: 14px;
-        max-height: 40px;
-        word-wrap: break-word;
-        word-break: normal;
-        overflow-y: hidden;
-      }
-    }
-  }
-
-  /*纵向时间轴*/
-  .time-vertical {
-    list-style-type: none;
-    border-left: 1px solid #707070;
-    padding: 0;
-    height: auto;
-  }
-
-  .time-vertical li {
-    height: 100px;
-    position: relative;
-  }
-
-  .time-vertical li a {
-    display: inline-block;
-    margin-left: 20px;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #000;
-  }
-
-  .time-vertical li b:before {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: -12px;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #98FB98;
-    border-radius: 10px;
-    background: #98FB98;
-  }
-
-  .time-vertical li span {
-    position: absolute;
-    color: #fff;
-    top: 18px;
-    left: -6px;
-  }
-
-  li {
-    padding-left: 24px;
-    padding-top: 18px;
   }
 </style>

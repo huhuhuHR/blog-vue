@@ -123,7 +123,6 @@
         line-height: 32px;
         color: #FFFFFF;
         text-align: center;
-        padding-right: 30px;
       }
     }
     .list-box {
