@@ -7,10 +7,12 @@
       <div class="add-new" @click="ToggleAdd()">
         添加
       </div>
-      <div style="width: 100%;border-bottom: 1px solid #8ec31e;"></div>
       <div class="add-box" v-show="showAdd">
         <div class="add-iu">
           <span>icon:</span><input v-model="iconName"/>
+        </div>
+        <div class="add-iu">
+          <span>name:</span><input v-model="urlName"/>
         </div>
         <div class="add-iu">
           <span>url:</span><input v-model="url"/>
@@ -25,6 +27,7 @@
           <a :href="toolKit.url">
             <i :class="toolKit.iconName"></i>
           </a>
+          <div class="urlName">{{toolKit.urlName}}</div>
         </div>
       </div>
     </div>
@@ -39,6 +42,7 @@
         id: this.$route.query.id,
         iconName: '',
         url: '',
+        urlName: '',
         showAdd: false,
         toolKitList: []
       };
@@ -59,7 +63,11 @@
         });
       },
       submit(){
-        let condition = Object.assign({}, {'cookie': auth.getCookieValue(auth.TOKEN_KEY)}, {'iconName': this.iconName}, {'url': this.url});
+        let condition = Object.assign({},
+          {'cookie': auth.getCookieValue(auth.TOKEN_KEY)},
+          {'iconName': this.iconName},
+          {'url': this.url},
+          {'urlName': this.urlName});
         http.api({
           url: '/huhuhu/ToolKit/inserToolKit',
           params: condition,
@@ -101,7 +109,6 @@
     margin: 0 30px 0 30px;
     .goBack {
       margin: 20px 30px 10px 30px;
-      border-bottom: 1px solid #8ec31e;
       i {
         font-size: 30px;
         color: #8ec31e;
@@ -109,7 +116,8 @@
     }
     background-color: #FFFFFF;
     .toolkit-list {
-      margin: 10px 30px 0 30px;
+      margin: 0 30px 0 30px;
+      border-top: 1px solid #8ec31e;
       .add-new {
         width: 50px;
         height: 30px;
@@ -118,7 +126,7 @@
         background-color: #00a0e9;
         color: #FFFFFF;
         border-radius: 5px;
-        margin: 5px 0 5px 0;
+        margin: 10px 0 10px 0;
         text-align: center;
       }
       .add-box {
@@ -155,14 +163,27 @@
         }
       }
       .box-toolkit {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        padding: 10px;
+        border: 1px solid #8ec31e;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        height: 500px;
+        overflow-y: scroll;
         .toolkits {
+          float: left;
+          text-align: center;
+          margin-bottom: 10px;
           i {
-            font-size: 50px;
+            font-size: 40px;
           }
-          width: 30%;
+          width: 25%;
+          .urlName {
+            font-size: 12px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
