@@ -11,6 +11,14 @@
         <span>作者:</span>
         <input v-model="myAuthor">
       </div>
+      <div class="article-desc">
+        <span>文章描述:</span>
+        <textarea placeholder='请描述您的问题' class="article-desciption" rows="3" cols="35" maxlength="300"
+                  v-model="desciption"/>
+      </div>
+      <div class="add-picture">
+        新增插图
+      </div>
       <div class="edit-area">
         <ueditor v-bind:value=defaultMsg @input="input"></ueditor>
       </div>
@@ -35,7 +43,8 @@
         myImputTitle: '',
         myAuthor: '',
         defaultMsg: '请输入内容。。。',
-        inputMsg: ''
+        inputMsg: '',
+        desciption: ''
 
       };
     },
@@ -51,7 +60,8 @@
             'userId': this.id,
             'articleTitle': this.myImputTitle,
             "author": this.myAuthor,
-            "articleBody": this.inputMsg
+            "articleBody": this.inputMsg,
+            "desciption": this.desciption
           },
           emulateJSON: true,
           useLoadLayer: true,
@@ -89,6 +99,7 @@
         margin-bottom: 20px;
         input {
           width: 100%;
+          border-radius: 5px;
         }
       }
       .author {
@@ -96,7 +107,22 @@
         margin: 20px 0 20px 0;
         input {
           width: 100%;
+          border-radius: 5px;
         }
+      }
+      .article-desc {
+        font-size: 24px;
+        margin: 20px 0 20px 0;
+        textarea {
+          font-size: 24px;
+          height: 100px;
+          width: 100%;
+          border-radius: 5px;
+        }
+      }
+      .add-picture {
+        font-size: 24px;
+        margin: 20px 0 20px 0;
       }
     }
     .submit {
@@ -114,7 +140,11 @@
         color: #FFFFFF;
         margin-right: 30px;
       }
+      .save {
+        border-radius: 5px;
+      }
       .saveAndOnline {
+        border-radius: 5px;
         width: 200px;
         height: 50px;
         line-height: 50px;

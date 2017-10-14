@@ -9,6 +9,7 @@
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
            @click="goDetail(article.id)">
         <div class="article-title">标题:<span style="margin-left: 5px">{{article.title}}</span></div>
+        <div class="article-desc">{{article.desciption}}</div>
         <div class="article-time">日期：{{article.createTime | dataFilter}}</div>
         <div class="last-line">
           <div class="operation">
@@ -17,6 +18,8 @@
           </div>
         </div>
       </div>
+      <div v-if="personRecordList.length%3 === 2" class="article-list"
+           style="background-color: #FFFFFF;border: none"></div>
     </div>
   </div>
 </template>
@@ -33,6 +36,7 @@
         id: this.$route.query.id,
         scrrenHeight: '',
         personRecordList: []
+
       };
     },
     created () {
@@ -140,6 +144,12 @@
         margin-top: 5px;
         .article-title {
           display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .article-desc {
+          padding-left: 10px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

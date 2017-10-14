@@ -174,6 +174,7 @@
           text-align: center;
           margin-bottom: 10px;
           i {
+            color: #0000cc;
             font-size: 40px;
           }
           width: 25%;
@@ -183,6 +184,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #0000cc;
           }
         }
       }

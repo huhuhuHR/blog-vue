@@ -9,6 +9,14 @@
         <span>作者:</span>
         <input v-model="article.author" v-on:change="changeAuthor(article.author)">
       </div>
+      <div class="article-desc">
+        <span>文章描述:</span>
+        <textarea placeholder='请描述您的问题' class="article-desciption" rows="3" cols="35" maxlength="300"
+                  v-model="desciption"/>
+      </div>
+      <div class="add-picture">
+        新增插图
+      </div>
       <div class="edit-area">
         <ueditor v-bind:value=article.body @input="input"></ueditor>
       </div>
@@ -26,6 +34,7 @@
   export default {
     data() {
       return {
+        desciption: '',
         realTitle: '',
         title: '',
         realAuthor: '',
@@ -45,7 +54,7 @@
         this.title = this.article.title;
         this.author = this.article.author;
         this.body = this.article.body;
-//        console.log(this.body);
+        this.desciption = this.article.desciption;
       }
     },
     created(){
@@ -62,7 +71,6 @@
       },
       input(val) {
         this.inputMsg = val.content;
-//        console.log(this.inputMsg);
       },
       save(){
         http.api({
@@ -72,7 +80,8 @@
             'userId': this.article.userId,
             'articleTitle': this.realTitle ? this.realTitle : this.article.title,
             "author": this.realAuthor ? this.realAuthor : this.article.author,
-            "articleBody": this.inputMsg ? this.inputMsg : this.article.body
+            "articleBody": this.inputMsg ? this.inputMsg : this.article.body,
+            "desciption": this.desciption ? this.desciption : this.article.desciption
           },
           emulateJSON: true,
           useLoadLayer: true,
@@ -112,6 +121,20 @@
           border-radius: 5px;
           color: #8c8c8c;
         }
+      }
+      .article-desc {
+        font-size: 24px;
+        margin: 20px 0 20px 0;
+        textarea {
+          font-size: 24px;
+          height: 100px;
+          width: 100%;
+          border-radius: 5px;
+        }
+      }
+      .add-picture {
+        font-size: 24px;
+        margin: 20px 0 20px 0;
       }
     }
     .save-box {

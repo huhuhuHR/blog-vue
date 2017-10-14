@@ -15,7 +15,18 @@
       </div>
     </div>
     <div class="fast-go">
-      新文章推荐:
+      最新文章推荐:
+      <div class="article-list" v-for="(article,index) in articleList" @key="article.id">
+        <div class="article-title">标题：{{article.title}}</div>
+        <div class="article-body">
+          <div class="img"></div>
+          <div class="article-body-detail"><p>{{article.desciption}}</p></div>
+        </div>
+        <div class="article-pv">
+          <div class="pv"></div>
+          <div class="date">{{article.createTime | dataFilter}}</div>
+        </div>
+      </div>
     </div>
     <div class="right-list">
       <div class="about">联系我:</div>
@@ -31,6 +42,7 @@
   </div>
 </template>
 <script>
+  import dataFormate from '../../assets/js/dataOperation';
   import Vue from 'vue';
   import {setStyle}  from  '../../assets/js/dom';
   import auth from '../../auth/index';
@@ -40,7 +52,8 @@
       return {
         accountId: this.$route.query.id,
         routerList: [],
-        selectedList: []
+        selectedList: [],
+        articleList: []
       };
     },
     methods: {
@@ -58,6 +71,11 @@
     },
     mounted (){
     },
+    filters: {
+      dataFilter(val){
+        return dataFormate(new Date(val), 'yyyy年MM月dd日 hh:mm:ss');
+      }
+    },
     created(){
       let condition = Object.assign({}, {'id': this.accountId});
       http.api({
@@ -68,6 +86,7 @@
         successCallback: function (data) {
           this.routerList = data.routerList;
           this.selectedList = new Array(this.routerList.length).fill(false);
+          this.articleList = data.articleList;
         }.bind(this),
         errorCallback: function (data) {
         }.bind(this)
@@ -77,11 +96,12 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .home-root {
+    background-color: #FFFFFF;
     .head-title-motto {
-      border-bottom: 2px solid #10b0de;
+      border-bottom: 2px solid #5f5f5f;
       padding-bottom: 20px;
       padding-top: 20px;
-      background-color: #2181cb;
+      background-color: #000000;
       .head-title {
         font-size: 30px;
         font-weight: bold;
@@ -102,7 +122,7 @@
       justify-content: flex-start;
       padding-top: 10px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #10b0de;
+      border-bottom: 2px solid #5f5f5f;
       background-color: beige;
       color: #8c8c8c;
       .float-box {
@@ -127,8 +147,37 @@
       }
     }
     .fast-go {
+      margin: 20px 30px 0 30px;
+      padding: 5px;
+      border: 1px dashed #8c8c8c;
+      color: #8c8c8c;
+      .article-list {
+        width: 100%;
+        max-height: 100px;
+        border-top: 1px dashed #8c8c8c;
+        padding: 10px 0;
+        .article-title {
+
+        }
+        .article-body {
+          .article-body-detail {
+            word-wrap: break-word;
+            text-indent: 25px;
+          }
+        }
+        .article-pv {
+          .date {
+            text-align: right;
+          }
+        }
+      }
+    }
+    .new-work {
       margin: 20px 30px 20px 30px;
       color: #8c8c8c;
+      width: 200px;
+      height: 200px;
+      border: 1px solid #0000ff;
     }
     .right-list {
       border-top: 1px dashed #8c8c8c;
