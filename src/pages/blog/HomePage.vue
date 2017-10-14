@@ -16,7 +16,7 @@
     </div>
     <div class="fast-go">
       最新文章推荐:
-      <div class="article-list" v-for="(article,index) in articleList" @key="article.id">
+      <div class="article-list" v-for="(article,index) in articleList" @key="article.id" @click="goDetail(article.id)">
         <div class="article-title">标题：{{article.title}}</div>
         <div class="article-body">
           <div class="img"></div>
@@ -57,6 +57,9 @@
       };
     },
     methods: {
+      goDetail(vale){
+        this.$router.push({path: '/articleDetail', query: {'id': vale}});
+      },
       showTip(index){
         this.selectedList[index] = true;
         this.selectedList.push();
@@ -171,13 +174,6 @@
           }
         }
       }
-    }
-    .new-work {
-      margin: 20px 30px 20px 30px;
-      color: #8c8c8c;
-      width: 200px;
-      height: 200px;
-      border: 1px solid #0000ff;
     }
     .right-list {
       border-top: 1px dashed #8c8c8c;
