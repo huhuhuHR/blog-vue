@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="fast-go">
-      最新文章推荐:
+      <div class="article-head">最新文章推荐:</div>
       <div class="article-list" v-for="(article,index) in articleList" @key="article.id" @click="goDetail(article.id)">
         <div class="article-title">标题：{{article.title}}</div>
         <div class="article-body">
@@ -24,7 +24,8 @@
         </div>
         <div class="article-pv">
           <div class="pv"></div>
-          <div class="date">{{article.createTime | dataFilter}}</div>
+          <div class="date">创建时间：{{article.createTime | dataFilter}}</div>
+          <div class="date">更新时间：{{article.updateTime | dataFilter}}</div>
         </div>
       </div>
     </div>
@@ -154,6 +155,9 @@
       padding: 5px;
       border: 1px dashed #8c8c8c;
       color: #8c8c8c;
+      .article-head {
+        margin-bottom: 5px;
+      }
       .article-list {
         width: 100%;
         max-height: 100px;
