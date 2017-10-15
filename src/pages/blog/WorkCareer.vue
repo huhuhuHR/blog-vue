@@ -1,6 +1,19 @@
 <template>
   <div class="workCareer-root">
-    aaaa
+    <div class="career-head"></div>
+    <div class="career-list" v-for="i in 3">
+      <div class="created-date">2014_10_15</div>
+      <div class="career-line"></div>
+      <div class="green-radio"></div>
+      <div class="event">
+        哈哈哈哈哈哈哈
+        哈哈哈哈哈哈哈
+        哈哈哈哈哈哈哈
+        哈哈哈哈哈哈哈
+        哈哈哈哈哈哈哈
+        哈哈哈哈哈哈哈
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -21,6 +34,37 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .workCareer-root {
-
+    margin: 20px 30px 20px 30px;
+    background-color: #FFFFFF;
+    .career-head {
+      height: 20px;
+    }
+    .career-list {
+      display: flex;
+      justify-content: center;
+      .created-date {
+        font-size: 24px;
+        margin-right: 10px;
+      }
+      .career-line {
+        position: relative;
+        border-left: 1px solid #000000;
+        left: 16px;
+      }
+      .green-radio {
+        z-index: 1;
+        height: 30px;
+        width: 30px;
+        border-radius: 30px;
+        background-color: #0000ff;
+      }
+      .event {
+        width: 300px;
+        word-wrap: break-word;
+        font-size: 16px;
+        margin-left: 5px;
+        padding-bottom: 10px;
+      }
+    }
   }
 </style>

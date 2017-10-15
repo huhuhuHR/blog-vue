@@ -24,7 +24,7 @@
       </div>
       <div class="box-toolkit" v-show="!showAdd">
         <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id">
-          <a :href="toolKit.url">
+          <a :href="toolKit.url" target="_Blank">
             <i :class="toolKit.iconName"></i>
           </a>
           <div class="urlName">{{toolKit.urlName}}</div>
