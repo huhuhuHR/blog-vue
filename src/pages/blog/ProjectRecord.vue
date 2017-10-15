@@ -6,15 +6,9 @@
     </div>
     <div class="submit" @click="add" v-show="!addFlag">add</div>
     <div class="submit" v-show="addFlag" @click="submit">sumit</div>
-    <div class="career-list" v-for="worksRecord in workRecordList" @key="worksRecord.id">
-      <div class="created-date">{{worksRecord.createTime | formdate}}</div>
-      <div class="career-line"></div>
-      <div class="green-radio"></div>
-      <div class="event">{{worksRecord.recordBody}}</div>
-    </div>
     <div class="career-list" v-show="addFlag">
       <div class="created-date">
-        {{createTime}}
+        现在
       </div>
       <div class="career-line"></div>
       <div class="green-radio"></div>
@@ -22,10 +16,17 @@
         　 <textarea v-model="eventText"></textarea>
       </div>
     </div>
+    <div class="career-list" v-for="worksRecord in workRecordList" @key="worksRecord.id">
+      <div class="created-date">{{worksRecord.createTime | dataFilter}}</div>
+      <div class="career-line"></div>
+      <div class="green-radio"></div>
+      <div class="event">{{worksRecord.recordBody}}</div>
+    </div>
     <div style="height: 50px;"></div>
   </div>
 </template>
 <script>
+  import dataFormate from '../../assets/js/dataOperation';
   import http from '../../http/http';
   export default{
     data () {
@@ -108,6 +109,9 @@
         return year + '_' +
           month + '_' +
           day;
+      },
+      dataFilter(val){
+        return dataFormate(new Date(val), 'yyyy年MM月dd日 hh:mm:ss')
       }
     }
   };
@@ -132,7 +136,7 @@
       justify-content: center;
       min-height: 100px;
       .created-date {
-        font-size: 24px;
+        font-size: 20px;
         margin-right: 10px;
         width: 130px;
         input {
