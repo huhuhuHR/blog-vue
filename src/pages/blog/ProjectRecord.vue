@@ -180,6 +180,8 @@
       color: #FFFFFF;
       border-radius: 5px;
       margin: 0 0 20px 20px;
+      height: 30px;
+      line-height: 30px;
     }
   }
 </style>
