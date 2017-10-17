@@ -3,15 +3,18 @@
     <transition name="fade">
       <router-view></router-view>
     </transition>
+    <OpeartionDialog></OpeartionDialog>
     <LoadLayer></LoadLayer>
   </div>
 </template>
 <script>
+  import {OpeartionDialog} from './components/index';
   import LoadLayer from './components/loading/LoadLayer';
   export default {
     name: 'app',
     components: {
-      LoadLayer
+      LoadLayer,
+      OpeartionDialog
     }
   }
 </script>

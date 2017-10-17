@@ -27,7 +27,9 @@
 </template>
 <script>
   import dataFormate from '../../assets/js/dataOperation';
+  import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
   import http from '../../http/http';
+  import {OPERATION_RESULT_HIDDEN, OPERATION_RESULT_SHOW} from '../../store/mutation-types';
   export default{
     data () {
       return {
@@ -76,10 +78,12 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
+            doOperationSuccess(this);
             this.init();
           }.bind(this),
           errorCallback: function (data) {
-            console.log('error');
+            doOperationFailture(this);
+            this.init();
           }.bind(this)
         });
       },

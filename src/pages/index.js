@@ -11,6 +11,7 @@ import ValidateCode from './ValidateCode/ValidateCode.vue'
 import theLifeCycle from  './Demo/TheLifeCycle.vue';
 import acticleList from './blog/Article/ActicleList.vue';
 import acticleAdd from './blog/Article/ActicleAdd.vue';
+import operationDemo from './Demo/OperationDemo.vue';
 export {
   login,
   homePage,
@@ -24,5 +25,6 @@ export {
   ValidateCode,
   theLifeCycle,
   acticleList,
-  acticleAdd
+  acticleAdd,
+  operationDemo
 }

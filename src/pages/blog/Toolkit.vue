@@ -24,6 +24,11 @@
       </div>
       <div class="box-toolkit" v-show="!showAdd">
         <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id" @click="addCount(toolKit.id)">
+          <div class="delete-toolkits" @click.stop="deleteToolkit(toolKit.id)">
+            <span class="delete-icon">
+              <i class="iconfont icon-shibai"></i>
+            </span>
+          </div>
           <a :href="toolKit.url" target="_Blank">
             <i :class="toolKit.iconName"></i>
           </a>
@@ -36,6 +41,7 @@
 <script>
   import auth from '../../auth';
   import http from '../../http/http';
+  import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
   export default{
     data () {
       return {
@@ -48,6 +54,24 @@
       };
     },
     methods: {
+      deleteToolkit (toolKitId) {
+        http.api({
+          url: '/huhuhu/ToolKit/deleteToolkit',
+          params: {
+            'id': toolKitId,
+            'userId': this.id,
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            doOperationSuccess(this);
+            this.init();
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+          }.bind(this)
+        });
+      },
       addCount(val){
         http.api({
           url: '/huhuhu/ToolKit/updateCountById',
@@ -58,10 +82,10 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
-            console.log("success");
+            doOperationSuccess(this);
           }.bind(this),
           errorCallback: function (data) {
-            console.log("error");
+            doOperationFailture(this);
           }.bind(this)
         });
       },
@@ -75,7 +99,7 @@
             this.toolKitList = data.toolKitList;
           }.bind(this),
           errorCallback: function (data) {
-            console.log("error");
+            doOperationFailture(this);
           }.bind(this)
         });
       },
@@ -91,11 +115,12 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
+            doOperationSuccess(this);
             this.init();
             this.cancel();
           }.bind(this),
           errorCallback: function (data) {
-            console.log("error");
+            doOperationFailture(this);
           }.bind(this)
         });
       },
@@ -194,6 +219,18 @@
           i {
             color: #0000cc;
             font-size: 40px;
+          }
+          .delete-toolkits {
+            position: relative;
+            z-index: 100;
+            left: 30px;
+            .delete-icon {
+              position: absolute;
+            }
+            .icon-shibai {
+              font-size: 16px;
+              color: #8c8c8c;
+            }
           }
           width: 25%;
           .urlName {

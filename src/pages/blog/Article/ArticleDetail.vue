@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+  import {doOperationSuccess, doOperationFailture} from '../../../assets/js/operation';
   import editorArticle from '../../../components/ueditor/editorArticle.vue';
   import dataFormate from '../../../assets/js/dataOperation';
   import http from '../../../http/http';
@@ -42,6 +43,7 @@
           this.article = data.article;
         }.bind(this),
         errorCallback: function (data) {
+          doOperationFailture(this);
           this.$router.go(-1);
         }.bind(this)
       });

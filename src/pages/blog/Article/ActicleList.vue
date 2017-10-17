@@ -30,6 +30,7 @@
   import Vue from 'vue';
   import auth from '../../../auth';
   import {setStyle, getStyle}  from  '../../../assets/js/dom';
+  import {doOperationSuccess, doOperationFailture} from '../../../assets/js/operation';
   export default{
     data () {
       return {
@@ -57,6 +58,7 @@
             this.personRecordList = data.personRecordList;
           }.bind(this),
           errorCallback: function (data) {
+            doOperationFailture(this);
             this.$router.go(-1);
           }.bind(this)
         });
@@ -68,10 +70,11 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
+            doOperationSuccess(this);
             this.init();
           }.bind(this),
           errorCallback: function (data) {
-            console.log('error');
+            doOperationFailture(this);
           }.bind(this)
         });
       },

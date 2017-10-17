@@ -36,6 +36,7 @@
   import auth from '../../../auth';
   import ueditor from '../../../components/ueditor/ueditor.vue';
   import {goBack} from '../../../components/index';
+  import {doOperationSuccess, doOperationFailture} from '../../../assets/js/operation';
   export default {
     data() {
       return {
@@ -67,8 +68,10 @@
           useLoadLayer: true,
           successCallback: function (data) {
             this.$router.push({path: '/acticleList', query: {'id': this.id}});
+            doOperationSuccess(this);
           }.bind(this),
           errorCallback: function (data) {
+            doOperationFailture(this);
           }.bind(this)
         });
       },

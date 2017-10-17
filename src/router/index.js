@@ -14,7 +14,8 @@ import {
   acticleList,
   ValidateCode,
   theLifeCycle,
-  acticleAdd
+  acticleAdd,
+  operationDemo
 } from '../pages/index';
 Vue.use(Router);
 
@@ -97,6 +98,11 @@ const router = new Router({
       path: '/theLifeCycle',
       component: theLifeCycle,
       meta: {title: '生命周期'}
+    },
+    {
+      path: '/operationDemo',
+      component: operationDemo,
+      meta: {title: 'vuexDemo'}
     }
   ]
 });
