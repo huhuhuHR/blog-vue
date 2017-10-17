@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="box-toolkit" v-show="!showAdd">
-        <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id">
+        <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id" @click="addCount(toolKit.id)">
           <a :href="toolKit.url" target="_Blank">
             <i :class="toolKit.iconName"></i>
           </a>
@@ -48,6 +48,23 @@
       };
     },
     methods: {
+      addCount(val){
+        http.api({
+          url: '/huhuhu/ToolKit/updateCountById',
+          params: {
+            'userId': this.id,
+            'id': val
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            console.log("success");
+          }.bind(this),
+          errorCallback: function (data) {
+            console.log("error");
+          }.bind(this)
+        });
+      },
       init(){
         http.api({
           url: '/huhuhu/ToolKit/selectTookies',
