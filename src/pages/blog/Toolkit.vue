@@ -102,6 +102,7 @@
       cancel(){
         this.url = '';
         this.iconName = '';
+        this.urlName = '';
         this.showAdd = false;
       },
       goBack(){
