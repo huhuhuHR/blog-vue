@@ -4,8 +4,13 @@
       <i class="iconfont icon-fanhui" @click="goBack()"></i>
     </div>
     <div class="toolkit-list">
-      <div class="add-new" @click="ToggleAdd()">
-        添加
+      <div class="search-box">
+        <div class="add-new" @click="ToggleAdd()">
+          添加
+        </div>
+        <div class="search" @keyup.enter="searchValue">
+          搜索：<input placeholder="输ru..." v-model="searchKey"/>
+        </div>
       </div>
       <div class="add-box" v-show="showAdd">
         <div class="add-iu">
@@ -23,15 +28,17 @@
         </div>
       </div>
       <div class="box-toolkit" v-show="!showAdd">
-        <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id" @click="addCount(toolKit.id)">
+        <div class="toolkits" v-for="(toolKit,index) in toolKitList" key="toolKit.id">
           <div class="delete-toolkits" @click.stop="deleteToolkit(toolKit.id)">
             <span class="delete-icon">
               <i class="iconfont icon-shibai"></i>
             </span>
           </div>
-          <a :href="toolKit.url" target="_Blank">
-            <i :class="toolKit.iconName"></i>
-          </a>
+          <div class="iconName-box" @click.stop="addCount(toolKit.id)">
+            <a :href="toolKit.url" target="_Blank">
+              <i :class="toolKit.iconName"></i>
+            </a>
+          </div>
           <div class="urlName">{{toolKit.urlName}}</div>
         </div>
       </div>
@@ -50,10 +57,29 @@
         url: '',
         urlName: '',
         showAdd: false,
-        toolKitList: []
+        toolKitList: [],
+        searchKey: ''
       };
     },
     methods: {
+      searchValue () {
+        http.api({
+          url: '/huhuhu/ToolKit/search',
+          params: {
+            'searchKey': this.searchKey,
+            'userId': this.id
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.toolKitList = data.toolKitList;
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+            this.$router.go(-1);
+          }.bind(this)
+        });
+      },
       deleteToolkit (toolKitId) {
         http.api({
           url: '/huhuhu/ToolKit/deleteToolkit',
@@ -161,16 +187,35 @@
     .toolkit-list {
       margin: 0 30px 0 30px;
       border-top: 1px solid #8ec31e;
-      .add-new {
-        width: 50px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 12px;
-        background-color: #00a0e9;
-        color: #FFFFFF;
-        border-radius: 5px;
-        margin: 10px 0 10px 0;
-        text-align: center;
+      .search-box {
+        display: flex;
+        padding: 10px 0;
+        justify-content: space-between;
+        .add-new {
+          width: 50px;
+          height: 30px;
+          line-height: 30px;
+          font-size: 12px;
+          background-color: #00a0e9;
+          color: #FFFFFF;
+          border-radius: 5px;
+          text-align: center;
+        }
+        .search {
+          font-size: 24px;
+          color: #8c8c8c;
+          input {
+            height: 30px;
+            line-height: 30px;
+            width: 200px;
+            font-size: 24px;
+            border-radius: 5px;
+            border: none;
+            color: #FFFFFF;
+            background-color: #8c8c8c;
+          }
+          margin-right: 50px;
+        }
       }
       .add-box {
         .add-iu {
@@ -223,16 +268,26 @@
           .delete-toolkits {
             position: relative;
             z-index: 100;
-            left: 30px;
+            left: 15px;
+            top: -7px;
             .delete-icon {
               position: absolute;
             }
             .icon-shibai {
               font-size: 16px;
-              color: #8c8c8c;
+              /*color: #8c8c8c;*/
             }
           }
           width: 25%;
+          .iconName-box {
+            background-color: #8c8c8c;
+            display: inline-block;
+            width: 50px;
+            border-radius: 5px;
+            a {
+              text-decoration: none;
+            }
+          }
           .urlName {
             font-size: 12px;
             display: block;

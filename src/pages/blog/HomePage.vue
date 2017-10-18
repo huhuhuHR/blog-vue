@@ -14,18 +14,27 @@
         <div class="router-name">{{router.name}}</div>
       </div>
     </div>
-    <div class="fast-go">
-      <div class="article-head">最新文章推荐:</div>
-      <div class="article-list" v-for="(article,index) in articleList" @key="article.id" @click="goDetail(article.id)">
-        <div class="article-title">标题：{{article.title}}</div>
-        <div class="article-body">
-          <div class="img"></div>
-          <div class="article-body-detail"><p>{{article.desciption}}</p></div>
+    <div class="display-between">
+      <div class="fast-go">
+        <div class="article-head">最新文章推荐:</div>
+        <div class="article-list" v-for="(article,index) in articleList" @key="article.id"
+             @click="goDetail(article.id)">
+          <div class="article-title">标题：{{article.title}}</div>
+          <div class="article-body">
+            <div class="img"></div>
+            <div class="article-body-detail"><p>{{article.desciption}}</p></div>
+          </div>
+          <div class="article-pv">
+            <div class="pv"></div>
+            <!--<div class="date">创建时间：{{article.createTime | dataFilter}}</div>-->
+            <div class="date">更新时间：{{article.updateTime | dataFilter}}</div>
+          </div>
         </div>
-        <div class="article-pv">
-          <div class="pv"></div>
-          <div class="date">创建时间：{{article.createTime | dataFilter}}</div>
-          <div class="date">更新时间：{{article.updateTime | dataFilter}}</div>
+      </div>
+      <div class="fast-go">
+        <div class="article-head">最新工作记录:</div>
+        <div class="article-list noWarp" v-for="workRecord in workRecords" @key="workRecord.id">
+          {{workRecord.createTime | dataFilter}}(记录){{workRecord.recordBody}}
         </div>
       </div>
     </div>
@@ -54,7 +63,8 @@
         accountId: this.$route.query.id,
         routerList: [],
         selectedList: [],
-        articleList: []
+        articleList: [],
+        workRecords: []
       };
     },
     methods: {
@@ -77,7 +87,7 @@
     },
     filters: {
       dataFilter(val){
-        return dataFormate(new Date(val), 'yyyy年MM月dd日 hh:mm:ss');
+        return dataFormate(new Date(val), 'yyyy年MM月dd日hh时');
       }
     },
     created(){
@@ -91,6 +101,7 @@
           this.routerList = data.routerList;
           this.selectedList = new Array(this.routerList.length).fill(false);
           this.articleList = data.articleList;
+          this.workRecords = data.workRecords;
         }.bind(this),
         errorCallback: function (data) {
         }.bind(this)
@@ -150,31 +161,41 @@
         color: #8ec31e;
       }
     }
-    .fast-go {
-      margin: 20px 30px 0 30px;
-      padding: 5px;
-      border: 1px dashed #8c8c8c;
-      color: #8c8c8c;
-      .article-head {
-        margin-bottom: 5px;
-      }
-      .article-list {
-        width: 100%;
-        max-height: 100px;
-        border-top: 1px dashed #8c8c8c;
-        padding: 10px 0;
-        .article-title {
+    .display-between {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 30px 20px 30px;
+      .fast-go {
+        padding: 5px;
+        border: 1px dashed #8c8c8c;
+        color: #8c8c8c;
+        width: 40%;
+        height: 100%;
+        .article-head {
+          margin-bottom: 5px;
+        }
+        .noWarp {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .article-list {
+          width: 100%;
+          border-top: 1px dashed #8c8c8c;
+          padding: 10px 0;
+          .article-title {
 
-        }
-        .article-body {
-          .article-body-detail {
-            word-wrap: break-word;
-            text-indent: 25px;
           }
-        }
-        .article-pv {
-          .date {
-            text-align: right;
+          .article-body {
+            .article-body-detail {
+              word-wrap: break-word;
+              text-indent: 25px;
+            }
+          }
+          .article-pv {
+            .date {
+              text-align: right;
+            }
           }
         }
       }

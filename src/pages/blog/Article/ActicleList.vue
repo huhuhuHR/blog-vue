@@ -4,6 +4,9 @@
             @goHome="goHome"></goBack>
     <div class="add-box">
       <div class="add" @click="goAdd()">添加新的文章</div>
+      <div class="search" @keyup.enter="searchValue">
+        搜索：<input placeholder="输ru..." v-model="searchKey"/>
+      </div>
     </div>
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
@@ -36,14 +39,32 @@
       return {
         id: this.$route.query.id,
         scrrenHeight: '',
-        personRecordList: []
-
+        personRecordList: [],
+        searchKey: ''
       };
     },
     created () {
       this.init();
     },
     methods: {
+      searchValue () {
+        http.api({
+          url: '/huhuhu/article/search',
+          params: {
+            'searchKey': this.searchKey,
+            'id': this.id
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.personRecordList = data.personRecordList;
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+            this.$router.go(-1);
+          }.bind(this)
+        });
+      },
       goEdit(id){
         this.$router.push({path: '/articleDetail', query: {'id': id, 'edit': '1'}});
       },
@@ -115,21 +136,33 @@
     padding-bottom: 20px;
     border-radius: 5px;
     .add-box {
-      width: 100%;
-      height: 50px;
-      line-height: 50px;
       border-bottom: 1px dashed #8c8c8c;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px;
       .add {
-        margin-top: 9px;
-        margin-right: 30px;
-        float: right;
         background-color: #00a0e9;
         border-radius: 5px;
         font-size: 14px;
         width: 100px;
         line-height: 32px;
+        height: 32px;
         color: #FFFFFF;
         text-align: center;
+      }
+      .search {
+        font-size: 24px;
+        color: #8c8c8c;
+        input {
+          height: 30px;
+          line-height: 30px;
+          width: 200px;
+          font-size: 24px;
+          border-radius: 5px;
+          border: none;
+          color: #FFFFFF;
+          background-color: #8c8c8c;
+        }
       }
     }
     .list-box {
