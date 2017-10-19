@@ -177,6 +177,7 @@
     border-radius: 5px;
     margin: 0 30px 0 30px;
     .goBack {
+      cursor: pointer;
       margin: 20px 30px 10px 30px;
       i {
         font-size: 30px;
@@ -192,6 +193,7 @@
         padding: 10px 0;
         justify-content: space-between;
         .add-new {
+          cursor: pointer;
           width: 50px;
           height: 30px;
           line-height: 30px;
@@ -239,6 +241,7 @@
           }
         }
         .add-submit {
+          cursor: pointer;
           width: 50px;
           height: 30px;
           line-height: 30px;
@@ -275,11 +278,12 @@
             }
             .icon-shibai {
               font-size: 16px;
-              /*color: #8c8c8c;*/
+              cursor: pointer;
             }
           }
           width: 25%;
           .iconName-box {
+            cursor: pointer;
             background-color: #8c8c8c;
             display: inline-block;
             width: 50px;

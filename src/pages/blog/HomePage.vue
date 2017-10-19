@@ -140,6 +140,7 @@
       background-color: beige;
       color: #8c8c8c;
       .float-box {
+        cursor: pointer;
         position: relative;
         top: 12px;
         border-radius: 5px;
@@ -180,6 +181,7 @@
           text-overflow: ellipsis;
         }
         .article-list {
+          cursor: pointer;
           width: 100%;
           border-top: 1px dashed #8c8c8c;
           padding: 10px 0;

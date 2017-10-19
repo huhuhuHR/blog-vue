@@ -143,6 +143,7 @@
       justify-content: space-between;
       padding: 10px 30px;
       .add {
+        cursor: pointer;
         background-color: #00a0e9;
         border-radius: 5px;
         font-size: 14px;
@@ -173,6 +174,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       .article-list {
+        cursor: pointer;
         color: #02ac1a;
         background-color: #000000;
         padding: 5px 10px 5px 10px;

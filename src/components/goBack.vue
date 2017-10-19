@@ -27,6 +27,7 @@
     border-bottom: 1px dashed #8c8c8c;
     color: #8ec31e;
     i {
+      cursor: pointer;
       font-size: 30px;
     }
     .icon-zhuye {

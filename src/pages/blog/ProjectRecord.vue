@@ -126,6 +126,7 @@
     background-color: #FFFFFF;
     border-radius: 5px;
     .goBack {
+      cursor: pointer;
       margin: 20px 30px 10px 30px;
       i {
         font-size: 30px;
@@ -172,6 +173,7 @@
       }
     }
     .submit {
+      cursor: pointer;
       position: fixed;
       right: 100px;
       top: 50px;
