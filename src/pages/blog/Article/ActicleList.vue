@@ -23,7 +23,9 @@
           </div>
         </div>
       </div>
-      <div v-if="personRecordList.length%3 === 2" class="article-list"
+      <div v-if="personRecordList.length%4 === 2 " class="article-list"
+           style="background-color: #FFFFFF;border: none"></div>
+      <div v-if="personRecordList.length%4 === 2 || personRecordList.length%4 === 1" class="article-list"
            style="background-color: #FFFFFF;border: none"></div>
     </div>
   </div>
