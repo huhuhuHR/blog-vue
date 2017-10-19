@@ -2,7 +2,7 @@
   <div class="home-root">
     <div class="head-title-motto">
       <div class="head-title">个人博客</div>
-      <div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>
+      <!--<div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>-->
     </div>
     <div class="left-list">
       <div :class="{'float-box':true,'selected':selectedList[index]}" v-for="(router,index) in routerList"
@@ -34,7 +34,7 @@
       <div class="fast-go">
         <div class="article-head">最新工作记录:</div>
         <div class="article-list noWarp" v-for="workRecord in workRecords" @key="workRecord.id">
-          {{workRecord.createTime | dataFilter}}(记录){{workRecord.recordBody}}
+          {{workRecord.createTime | dataFilter}}(记录)：{{workRecord.recordBody}}
         </div>
       </div>
     </div>
@@ -111,7 +111,6 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .home-root {
-    background-color: #FFFFFF;
     .head-title-motto {
       border-bottom: 2px solid #5f5f5f;
       padding-bottom: 20px;
@@ -168,9 +167,10 @@
       .fast-go {
         padding: 5px;
         border: 1px dashed #8c8c8c;
-        color: #8c8c8c;
         width: 40%;
         height: 100%;
+        color: #02ac1a;
+        background-color: #000000;
         .article-head {
           margin-bottom: 5px;
         }

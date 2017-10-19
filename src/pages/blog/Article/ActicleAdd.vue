@@ -121,6 +121,7 @@
           height: 100px;
           width: 100%;
           border-radius: 5px;
+          background-color: #808080;
         }
       }
       .add-picture {
@@ -157,6 +158,13 @@
         color: #FFFFFF;
         margin-left: 30px;
       }
+    }
+    input {
+      border: none;
+      background-color: #808080;
+      padding-left: 10px;
+      height: 40px;
+      line-height: 40px;
     }
   }
 </style>

@@ -31,10 +31,10 @@ module.exports = {
       // proxy all requests starting with /api to jsonplaceholder
       //example http://localhost:1110/hello => /huhuhu/hello
       '/huhuhu': {
-        target: 'http://localhost:1110',
-        changeOrigin: true,
+        target: 'http://localhost:1110', // 接口域名
+        changeOrigin: true, //是否跨域
         pathRewrite: {
-          '^/huhuhu': ''
+          '^/huhuhu': '' //需要rewrite重写的.需要项目名字就加，不需要就不加
         }
       }
     },

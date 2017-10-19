@@ -133,7 +133,7 @@
       }
     }
     .career-head {
-      height: 50px;
+      height: 5px;
     }
     .career-list {
       display: flex;
@@ -173,6 +173,7 @@
     }
     .submit {
       position: fixed;
+      right: 100px;
       top: 50px;
       width: 100px;
       text-align: center;

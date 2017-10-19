@@ -97,7 +97,7 @@
         }
         let condition = Object.assign({}, {'name': this.name}, {'password': this.password});
         http.api({
-          url: '/huhuhu/toLogin/login',
+          url: this.HOST + '/toLogin/login',
           params: condition,
           emulateJSON: true,
           useLoadLayer: true,

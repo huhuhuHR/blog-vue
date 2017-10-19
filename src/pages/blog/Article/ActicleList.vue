@@ -3,17 +3,19 @@
     <goBack @goBack="goBack"
             @goHome="goHome"></goBack>
     <div class="add-box">
-      <div class="add" @click="goAdd()">添加新的文章</div>
       <div class="search" @keyup.enter="searchValue">
-        搜索：<input placeholder="输ru..." v-model="searchKey"/>
+        搜索：<input placeholder="输入..." v-model="searchKey"/>
       </div>
+      <div class="add" @click="goAdd()">添加新的文章</div>
     </div>
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
            @click="goDetail(article.id)">
         <div class="article-title">标题:<span style="margin-left: 5px">{{article.title}}</span></div>
-        <div class="article-desc">{{article.desciption}}</div>
-        <div class="article-time">日期：{{article.createTime | dataFilter}}</div>
+        <div class="article-desc">作者：{{article.author}}</div>
+        <div class="article-desc">描述：{{article.desciption}}</div>
+        <div class="article-time">创建日期：{{article.createTime | dataFilter}}</div>
+        <div class="article-time">更新日期：{{article.updateTime | dataFilter}}</div>
         <div class="last-line">
           <div class="operation">
             <div class="edit"><i class="iconfont icon-75bianji" @click.stop="goEdit(article.id)"></i></div>
@@ -151,17 +153,17 @@
         text-align: center;
       }
       .search {
-        font-size: 24px;
+        font-size: 18px;
         color: #8c8c8c;
         input {
           height: 30px;
           line-height: 30px;
           width: 200px;
-          font-size: 24px;
+          font-size: 16px;
           border-radius: 5px;
           border: none;
-          color: #FFFFFF;
           background-color: #8c8c8c;
+          padding-left: 5px;
         }
       }
     }
@@ -173,11 +175,11 @@
       .article-list {
         color: #02ac1a;
         background-color: #000000;
-        padding: 5px 5px 0 5px;
+        padding: 5px 10px 5px 10px;
         border: 1px solid #8c8c8c;
-        width: 30%;
+        width: 22%;
         border-radius: 5px;
-        margin-top: 5px;
+        margin-top: 13px;
         .article-title {
           display: block;
           white-space: nowrap;
@@ -185,13 +187,13 @@
           text-overflow: ellipsis;
         }
         .article-desc {
-          padding-left: 10px;
+          /*padding-left: 10px;*/
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
         .article-time {
-          text-align: right;
+          /*text-align: right;*/
           display: block;
           white-space: nowrap;
           overflow: hidden;

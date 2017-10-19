@@ -9,7 +9,7 @@
           添加
         </div>
         <div class="search" @keyup.enter="searchValue">
-          搜索：<input placeholder="输ru..." v-model="searchKey"/>
+          搜索：<input placeholder="输入..." v-model="searchKey"/>
         </div>
       </div>
       <div class="add-box" v-show="showAdd">
@@ -202,16 +202,16 @@
           text-align: center;
         }
         .search {
-          font-size: 24px;
+          font-size: 18px;
           color: #8c8c8c;
           input {
             height: 30px;
             line-height: 30px;
             width: 200px;
-            font-size: 24px;
+            font-size: 16px;
             border-radius: 5px;
             border: none;
-            color: #FFFFFF;
+            padding-left: 5px;
             background-color: #8c8c8c;
           }
           margin-right: 50px;
