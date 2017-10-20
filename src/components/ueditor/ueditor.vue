@@ -30,7 +30,7 @@
           config
         );
         this.editor.ready(function () {
-          console.log('this.value:~~' + this.value.toString().slice(0, 2) || 'undefined');
+          console.log('this.value:~~' + this.value.toString().slice(0, 2) && 'undefined');
           this.editor.setContent(this.value);
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
