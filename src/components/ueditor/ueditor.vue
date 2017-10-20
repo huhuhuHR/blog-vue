@@ -14,7 +14,7 @@
       return {
         editor: '',
         uedata: [],
-        id: new Date().getTime() + 'ueditorId'
+        id: new Date().getTime() + 'ueditorId',
       }
     },
     props: {
@@ -26,11 +26,11 @@
     mounted () {
       this.$nextTick(function () {
         this.$refs.editor.id = this.id;
+        UE.delEditor(this.id);
         this.editor = UE.getEditor(this.id,
           config
         );
         this.editor.ready(function () {
-          console.log('this.value:~~' + this.value && this.value.toString().slice(0, 2));
           this.editor.setContent(this.value);
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
