@@ -111,15 +111,20 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .home-root {
+    background-image: url("../../../src/assets/img/background2.jpeg");
+    background-repeat: no-repeat;
+    -moz-background-size: 100% 100%;
+    background-size: cover;
+    background-position: 50% 50%;
     .head-title-motto {
-      border-bottom: 2px solid #5f5f5f;
+      border-bottom: 2px solid #EEEEEE;
       padding-bottom: 20px;
       padding-top: 20px;
-      background-color: #000000;
+      /*background-color: #000000;*/
       .head-title {
         font-size: 30px;
         font-weight: bold;
-        color: #FFFFFF;
+        color: #009933;
         text-align: start;
         margin-left: 30px;
       }
@@ -136,8 +141,8 @@
       justify-content: flex-start;
       padding-top: 10px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #5f5f5f;
-      background-color: beige;
+      border-bottom: 2px solid #EEEEEE;
+      /*background-color: beige;*/
       color: #8c8c8c;
       .float-box {
         cursor: pointer;
@@ -171,7 +176,7 @@
         width: 40%;
         height: 100%;
         color: #02ac1a;
-        background-color: #000000;
+        /*background-color: #000000;*/
         .article-head {
           margin-bottom: 5px;
         }

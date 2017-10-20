@@ -2,7 +2,7 @@
   <div class="workCareer-root">
     <div class="career-head"></div>
     <div class="goBack">
-      <i class="iconfont icon-fanhui" @click="goBack()"></i>
+      <i class="iconfont icon-tubiao_fanhui" @click="goBack()"></i>
     </div>
     <div class="submit" @click="add" v-show="!addFlag">add</div>
     <div class="submit" v-show="addFlag" @click="submit">sumit</div>
@@ -122,15 +122,16 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .workCareer-root {
+    background-image: url("../../../src/assets/img/background4.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     margin: 20px 30px 20px 30px;
-    background-color: #FFFFFF;
     border-radius: 5px;
     .goBack {
       cursor: pointer;
       margin: 20px 30px 10px 30px;
       i {
         font-size: 30px;
-        color: #8ec31e;
       }
     }
     .career-head {

@@ -1,7 +1,7 @@
 <template>
   <div class="toolkit-root">
     <div class="goBack">
-      <i class="iconfont icon-fanhui" @click="goBack()"></i>
+      <i class="iconfont icon-tubiao_fanhui" @click="goBack()"></i>
     </div>
     <div class="toolkit-list">
       <div class="search-box">
@@ -173,6 +173,11 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .toolkit-root {
+    background-image: url("../../../src/assets/img/background3.jpeg");
+    background-repeat: no-repeat;
+    -moz-background-size: 100% 100%;
+    background-size: cover;
+    background-position: 50% 50%;
     border: 1px dashed #111;
     border-radius: 5px;
     margin: 0 30px 0 30px;
@@ -181,7 +186,6 @@
       margin: 20px 30px 10px 30px;
       i {
         font-size: 30px;
-        color: #8ec31e;
       }
     }
     background-color: #FFFFFF;

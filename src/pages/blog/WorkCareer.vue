@@ -1,19 +1,6 @@
 <template>
   <div class="workCareer-root">
     <div class="career-head"></div>
-    <div class="career-list" v-for="i in 3">
-      <div class="created-date">2014_10_15</div>
-      <div class="career-line"></div>
-      <div class="green-radio"></div>
-      <div class="event">
-        哈哈哈哈哈哈哈
-        哈哈哈哈哈哈哈
-        哈哈哈哈哈哈哈
-        哈哈哈哈哈哈哈
-        哈哈哈哈哈哈哈
-        哈哈哈哈哈哈哈
-      </div>
-    </div>
   </div>
 </template>
 <script>

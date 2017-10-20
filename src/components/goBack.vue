@@ -1,6 +1,6 @@
 <template>
   <div class="goBack">
-    <i class="iconfont icon-fanhui" @click="goBack()"></i>
+    <i class="iconfont icon-tubiao_fanhui" @click="goBack()"></i>
     <i class="iconfont icon-zhuye" @click="goHome()"></i>
   </div>
 </template>
@@ -25,7 +25,6 @@
     justify-content: space-between;
     padding: 20px 30px 20px 30px;
     border-bottom: 1px dashed #8c8c8c;
-    color: #8ec31e;
     i {
       cursor: pointer;
       font-size: 30px;
