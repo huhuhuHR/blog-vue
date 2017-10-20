@@ -15,12 +15,14 @@
       return {
         editor: '',
         uedata: [],
-        id: new Date().getTime() + 'ueditorId'
+        id: new Date().getTime() + 'ueditorId',
+        timmer: ''
       }
     },
     props: {
       value: {
         type: String,
+        default: 'aa',
         require: true
       }
     },
@@ -37,19 +39,25 @@
             this.editor.setContent(this.value);
           } else {
             console.log('this.value还没来等1500秒');
-            let timer = setTimeout(function () {
+            this.timmer = setTimeout(function () {
               this.editor.setContent(this.value);
-              clearTimeout(timer);
             }.bind(this), 1500);
           }
-          this.editor.addListener("contentChange", function () {
-            const wordCount = this.editor.getContentLength(true);
-            const content = this.editor.getContent();
-            const plainTxt = this.editor.getPlainTxt();
-            this.$emit('input', {wordCount: wordCount, content: content, plainTxt: plainTxt});
-          }.bind(this));
+          try {
+            this.editor.addListener("contentChange", function () {
+              const wordCount = this.editor.getContentLength(true);
+              const content = this.editor.getContent();
+              const plainTxt = this.editor.getPlainTxt();
+              this.$emit('input', {wordCount: wordCount, content: content, plainTxt: plainTxt});
+            }.bind(this));
+          } catch (e) {
+            console.log('error');
+          }
         }.bind(this));
       }.bind(this));
+    },
+    beforeDestroy () {
+      this.editor.destroy();
     },
     watch: {},
     methods: {}

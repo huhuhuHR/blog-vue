@@ -23,17 +23,9 @@
     background-color: #f3f4f8;
   }
 
-  /*body {*/
-  /*overflow: scroll;*/
-  /*}*/
-
-  /*.fade-enter-active, .fade-leave-active {*/
-  /*transition: opacity .5s*/
-  /*}*/
-
-  /*.fade-enter, .fade-leave-active {*/
-  /*opacity: 0*/
-  /*}*/
+  .body pre {
+    overflow-x: scroll;
+  }
 
   /*@import "assets/css/reset.css";*/
   @import "assets/icon/iconfont.css";

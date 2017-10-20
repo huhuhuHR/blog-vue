@@ -1,9 +1,8 @@
 export const config = {
   UEDITOR_HOME_URL: './static/utf8-jsp/',
-//          initialFrameWidth: null,
-//          initialFrameHeight: 320,
   autoHeightEnabled: true,
   autoFloatEnabled: true,
+  initialFrameWidth: '100%',
   toolbars: [
     [
       'fontfamily', //字体
