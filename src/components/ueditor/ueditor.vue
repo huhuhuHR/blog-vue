@@ -25,13 +25,21 @@
     },
     mounted () {
       this.$nextTick(function () {
+        console.log(this.id);
         this.$refs.editor.id = this.id;
-        UE.delEditor(this.id);
         this.editor = UE.getEditor(this.id,
           config
         );
         this.editor.ready(function () {
-          this.editor.setContent(this.value);
+          if (this.value) {
+            console.log('this.value有了');
+            this.editor.setContent(this.value);
+          } else {
+            console.log('this.value还没来等1500秒');
+            setTimeout(function () {
+              this.editor.setContent(this.value);
+            }.bind(this), 1500);
+          }
           this.editor.addListener("contentChange", function () {
             const wordCount = this.editor.getContentLength(true);
             const content = this.editor.getContent();
