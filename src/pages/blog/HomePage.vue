@@ -1,5 +1,6 @@
 <template>
   <div class="home-root">
+    <MaskLayer v-show="maskShow"></MaskLayer>
     <div class="head-title-motto">
       <div class="head-title">个人博客</div>
       <!--<div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>-->
@@ -42,16 +43,21 @@
       <div class="about">联系我:</div>
       <div class="about-me">
         <div class="qq">
-          <img src="../../../src/assets/img/qq.jpg"/>
+          <img src="../../../src/assets/img/qq.jpg" @click="showImageBigF(0)"/>
         </div>
         <div class="weixin">
-          <img src="../../../src/assets/img/weixin.jpg"/>
+          <img src="../../../src/assets/img/weixin.jpg" @click="showImageBigF(1)"/>
         </div>
       </div>
+    </div>
+    <div class="image-big" v-show="showItag" @click="closeMaskShow">
+      <img v-show="showImageBigZero" src="../../../src/assets/img/qq.jpg"/>
+      <img v-show="showImageBigOne" src="../../../src/assets/img/weixin.jpg"/>
     </div>
   </div>
 </template>
 <script>
+  import MaskLayer from '../../components/operationDialog/MaskLayer.vue';
   import dataFormate from '../../assets/js/dataOperation';
   import Vue from 'vue';
   import {setStyle}  from  '../../assets/js/dom';
@@ -64,10 +70,32 @@
         routerList: [],
         selectedList: [],
         articleList: [],
-        workRecords: []
+        workRecords: [],
+        maskShow: false,
+        showImage: [false, false]
       };
     },
+    computed: {
+      showImageBigZero () {
+        return this.showImage[0];
+      },
+      showImageBigOne () {
+        return this.showImage[1];
+      },
+      showItag () {
+        return this.showImageBigZero || this.showImageBigOne;
+      }
+    },
     methods: {
+      showImageBigF (index) {
+        this.maskShow = true;
+        this.showImage[index] = true;
+        this.showImage.push();
+      },
+      closeMaskShow () {
+        this.maskShow = false;
+        this.showImage = [false, false];
+      },
       goDetail(vale){
         this.$router.push({path: '/articleDetail', query: {'id': vale}});
       },
@@ -89,6 +117,9 @@
       dataFilter(val){
         return dataFormate(new Date(val), 'yyyy年MM月dd日hh时');
       }
+    },
+    components: {
+      MaskLayer
     },
     created(){
       let condition = Object.assign({}, {'id': this.accountId});
@@ -233,6 +264,22 @@
           width: 100px;
           height: 100px;
         }
+      }
+    }
+    .image-big {
+      position: fixed;
+      height: 400px;
+      width: 400px;
+      border-radius: 5px;
+      background-color: white;
+      z-index: 10001;
+      top: 50%;
+      left: 50%;
+      margin-top: -200px;
+      margin-left: -200px;
+      image {
+        height: 400px;
+        width: 400px;
       }
     }
   }
