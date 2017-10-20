@@ -16,15 +16,9 @@ export const config = {
       'strikethrough', //删除线
       'horizontal', //分隔线
       'subscript', //下标
-      'fontborder', //字符边框
-      'superscript', //上标
-      'forecolor', //字体颜色
-      'backcolor', //背景色
     ],
     [
       'insertcode', //代码语言
-      'pasteplain', //纯文本粘贴模式
-      'removeformat', //清除格式
       'emotion', //表情
       'spechars', //特殊字符
       'time', //时间
@@ -32,6 +26,10 @@ export const config = {
       'searchreplace', //查询替换
       'insertorderedlist', //有序列表
       'insertunorderedlist', //无序列表
+      'fontborder', //字符边框
+      'superscript', //上标
+      'forecolor', //字体颜色
+      'backcolor', //背景色
     ],
     [
       'justifyleft', //居左对齐

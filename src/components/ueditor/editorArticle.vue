@@ -113,7 +113,12 @@
         input {
           width: 100%;
           border-radius: 5px;
-          color: #8c8c8c;
+          color: #ffffff;
+          border: none;
+          background-color: #8c8c8c;
+          padding-left: 5px;
+          height: 40px;
+          line-height: 40px;
         }
       }
       .author {
@@ -122,17 +127,26 @@
         input {
           width: 100%;
           border-radius: 5px;
-          color: #8c8c8c;
+          color: #ffffff;
+          border: none;
+          background-color: #8c8c8c;
+          padding-left: 5px;
+          height: 40px;
+          line-height: 40px;
         }
       }
       .article-desc {
         font-size: 24px;
         margin: 20px 0 20px 0;
         textarea {
+          color: #FFFFFF;
           font-size: 24px;
           height: 100px;
           width: 100%;
           border-radius: 5px;
+          border: none;
+          background-color: #8c8c8c;
+          padding-left: 5px;
         }
       }
       .add-picture {
