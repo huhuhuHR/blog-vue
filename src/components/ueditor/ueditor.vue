@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+  import {isEmpty} from '../../utils/CommonUtils';
   import '../../../static/utf8-jsp/ueditor.config'
   import '../../../static/utf8-jsp/ueditor.all';
   import '../../../static/utf8-jsp/lang/zh-cn/zh-cn';
@@ -14,7 +15,7 @@
       return {
         editor: '',
         uedata: [],
-        id: new Date().getTime() + 'ueditorId',
+        id: new Date().getTime() + 'ueditorId'
       }
     },
     props: {
@@ -31,13 +32,14 @@
           config
         );
         this.editor.ready(function () {
-          if (this.value) {
+          if (isEmpty(this.value)) {
             console.log('this.value有了');
             this.editor.setContent(this.value);
           } else {
             console.log('this.value还没来等1500秒');
-            setTimeout(function () {
+            let timer = setTimeout(function () {
               this.editor.setContent(this.value);
+              clearTimeout(timer);
             }.bind(this), 1500);
           }
           this.editor.addListener("contentChange", function () {
