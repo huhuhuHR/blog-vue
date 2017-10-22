@@ -24,8 +24,6 @@ export const config = {
       'time', //时间
       'date', //日期
       'searchreplace', //查询替换
-      'insertorderedlist', //有序列表
-      'insertunorderedlist', //无序列表
       'fontborder', //字符边框
       'superscript', //上标
       'forecolor', //字体颜色
