@@ -10,7 +10,7 @@
     </div>
     <div class="list-box">
       <div class="article-list" v-for="(article,index) in personRecordList" key="article.id"
-           @click="goDetail(article.id)">
+           @click.stop="goDetail(article.id)">
         <div class="article-title">标题:<span style="margin-left: 5px">{{article.title}}</span></div>
         <div class="article-desc">作者：{{article.author}}</div>
         <div class="article-desc">描述：{{article.desciption}}</div>
@@ -23,9 +23,9 @@
           </div>
         </div>
       </div>
-      <div v-if="personRecordList.length%4 === 2 " class="article-list"
+      <div v-if="personRecordList.length%4 >=1" class="article-list"
            style="background-color: #FFFFFF;border: none"></div>
-      <div v-if="personRecordList.length%4 === 2 || personRecordList.length%4 === 1" class="article-list"
+      <div v-if="personRecordList.length%4 ===2" class="article-list"
            style="background-color: #FFFFFF;border: none"></div>
     </div>
   </div>

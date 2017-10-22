@@ -3,12 +3,11 @@
     <MaskLayer v-show="maskShow"></MaskLayer>
     <div class="head-title-motto">
       <div class="head-title">个人博客</div>
-      <!--<div class="head-motto">意志目标不在自然中存在，而在生命中蕴藏</div>-->
     </div>
     <div class="left-list">
       <div :class="{'float-box':true,'selected':selectedList[index]}" v-for="(router,index) in routerList"
            key="router.id"
-           @click="goPage(router.router)"
+           @click="goPage(router)"
            @mouseover="showTip(index)"
            @mouseout="hideTip(index)">
         <div class="box-element"><i :class="router.iconName"></i></div>
@@ -107,8 +106,12 @@
         this.selectedList[index] = false;
         this.selectedList.push();
       },
-      goPage (val) {
-        this.$router.push({path: '/' + val, query: {'id': this.accountId}});
+      goPage (router) {
+        if (router.name === '简历修改') {
+          this.$router.push({path: '/' + router.router, query: {'id': this.accountId, 'edit': '1'}});
+        } else {
+          this.$router.push({path: '/' + router.router, query: {'id': this.accountId}});
+        }
       }
     },
     mounted (){
