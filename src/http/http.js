@@ -87,6 +87,10 @@ const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLay
   reqConf[method === 'POST' ? 'data' : 'params'] = params;
 
   return axios(reqConf).then((response) => {
+    if (response.status === 250) {
+      location.href = '/';
+      return false;
+    }
     let rspCode = response.data.code;
     console.log(rspCode);
     if (rspCode === '0') {
