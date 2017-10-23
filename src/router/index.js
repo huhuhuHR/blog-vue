@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import auth from '../auth';
 import {
+  login,
   homePage,
   articleCenter,
   articleDetail,
@@ -9,14 +10,10 @@ import {
   toolkit,
   projectRecord,
   photoWall,
-  vuexDemo,
-  login,
   acticleList,
-  ValidateCode,
-  theLifeCycle,
-  acticleAdd,
-  operationDemo
+  acticleAdd
 } from '../pages/index';
+import demoRouter from './demo';
 Vue.use(Router);
 
 
@@ -83,28 +80,8 @@ const router = new Router({
       name: '照片墙',
       component: photoWall,
       meta: {title: '照片墙'}
-    },
-    {
-      path: '/vuexDemo',
-      component: vuexDemo,
-      meta: {title: 'vuexDemo'}
-    },
-    {
-      path: '/getValidateCode',
-      component: ValidateCode,
-      meta: {title: 'getValidateCode'}
-    },
-    {
-      path: '/theLifeCycle',
-      component: theLifeCycle,
-      meta: {title: '生命周期'}
-    },
-    {
-      path: '/operationDemo',
-      component: operationDemo,
-      meta: {title: 'vuexDemo'}
     }
-  ]
+  ].concat(demoRouter)
 });
 // 作用于所有路由切换，一般在main.js里面定义
 router.beforeEach((to, from, next) => {
