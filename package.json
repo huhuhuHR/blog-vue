@@ -33,7 +33,8 @@
     "vuex-router-sync": "^3.0.0",
     "wind-dom": "0.0.3",
     "vue-scroller": "^2.2.0",
-    "vue-particles": ""
+    "vue-particles": "^1.0.9",
+    "vue2-editor": "^2.0.26"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
