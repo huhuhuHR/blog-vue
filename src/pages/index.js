@@ -13,6 +13,7 @@ import vuexDemo from './Demo/VuexDemo.vue'
 import ValidateCode from './Demo/ValidateCode.vue'
 import theLifeCycle from  './Demo/TheLifeCycle.vue';
 import operationDemo from './Demo/OperationDemo.vue';
+import vueEditDemo from './Demo/vueEditDemo.vue';
 export {
   login,
   homePage,
@@ -28,5 +29,6 @@ export {
   vuexDemo,
   ValidateCode,
   theLifeCycle,
-  operationDemo
+  operationDemo,
+  vueEditDemo
 }

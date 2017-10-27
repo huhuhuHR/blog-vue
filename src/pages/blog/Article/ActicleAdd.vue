@@ -16,11 +16,8 @@
         <textarea placeholder='请描述您的问题' class="article-desciption" rows="3" cols="35" maxlength="300"
                   v-model="desciption"/>
       </div>
-      <div class="add-picture">
-        新增插图
-      </div>
       <div class="edit-area">
-        <ueditor v-bind:value=defaultMsg @input="input"></ueditor>
+        <VE :content="inputMsg" @changeText="changeText" :height="height"></VE>
       </div>
     </div>
     <div style="width: 100%;border-bottom: 1px dashed #111;margin-top: 40px;"></div>
@@ -30,31 +27,77 @@
     </div>
   </div>
 </template>
-
 <script>
+  import  VE from '../../../components/vueEdit/VueEdit.vue'
   import http from '../../../http/http';
   import auth from '../../../auth';
-  import ueditor from '../../../components/ueditor/ueditor.vue';
   import {goBack} from '../../../components/index';
   import {doOperationSuccess, doOperationFailture} from '../../../assets/js/operation';
   export default {
     data() {
       return {
         id: this.$route.query.id,
+        articleId: this.$route.query.articleId,
+        editTag: this.$route.query.edit,
         myImputTitle: '',
         myAuthor: '',
-        defaultMsg: '请输入内容。。。',
         inputMsg: '',
-        desciption: ''
-
+        desciption: '',
+        height: 400
       };
     },
     components: {
-      ueditor,
-      goBack
+      goBack,
+      VE
+    },
+    created(){
+      if (this.editTag === '1') {
+        http.api({
+          url: '/huhuhu/article/articleDetail',
+          params: {'id': this.articleId},
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.myImputTitle = data.article.title;
+            this.myAuthor = data.article.author;
+            this.inputMsg = data.article.body;
+            this.desciption = data.article.desciption
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+            this.$router.go(-1);
+          }.bind(this)
+        });
+      }
     },
     methods: {
-      save(){
+      changeText (val) {
+        this.inputMsg = val;
+        console.log(this.inputMsg);
+      },
+      saveUpdate(){
+        http.api({
+          url: '/huhuhu/article/updateArticle',
+          params: {
+            'id': this.articleId,
+            'userId': this.id,
+            'articleTitle': this.myImputTitle,
+            "author": this.myAuthor,
+            "articleBody": this.inputMsg,
+            "desciption": this.desciption
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.$router.push({path: '/acticleList', query: {'id': this.id}});
+            doOperationSuccess(this);
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+          }.bind(this)
+        });
+      },
+      saveAdd(){
         http.api({
           url: '/huhuhu/article/saveArticle',
           params: {
@@ -75,15 +118,18 @@
           }.bind(this)
         });
       },
+      save(){
+        if (this.editTag === '1') {
+          this.saveUpdate();
+        } else {
+          this.saveAdd();
+        }
+      },
       goBack() {
         this.$router.go(-1);
       },
       goHome(){
         this.$router.push({path: '/homePage', query: {'id': this.id}});
-      },
-      input(val) {
-        this.inputMsg = val.content;
-//        console.log(this.inputMsg);
       }
     }
   };
@@ -123,10 +169,6 @@
           border-radius: 5px;
           background-color: #808080;
         }
-      }
-      .add-picture {
-        font-size: 24px;
-        margin: 20px 0 20px 0;
       }
     }
     .submit {

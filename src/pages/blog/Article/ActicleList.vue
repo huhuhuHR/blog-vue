@@ -18,7 +18,8 @@
         <div class="article-time">更新日期：{{article.updateTime | dataFilter}}</div>
         <div class="last-line">
           <div class="operation">
-            <div class="edit"><i class="iconfont icon-75bianji" @click.stop="goEdit(article.id)"></i></div>
+            <div class="edit"><i class="iconfont icon-75bianji" @click.stop="goEdit(article.userId,article.id)"></i>
+            </div>
             <div class="delete" @click.stop="deleteArticle(article.id)"><i class="iconfont icon-shanchu"></i></div>
           </div>
         </div>
@@ -69,8 +70,8 @@
           }.bind(this)
         });
       },
-      goEdit(id){
-        this.$router.push({path: '/articleDetail', query: {'id': id, 'edit': '1'}});
+      goEdit(userId, articleId){
+        this.$router.push({path: '/acticleAdd', query: {'id': userId, 'articleId': articleId, 'edit': '1'}});
       },
       init(){
         let condition = Object.assign({}, {'id': this.id}, {'cookie': auth.getCookieValue(auth.TOKEN_KEY)});

@@ -9,14 +9,15 @@ import {
   vuexDemo,
   ValidateCode,
   theLifeCycle,
-  operationDemo
+  operationDemo,
+  vueEditDemo
 } from '../pages/index';
 const demoRouter = [
   {
     path: '/demo',
     component: Demo,
     meta: {title: 'blog例子'},
-    // redirect: '/demo/theLifeCycle',
+    redirect: '/demo/vueEditDemo',
     children: [
       {
         path: 'vuexDemo',
@@ -37,6 +38,16 @@ const demoRouter = [
         path: 'operationDemo',
         component: operationDemo,
         meta: {title: 'vuex例子2'}
+      },
+      {
+        path: 'operationDemo',
+        component: operationDemo,
+        meta: {title: 'vuex例子2'}
+      },
+      {
+        path: 'vueEditDemo',
+        component: vueEditDemo,
+        meta: {title: 'vueEdit'}
       }
     ]
   }
