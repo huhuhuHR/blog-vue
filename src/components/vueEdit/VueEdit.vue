@@ -3,7 +3,7 @@
     <vue-editor
       class="vec"
       :id="idVe"
-      v-model="content"
+      v-model="myContent"
       :useCustomImageHandler="useCustomImageHandler"
       @imageAdded="handleImageAdded"
       :placeholder="placeholder"
@@ -23,6 +23,7 @@
         data: '',
         useCustomImageHandler: true,
         placeholder: '请输入信息...',
+        myContent: this.content
       };
     },
     props: {
@@ -57,8 +58,11 @@
       }
     },
     watch: {
-      content () {
-        this.$emit('changeText', this.content);
+      content (val) {
+        this.myContent = val;
+      },
+      myContent (val) {
+        this.$emit('changeText', val);
       }
     }
   };

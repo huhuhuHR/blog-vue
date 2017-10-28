@@ -5,7 +5,15 @@ const isEmpty = (value) => {
     ||
     value.trim() === '';
 };
+const checkParms = (params) => {
+  for (var i in params) {
+    if (isEmpty(params[i])) {
+      return '1';
+    }
+  }
+};
 
 module.exports = {
-  isEmpty
+  isEmpty,
+  checkParms
 };

@@ -23,9 +23,5 @@
     background-color: #f3f4f8;
   }
 
-  .body pre {
-    overflow-x: scroll;
-  }
-  /*@import "assets/css/reset.css";*/
   @import "assets/icon/iconfont.css";
 </style>

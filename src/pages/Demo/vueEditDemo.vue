@@ -18,7 +18,7 @@
     methods: {
       changeText (val) {
         this.content = val;
-        console.log(this.content);
+//        console.log(this.content);
       }
     }
   };

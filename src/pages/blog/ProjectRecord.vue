@@ -6,23 +6,36 @@
     </div>
     <div class="submit" @click="add" v-show="!addFlag">add</div>
     <div class="submit" v-show="addFlag" @click="submit">sumit</div>
-    <div class="career-list" v-show="addFlag">
-      <div class="created-date">
-        现在
+    <div class="career-box">
+      <div class="career-list" v-show="addFlag">
+        <div class="career-line"></div>
+        <div class="green-radio"></div>
+        <div class="body-box">
+          <div class="trangle-box">
+            <div class="dot-left">
+            </div>
+          </div>
+          <div class="created-date">
+            现在
+          </div>
+          <div class="event">
+            　 <textarea v-model="eventText"></textarea>
+          </div>
+        </div>
       </div>
-      <div class="career-line"></div>
-      <div class="green-radio"></div>
-      <div class="event">
-        　 <textarea v-model="eventText"></textarea>
+      <div class="career-list" v-for="worksRecord in workRecordList" @key="worksRecord.id">
+        <div class="career-line"></div>
+        <div class="green-radio"></div>
+        <div class="body-box">
+          <div class="trangle-box">
+            <div class="dot-left">
+            </div>
+          </div>
+          <div class="created-date">{{worksRecord.createTime | dataFilter}}</div>
+          <div class="event">{{worksRecord.recordBody}}</div>
+        </div>
       </div>
     </div>
-    <div class="career-list" v-for="worksRecord in workRecordList" @key="worksRecord.id">
-      <div class="created-date">{{worksRecord.createTime | dataFilter}}</div>
-      <div class="career-line"></div>
-      <div class="green-radio"></div>
-      <div class="event">{{worksRecord.recordBody}}</div>
-    </div>
-    <div style="height: 50px;"></div>
   </div>
 </template>
 <script>
@@ -122,14 +135,16 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .workCareer-root {
-    background-image: url("../../../src/assets/img/background4.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 20px 30px 20px 30px;
+    background-color: #000000;
     border-radius: 5px;
+    margin: 20px 30px 20px 30px;
     .goBack {
+      position: fixed;
+      right: 50px;
+      top: 20px;
       cursor: pointer;
       margin: 20px 30px 10px 30px;
+      color: #02ac1a;
       i {
         font-size: 30px;
       }
@@ -137,50 +152,76 @@
     .career-head {
       height: 5px;
     }
-    .career-list {
-      display: flex;
-      justify-content: center;
-      min-height: 100px;
-      .created-date {
-        font-size: 20px;
-        margin-right: 10px;
-        width: 130px;
-        input {
-          width: 100%;
+    .career-box {
+      margin: 50px 0;
+      color: #02ac1a;
+      .career-list {
+        display: flex;
+        min-height: 100px;
+        margin-left: 100px;
+        .body-box {
+          width: 75%;
+          margin-left: 40px;
+          border: 1px solid #8c8c8c;
+          margin-bottom: 20px;
+          padding: 10px;
+          .trangle-box {
+            position: relative;
+            right: 30px;
+            top: -11px;
+            .dot-left {
+              position: absolute;
+              width: 0;
+              font-size: 0;
+              line-height: 0;
+              border-width: 20px;
+              border-color: #8c8c8c;
+              border-left-width: 0;
+              border-style: dashed;
+              border-right-style: solid;
+              border-top-color: transparent;
+              border-bottom-color: transparent;
+            }
+          }
+          .created-date {
+            font-size: 18px;
+            /*color: #8c8c8c;*/
+            input {
+              width: 100%;
+            }
+          }
+          .event {
+            word-wrap: break-word;
+            font-size: 16px;
+            /*color: #8c8c8c;*/
+            textarea {
+              width: 100%;
+              height: 300px;
+            }
+          }
         }
-      }
-      .career-line {
-        position: relative;
-        border-left: 1px solid #000000;
-        left: 16px;
-      }
-      .green-radio {
-        z-index: 1;
-        height: 30px;
-        width: 30px;
-        border-radius: 30px;
-        background-color: #0000ff;
-      }
-      .event {
-        width: 300px;
-        word-wrap: break-word;
-        font-size: 16px;
-        margin-left: 15px;
-        padding-bottom: 10px;
-        textarea {
-          width: 100%;
-          height: 300px;
+        .career-line {
+          position: relative;
+          border-left: 1px solid #8c8c8c;
+          left: 16px;
+        }
+        .green-radio {
+          z-index: 1;
+          height: 30px;
+          width: 30px;
+          border-radius: 30px;
+          background-color: #9dc814;
         }
       }
     }
     .submit {
       cursor: pointer;
       position: fixed;
-      right: 100px;
-      top: 50px;
+      left: 10px;
+      top: 75px;
       width: 100px;
       text-align: center;
-      background-color: #0000cc;
+      background-color: #9dc814;
       color: #FFFFFF;
       border-radius: 5px;
       margin: 0 0 20px 20px;

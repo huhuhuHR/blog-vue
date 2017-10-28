@@ -17,31 +17,28 @@
           <span>工作年限：{{personDetail.workYear}}</span>
         </div>
       </div>
-      <div style="border: 1px dashed #000000"></div>
       <div class="work-experience">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>工作经历</span></div>
         <div v-for="(workList,index) in personDetail.workLists" class="workList">
-          <div style="margin-left: 5px">
+          <div class="work-time">
             <span>{{workList.startTime}}</span>
             -
             <span>{{workList.endTime}}</span>
           </div>
-          <div style="margin: 5px 10px">
+          <div class="work-experiences">
             {{workList.experienceRecord}}
           </div>
         </div>
       </div>
-      <div style="border: 1px dashed #000000"></div>
       <div class="professional-skills">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>精通技术</span></div>
-        <div style="margin: 5px 10px">
+        <div class="work-experiences">
           {{personDetail.skills}}
         </div>
       </div>
-      <div style="border: 1px dashed #000000"></div>
       <div class="self-assessment">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>自我评价</span></div>
-        <div style="margin: 5px 10px">
+        <div class="work-experiences">
           {{personDetail.assessment}}
         </div>
       </div>
@@ -64,13 +61,13 @@
       </div>
       <div class="work-experience">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>工作经历</span></div>
-        <div v-for="(workList,index) in personDetail.workLists" class="workList">
+        <div v-for="(workList,index) in personDetail.workLists" class="workList-copy">
           <div class="delete-relative" @click="deleteWorkList(index)">
             <div class="delete-absolute">
               <i class="iconfont icon-shanchu1"></i>
             </div>
           </div>
-          <div style="margin-left: 5px">
+          <div class="work-time">
             <span><input v-model="workList.startTime"/></span>
             -
             <span><input v-model="workList.endTime"/></span>
@@ -210,12 +207,16 @@
       }
       .person-detail-show {
         span {
-          width: 247px;
+          padding-left: 5px;
           display: inline-block;
+          border: 1px solid #8c8c8c;
+          border-radius: 5px;
+          width: 242px;
+
         }
       }
     }
-    .workList {
+    .workList-copy {
       .delete-relative {
         position: relative;
         left: 460px;
@@ -225,6 +226,18 @@
           i {
             color: #8c8c8c !important;
           }
+        }
+      }
+    }
+    .workList {
+      .work-time {
+        margin-left: 5px;
+        span {
+          padding-left: 5px;
+          border: 1px solid #8c8c8c;
+          border-radius: 5px;
+          width: 242px;
+          display: inline-block;
         }
       }
     }
@@ -256,6 +269,7 @@
       width: 97%;
       height: 100px;
       margin: 0 10px;
+      padding: 5px;
     }
     .submit {
       width: 100px;
@@ -266,6 +280,13 @@
       color: #FFFFFF;
       border-radius: 5px;
       margin: 20px 0 50px 0;
+    }
+    .work-experiences {
+      margin: 5px 10px;
+      border: 1px solid #8c8c8c;
+      min-height: 100px;
+      padding: 5px;
+      border-radius: 5px;
     }
   }
 </style>

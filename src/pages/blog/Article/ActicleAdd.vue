@@ -20,7 +20,6 @@
         <VE :content="inputMsg" @changeText="changeText" :height="height"></VE>
       </div>
     </div>
-    <div style="width: 100%;border-bottom: 1px dashed #111;margin-top: 40px;"></div>
     <div class="submit">
       <div class="save" @click="save()">保存</div>
       <div class="saveAndOnline">保存并发布</div>
@@ -28,6 +27,7 @@
   </div>
 </template>
 <script>
+  import {isEmpty, checkParms} from '../../../utils/CommonUtils';
   import  VE from '../../../components/vueEdit/VueEdit.vue'
   import http from '../../../http/http';
   import auth from '../../../auth';
@@ -73,40 +73,38 @@
     methods: {
       changeText (val) {
         this.inputMsg = val;
-        console.log(this.inputMsg);
+//        console.log(this.inputMsg);
       },
       saveUpdate(){
-        http.api({
-          url: '/huhuhu/article/updateArticle',
-          params: {
-            'id': this.articleId,
-            'userId': this.id,
-            'articleTitle': this.myImputTitle,
-            "author": this.myAuthor,
-            "articleBody": this.inputMsg,
-            "desciption": this.desciption
-          },
-          emulateJSON: true,
-          useLoadLayer: true,
-          successCallback: function (data) {
-            this.$router.push({path: '/acticleList', query: {'id': this.id}});
-            doOperationSuccess(this);
-          }.bind(this),
-          errorCallback: function (data) {
-            doOperationFailture(this);
-          }.bind(this)
+        let condition = Object.assign({}, {
+          'id': this.articleId,
+          'userId': this.id,
+          'articleTitle': this.myImputTitle,
+          "author": this.myAuthor,
+          "articleBody": this.inputMsg,
+          "desciption": this.desciption
         });
+        this.toSaveApi(condition, '/huhuhu/article/updateArticle');
       },
       saveAdd(){
+        let condition = Object.assign({}, {
+          'userId': this.id,
+          'articleTitle': this.myImputTitle,
+          "author": this.myAuthor,
+          "articleBody": this.inputMsg,
+          "desciption": this.desciption
+        });
+
+        this.toSaveApi(condition, '/huhuhu/article/saveArticle');
+      },
+      toSaveApi (condition, url){
+        if (checkParms(condition) === '1') {
+          console.log('有参数少');
+          return false;
+        }
         http.api({
-          url: '/huhuhu/article/saveArticle',
-          params: {
-            'userId': this.id,
-            'articleTitle': this.myImputTitle,
-            "author": this.myAuthor,
-            "articleBody": this.inputMsg,
-            "desciption": this.desciption
-          },
+          url: url,
+          params: condition,
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
@@ -167,14 +165,14 @@
           height: 100px;
           width: 100%;
           border-radius: 5px;
-          background-color: #808080;
+          border: 1px solid #ccc
         }
       }
     }
     .submit {
       display: flex;
       justify-content: center;
-      margin-top: 40px;
+      margin-top: 80px;
       padding-bottom: 40px;
       .save {
         width: 200px;
@@ -202,8 +200,7 @@
       }
     }
     input {
-      border: none;
-      background-color: #808080;
+      border: 1px solid #ccc;
       padding-left: 10px;
       height: 40px;
       line-height: 40px;
