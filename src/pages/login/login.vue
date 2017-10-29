@@ -128,7 +128,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background-image: url("../../../src/assets/img/1.jpg");
+      background-image: url("../../../src/assets/img/star.jpg");
       background-repeat: no-repeat;
       -moz-background-size: 100% 100%;
       background-size: cover;
