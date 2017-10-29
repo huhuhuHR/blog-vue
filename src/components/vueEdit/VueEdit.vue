@@ -7,6 +7,7 @@
       :useCustomImageHandler="useCustomImageHandler"
       @imageAdded="handleImageAdded"
       :placeholder="placeholder"
+      :editorToolbar="editorToolbar"
       :disabled="disabled">
     </vue-editor>
   </div>
@@ -23,7 +24,8 @@
         data: '',
         useCustomImageHandler: true,
         placeholder: '请输入信息...',
-        myContent: this.content
+        myContent: this.content,
+        myIndex: this.index
       };
     },
     props: {
@@ -39,7 +41,15 @@
       height: {
         type: Number,
         require: false,
-        default: 200
+        default: 50
+      },
+      editorToolbar: {
+        type: Array,
+        require: false
+      },
+      index: {
+        type: Number,
+        require: false
       }
     },
     mounted () {
@@ -62,7 +72,13 @@
         this.myContent = val;
       },
       myContent (val) {
-        this.$emit('changeText', val);
+        console.log(this.myIndex);
+        if (this.myIndex >= 0) {
+          console.log('1val' + val + 'index' + this.myIndex);
+          this.$emit('changeText', val, this.myIndex);
+        } else {
+          this.$emit('changeText', val);
+        }
       }
     }
   };

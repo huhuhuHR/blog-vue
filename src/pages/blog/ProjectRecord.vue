@@ -18,8 +18,9 @@
           <div class="created-date">
             现在
           </div>
-          <div class="event">
-            　 <textarea v-model="eventText"></textarea>
+          <div class="event" style="background-color: #FFFFFF;height: 300px">
+            <!--　 <textarea v-model="eventText"></textarea>-->
+            <VE :content="eventText" @changeText="changeEventText" :height="300"></VE>
           </div>
         </div>
       </div>
@@ -32,13 +33,15 @@
             </div>
           </div>
           <div class="created-date">{{worksRecord.createTime | dataFilter}}</div>
-          <div class="event">{{worksRecord.recordBody}}</div>
+          <div class="event" v-html="worksRecord.recordBody"></div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import Vue from 'vue';
+  import VE from '../../components/vueEdit/VueEdit.vue'
   import dataFormate from '../../assets/js/dataOperation';
   import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
   import http from '../../http/http';
@@ -54,6 +57,11 @@
       };
     },
     methods: {
+      changeEventText (val) {
+        Vue.nextTick(function () {
+          this.eventText = val;
+        }.bind(this));
+      },
       goBack(){
         this.$router.go(-1);
       },
@@ -130,6 +138,9 @@
       dataFilter(val){
         return dataFormate(new Date(val), 'yyyy年MM月dd日 hh:mm:ss')
       }
+    },
+    components: {
+      VE
     }
   };
 </script>

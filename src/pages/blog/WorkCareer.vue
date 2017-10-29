@@ -25,22 +25,18 @@
             -
             <span>{{workList.endTime}}</span>
           </div>
-          <div class="work-experiences">
-            {{workList.experienceRecord}}
+          <div class="work-experiences" v-html="workList.experienceRecord">
           </div>
         </div>
       </div>
       <div class="professional-skills">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>精通技术</span></div>
-        <div class="work-experiences">
-          {{personDetail.skills}}
+        <div class="work-experiences" v-html="personDetail.skills">
         </div>
       </div>
       <div class="self-assessment">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>自我评价</span></div>
-        <div class="work-experiences">
-          {{personDetail.assessment}}
-        </div>
+        <div class="work-experiences" v-html="personDetail.assessment"></div>
       </div>
     </div>
     <div class="edit" v-show="showTag">
@@ -61,7 +57,7 @@
       </div>
       <div class="work-experience">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>工作经历</span></div>
-        <div v-for="(workList,index) in personDetail.workLists" class="workList-copy">
+        <div v-for="(workList,index) in personDetail.workLists" class="workList-copy" @key="index">
           <div class="delete-relative" @click="deleteWorkList(index)">
             <div class="delete-absolute">
               <i class="iconfont icon-shanchu1"></i>
@@ -72,8 +68,12 @@
             -
             <span><input v-model="workList.endTime"/></span>
           </div>
-          <div>
-            <textarea v-model="workList.experienceRecord"></textarea>
+          <div style="margin-bottom: 50px;">
+            <!--<textarea v-model="workList.experienceRecord"></textarea>-->
+            <VE :content="workList.experienceRecord"
+                :index="index"
+                @changeText="changeWorkExperence"
+                :height="100"></VE>
           </div>
         </div>
         <div class="add-workList">
@@ -83,13 +83,15 @@
       <div class="professional-skills">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>精通技术</span></div>
         <div>
-          <textarea v-model="personDetail.skills"></textarea>
+          <!--<textarea v-model="personDetail.skills"></textarea>-->
+          <VE :content="personDetail.skills" @changeText="changeSkills" :height="100"></VE>
         </div>
       </div>
-      <div class="self-assessment">
+      <div class="self-assessment" style="margin-top: 50px;">
         <div><span><i class="iconfont icon-anniu1"></i></span><span>自我评价</span></div>
         <div>
-          <textarea v-model="personDetail.assessment"></textarea>
+          <!--<textarea v-model="personDetail.assessment"></textarea>-->
+          <VE :content="personDetail.assessment" @changeText="changeAssessment" :height="100"></VE>
         </div>
       </div>
       <div style="display: flex;justify-content: center">
@@ -99,7 +101,9 @@
   </div>
 </template>
 <script>
+  import VE from '../../components/vueEdit/VueEdit.vue'
   import http from '../../http/http';
+  import Vue from 'vue';
   export default{
     data () {
       return {
@@ -121,6 +125,24 @@
       };
     },
     methods: {
+      changeSkills (val) {
+        Vue.nextTick(function () {
+          this.personDetail.skills = val;
+        }.bind(this));
+      },
+      changeAssessment (val) {
+        Vue.nextTick(function () {
+          this.personDetail.assessment = val;
+        }.bind(this));
+      },
+      changeWorkExperence (val, index) {
+        console.log('2val:' + val + 'index:' + index);
+        console.log(this.personDetail.workLists[index]);
+        Vue.nextTick(function () {
+          this.personDetail.workLists[index].experienceRecord = val;
+          this.personDetail.workLists.push();
+        }.bind(this));
+      },
       init(){
         http.api({
           url: '/huhuhu/resume/selectInit',
@@ -178,6 +200,9 @@
     created(){
       this.showTag = (this.edit === '1');
       this.init();
+    },
+    components: {
+      VE
     }
   };
 </script>
@@ -242,10 +267,13 @@
       }
     }
     .add-workList {
+      position: relative;
+      top: -20px;
       display: inline-block;
       overflow: hidden;
       line-height: 30px;
       margin-left: 10px;
+      margin-top: 10px;
       i {
         color: #02ac1a;
         font-size: 40px;

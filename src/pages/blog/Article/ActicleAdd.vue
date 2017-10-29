@@ -17,6 +17,7 @@
                   v-model="desciption"/>
       </div>
       <div class="edit-area">
+        <span>文章内容:</span>
         <VE :content="inputMsg" @changeText="changeText" :height="height"></VE>
       </div>
     </div>
