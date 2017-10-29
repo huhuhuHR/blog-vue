@@ -16,14 +16,14 @@ const transformRequest = (axios) => {
     if (data === undefined) {
       return;
     }
-    // emulateJSON => json json格式的参数
+    // emulateJSON => json json格式的参数 requestBody
     if (!data.emulateJSON) {
       headers['Content-Type'] = 'application/json;charset=UTF-8';
       console.log('!emulateJSON');
       return JSON.stringify(data);
     }
 
-    // emulateJSON => x-www-form-urlencoded form表单
+    // emulateJSON => x-www-form-urlencoded form表单 requestParams
     headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
     let params = new URLSearchParams();
     Object.keys(data).forEach(function (key) {
