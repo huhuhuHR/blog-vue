@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import rem from './assets/js/RemUtil';
+// import rem from './assets/js/RemUtil';
 import auth from './auth';
 import http from './http/http';
 import store from './store';
