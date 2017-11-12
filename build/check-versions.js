@@ -9,9 +9,14 @@ function exec(cmd) {
   return result;
 }
 
+console.log(chalk.blue('当前node实例版本号：' + process.version));
+console.log(chalk.blue('当前node实例版本号处理后：' + semver.clean(process.version)));
+
 var versionRequirements = [
   {
     name: 'node',
+    // process.version：包含当前node实例的版本号；v6.3.1
+    // semver.clean 去v semver.clean(process.version)
     currentVersion: semver.clean(process.version),
     versionRequirement: packageConfig.engines.node
   },

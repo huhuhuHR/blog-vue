@@ -14,6 +14,7 @@ import ValidateCode from './Demo/ValidateCode.vue'
 import theLifeCycle from  './Demo/TheLifeCycle.vue';
 import operationDemo from './Demo/OperationDemo.vue';
 import vueEditDemo from './Demo/vueEditDemo.vue';
+import batchUpload from './Demo/batchUpload.vue';
 export {
   login,
   homePage,
@@ -30,5 +31,6 @@ export {
   ValidateCode,
   theLifeCycle,
   operationDemo,
-  vueEditDemo
+  vueEditDemo,
+  batchUpload
 }

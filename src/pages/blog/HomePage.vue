@@ -65,6 +65,7 @@
   export default{
     data () {
       return {
+        progress: '',
         accountId: this.$route.query.id,
         routerList: [],
         selectedList: [],
@@ -131,6 +132,13 @@
         params: condition,
         emulateJSON: true,
         useLoadLayer: true,
+        onUploadProgress: function (e) {
+          setTimeout(
+            console.log('哈哈哈')
+            , 1000);
+          this.progress = e.loaded;
+          console.log('哈哈哈' + this.progress);
+        }.bind(this),
         successCallback: function (data) {
           this.routerList = data.routerList;
           this.selectedList = new Array(this.routerList.length).fill(false);
