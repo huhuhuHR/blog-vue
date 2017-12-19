@@ -10,6 +10,7 @@
 <script>
   import {OpeartionDialog} from './components/index';
   import LoadLayer from './components/loading/LoadLayer';
+
   export default {
     name: 'app',
     components: {
@@ -20,7 +21,7 @@
 </script>
 <style>
   html {
-    background-color: #f3f4f8;
+    background-color: #b2bac2;
   }
 
   @import "assets/icon/iconfont.css";

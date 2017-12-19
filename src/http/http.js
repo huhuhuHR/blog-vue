@@ -7,7 +7,7 @@ import store from '../store';
 // Now all requests will wait 10 seconds before timing out
 const globalConfig = (axios) => {
   //设置超时时间
-  axios.defaults.timeout = 10000;
+  axios.defaults.timeout = 60000;
 };
 
 const transformRequest = (axios) => {

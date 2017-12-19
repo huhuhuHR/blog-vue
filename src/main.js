@@ -15,6 +15,7 @@ auth.checkAuth();
 
 // rem.initFontSize();
 Vue.prototype.HOST = '/huhuhu';
+Vue.prototype.$http = http;
 Vue.config.productionTip = false;
 // 主要是把 vue-router 的狀態放進 vuex 的 state 中，
 // 這樣就可以透過改變 state 來進行路由的一些操作，
