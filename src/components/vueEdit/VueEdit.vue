@@ -64,7 +64,7 @@
       handleImageAdded: function (file, Editor, cursorLocation) {
         var formData = new FormData();
         formData.append('image', file);
-        console.log(formData);
+        console.log(111);
       }
     },
     watch: {

@@ -1,6 +1,5 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path');
-
 module.exports = {
   // production 生产环境
   build: {
@@ -45,6 +44,9 @@ module.exports = {
     proxyTable: {
       // proxy all requests starting with /api to jsonplaceholder
       //example http://localhost:1110/hello => /huhuhu/hello
+      // #pathRewrite: {
+      // #'^/huhuhu': '/huhuhu' //需要rewrite重写的.需要项目名字就加，不需要就不加
+      // #}
       '/huhuhu': {
         target: 'http://localhost:1110', // 接口域名
         changeOrigin: true, //是否跨域

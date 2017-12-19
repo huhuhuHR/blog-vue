@@ -54,6 +54,7 @@ const addRequestInterceptors = (axios) => {
 
 const addResponseInterceptors = (axios) => {
   axios.interceptors.response.use(function (response) {
+    console.log(response.onprogress);
     store.commit(CHANGE_LOAD_SHOW_STATE, false);
     return response;
   }, function (error) {
@@ -74,13 +75,14 @@ const config = (Vue) => {
   accessInVueInstance(Vue, axios);
 };
 
-const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLayer = true, successCallback, errorCallback}) => {
+const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLayer = true, onUploadProgress = null, successCallback, errorCallback}) => {
   let reqConf = {
     method, url, useLoadLayer,
     cancelToken: new axios.CancelToken(function (cancel) {
       console.log('request is canceled');
     })
   };
+  onUploadProgress && Object.assign(reqConf, onUploadProgress);
   if (method === 'POST' && emulateJSON) {
     params.emulateJSON = true;
   }
@@ -92,7 +94,7 @@ const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLay
       return false;
     }
     let rspCode = response.data.code;
-    console.log(rspCode);
+    // console.log(rspCode);
     if (rspCode === '0') {
       successCallback && successCallback(response.data.data);
     } else {

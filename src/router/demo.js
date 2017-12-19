@@ -10,7 +10,8 @@ import {
   ValidateCode,
   theLifeCycle,
   operationDemo,
-  vueEditDemo
+  vueEditDemo,
+  batchUpload
 } from '../pages/index';
 const demoRouter = [
   {
@@ -48,6 +49,11 @@ const demoRouter = [
         path: 'vueEditDemo',
         component: vueEditDemo,
         meta: {title: 'vueEdit'}
+      },
+      {
+        path: 'batchUpload',
+        component: batchUpload,
+        meta: {title: 'batchUpload'}
       }
     ]
   }
