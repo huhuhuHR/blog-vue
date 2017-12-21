@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import blog2Router from './Blog2';
+import dmo from './demo';
 
 Vue.use(Router);
 
@@ -14,7 +15,7 @@ const router = new Router({
       name: 'homePage',
       redirect: '/blog2/home'
     },
-  ].concat(blog2Router)
+  ].concat(blog2Router).concat(dmo)
 });
 // 作用于所有路由切换，一般在main.js里面定义
 // router.beforeEach((to, from, next) => {

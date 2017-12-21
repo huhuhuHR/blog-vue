@@ -16,13 +16,16 @@ const transformRequest = (axios) => {
     if (data === undefined) {
       return;
     }
+    if (data.emulateFile) {
+      headers['Content-Type'] = 'multipart/form-data;charset=UTF-8';
+      return data.fileData;
+    }
     // emulateJSON => json json格式的参数 requestBody
     if (!data.emulateJSON) {
       headers['Content-Type'] = 'application/json;charset=UTF-8';
       console.log('!emulateJSON');
       return JSON.stringify(data);
     }
-
     // emulateJSON => x-www-form-urlencoded form表单 requestParams
     headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
     let params = new URLSearchParams();
@@ -111,7 +114,36 @@ const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLay
     console.error(error.config);
   });
 };
+const uploadApi = ({url, method = 'POST', params = new FormData(), useLoadLayer = true, successCallback, errorCallback}) => {
+  let reqConf = {method, url, useLoadLayer};
+  var param = Object.assign({}, {'fileData': params}, {'emulateFile': true});
+  reqConf[method === 'POST' ? 'data' : 'params'] = param;
+
+  axios(reqConf).then((response) => {
+    let rspCode = response.data.code;
+    if (rspCode === '0') {
+      // 业务级成功
+      successCallback && successCallback(response.data.data);
+    } else {
+      // 业务级失败
+      if (rspCode === '12' || rspCode === '10' || rspCode === '11') {
+      } else {
+        errorCallback && errorCallback(response);
+      }
+    }
+  }).catch((error) => {
+    if (error.response) {
+      // 服务端异常（返回的 HTTP 状态码非 2xx）
+      errorCallback && errorCallback(error.response);
+    } else {
+      // 客户端代码异常（request 预处理、 successCallback 执行报错）或 请求超时
+      console.error('[Error]', error.message);
+    }
+    console.error(error.config);
+  });
+};
 export default {
   config,
-  api
+  api,
+  uploadApi
 };

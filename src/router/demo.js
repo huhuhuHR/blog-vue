@@ -1,9 +1,6 @@
 /**
  * Created by huorong on 17/10/23.
  */
-/**
- * Created by huorong on 17/10/23.
- */
 import {
   Demo,
   vuexDemo,
@@ -11,7 +8,7 @@ import {
   theLifeCycle,
   operationDemo,
   vueEditDemo,
-  batchUpload
+  uploadExcel
 } from '../pages/index';
 const demoRouter = [
   {
@@ -51,9 +48,9 @@ const demoRouter = [
         meta: {title: 'vueEdit'}
       },
       {
-        path: 'batchUpload',
-        component: batchUpload,
-        meta: {title: 'batchUpload'}
+        path: 'uploadExcel',
+        component: uploadExcel,
+        meta: {title: 'uploadExcel'}
       }
     ]
   }

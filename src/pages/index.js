@@ -16,6 +16,7 @@ import ValidateCode from './Demo/ValidateCode.vue'
 import theLifeCycle from './Demo/TheLifeCycle.vue';
 import operationDemo from './Demo/OperationDemo.vue';
 import vueEditDemo from './Demo/vueEditDemo.vue';
+import uploadExcel from './Demo/uploadExcel.vue';
 
 export {
   // login,
@@ -35,5 +36,6 @@ export {
   operationDemo,
   vueEditDemo,
   home,
-  blog2
+  blog2,
+  uploadExcel
 }
