@@ -95,10 +95,12 @@
           border-radius: 5px;
           .input1 {
             width: 30px;
-            height: 50px;
+            height: 30px;
             opacity: 0;
             cursor: pointer;
             z-index: 1111;
+            position: relative;
+            top: -34px;
           }
         }
       }
