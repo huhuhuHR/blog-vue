@@ -10,6 +10,7 @@
         </div>
       </div>
       <div class="buttom" @click="uploadFiles">上传</div>
+      <div class="buttom" @click="exportFiles">从内存中下载</div>
     </div>
   </div>
 </template>
@@ -50,6 +51,9 @@
           errorCallback: function (data) {
           }.bind(this)
         });
+      },
+      exportFiles(){
+        location.href = this.HOST + '/excel/exportExcel?keyWord=huorong';
       }
     }
   };
