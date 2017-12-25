@@ -2,15 +2,17 @@
   <div class="uploadExcel-item">
     <div class="box">
       <div class="file">
-        <div class="item">选择文件：</div>
+        <div class="item">excel：</div>
         <div class="file-content">&nbsp;&nbsp;{{excelName}}</div>
         <div class="load-file">
           ...
           <input type="file" class="input1" @change="uploadExcel()"/>
         </div>
       </div>
+      <div class="buttom" @click="dowloadTemplate(0)">下载标准模板</div>
+      <div class="buttom" @click="dowloadTemplate(1)">下载简单模板</div>
+      <div class="buttom" @click="exportFiles">下载失败的导入</div>
       <div class="buttom" @click="uploadFiles">上传</div>
-      <div class="buttom" @click="exportFiles">从内存中下载</div>
     </div>
   </div>
 </template>
@@ -44,7 +46,7 @@
         console.log(fileExel);
         form.append('fileExel', fileExel);
         this.$http.uploadApi({
-          url: this.HOST + '/excel/uploadExcel',
+          url: this.HOST + '/excel/uploadJedis',
           params: form,
           successCallback: function (data) {
           }.bind(this),
@@ -53,7 +55,10 @@
         });
       },
       exportFiles(){
-        location.href = this.HOST + '/excel/exportExcel?keyWord=huorong';
+        location.href = this.HOST + '/excel/exportByJedis?keyWord=huorong';
+      },
+      dowloadTemplate(val){
+        location.href = this.HOST + '/excel/downloadTemplate/' + val;
       }
     }
   };
