@@ -1,3 +1,4 @@
+// 检查 node npm 版本
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production';
@@ -19,6 +20,10 @@ var spinner = ora('building for production...');
 spinner.start();
 
 // 删除这个文件夹 （递归删除）
+/*
+   使用 rimraf 将旧的编译输出的文件夹删除，然后重新编译生成
+   rimraf(f: 路径, [opts], callback: 回调)
+*/
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err;
   webpack(webpackConfig, function (err, stats) {

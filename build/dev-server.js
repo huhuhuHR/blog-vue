@@ -1,5 +1,5 @@
 require('./check-versions')();
-// 配置文件
+// 引入配置文件
 var config = require('../config');
 // 如果 Node 的环境无法判断当前是 dev / product 环境
 // 使用 config.dev.env.NODE_ENV 作为当前的环境
@@ -15,7 +15,12 @@ var path = require('path');
 var express = require('express');
 
 var webpack = require('webpack');
+/*
+   http-proxy-middleware 是一个 node 代理中间件，可以将http请求代理到其他服务器
+   详情文档：https://github.com/chimurai/http-proxy-middleware
+*/
 var proxyMiddleware = require('http-proxy-middleware');
+// 使用 dev 开发环境的配置
 var webpackConfig = require('./webpack.dev.conf');
 
 // default port where dev server listens for incoming traffic
@@ -34,6 +39,14 @@ var app = express();
 var compiler = webpack(webpackConfig);
 // 可以将编译后的文件暂存到内存中的插件
 // https://github.com/webpack/webpack-dev-middleware
+/*
+    webpack-dev-middleware
+    用来在内存中生成打包好的文件，而不用写到磁盘上，它提供从 webpack 到服务器的文件传输，用来配合进行热重载
+
+    第一个参数：webpack 实例
+    第二个参数：配置 只有 publicPath 必填，
+    其他参考文档 https://www.npmjs.com/package/webpack-dev-middleware
+ */
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   // 公共路径，与webpack的publicPath一样
   publicPath: webpackConfig.output.publicPath,
@@ -42,6 +55,12 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 });
 // Hot-reload 热重载插件
 // https://github.com/glenjamin/webpack-hot-middleware
+/*
+   webpack-hot-middleware
+   用来接受 webpack 传递来的更新，并将其反应到浏览器客户端，需要与 webpack-dev-middleware 一起使用
+
+   使用文档：https://www.npmjs.com/package/webpack-hot-middleware
+*/
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {
   },
@@ -87,7 +106,7 @@ app.use(hotMiddleware);
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 // 静态文件服务
 app.use(staticPath, express.static('./static'));
-
+// 应用的地址信息
 var uri = 'http://localhost:' + port;
 
 var _resolve;
@@ -96,7 +115,7 @@ var readyPromise = new Promise(resolve => {
 });
 
 console.log('> Starting dev server...');
-// 编译成功后打印网址信息
+// 编译成功 有效后 执行回调
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n');
   // 如果配置了自动打开浏览器，且不是测试环境，则自动打开浏览器并跳到我们的开发地址
