@@ -6,13 +6,22 @@
         <div class="file-content">&nbsp;&nbsp;{{excelName}}</div>
         <div class="load-file">
           ...
-          <input type="file" class="input1" @change="uploadExcel()"/>
+          <input type="file" class="input1" @change="changeExcel()"/>
+        </div>
+      </div>
+      <div class="file" style="margin-top: 30px">
+        <div class="item">zip：</div>
+        <div class="file-content">&nbsp;&nbsp;{{zipName}}</div>
+        <div class="load-file">
+          ...
+          <input type="file" class="input2" @change="changeZip()"/>
         </div>
       </div>
       <div class="buttom" @click="dowloadTemplate(0)">下载标准模板</div>
       <div class="buttom" @click="dowloadTemplate(1)">下载简单模板</div>
       <div class="buttom" @click="exportFiles">下载失败的导入</div>
-      <div class="buttom" @click="uploadFiles">上传</div>
+      <div class="buttom" @click="uploadExcel">上传Excel</div>
+      <div class="buttom" @click="uploadZip">上传Zip</div>
     </div>
   </div>
 </template>
@@ -20,11 +29,12 @@
   export default{
     data () {
       return {
-        excelName: ''
+        excelName: '',
+        zipName: ''
       };
     },
     methods: {
-      uploadExcel () {
+      changeExcel () {
         var fileExel = this.$el.getElementsByClassName('input1')[0].files[0];
         if (!/\.(xls|xlsx)$/.test(fileExel.name)) {
           console.log('只支持上传格式:xls、xlsx');
@@ -40,13 +50,36 @@
         }
         this.excelName = fileExel.name;
       },
-      uploadFiles () {
+      changeZip(){
+        var fileZip = this.$el.getElementsByClassName('input2')[0].files[0];
+        if (!/\.(zip)$/.test(fileZip.name)) {
+          this.$el.getElementsByClassName('input2')[0].value = '';
+          this.zipName = '';
+          return;
+        }
+        this.zipName = fileZip.name;
+      },
+      uploadExcel () {
         var form = new FormData();
         let fileExel = this.$el.getElementsByClassName('input1')[0].files[0];
         console.log(fileExel);
         form.append('fileExel', fileExel);
         this.$http.uploadApi({
           url: this.HOST + '/excel/uploadJedis',
+          params: form,
+          successCallback: function (data) {
+          }.bind(this),
+          errorCallback: function (data) {
+          }.bind(this)
+        });
+      },
+      uploadZip () {
+        var form = new FormData();
+        let fileZip = this.$el.getElementsByClassName('input2')[0].files[0];
+        console.log(fileZip);
+        form.append('fileZip', fileZip);
+        this.$http.uploadApi({
+          url: this.HOST + '/excel/fileZip',
           params: form,
           successCallback: function (data) {
           }.bind(this),
@@ -68,8 +101,8 @@
     .box {
       padding: 20px;
       background-color: #ffffff;
-      width: 300px;
-      height: 265px;
+      width: 400px;
+      height: 365px;
       position: absolute;
       right: 0;
       left: 0;
@@ -102,7 +135,7 @@
           color: #808080;
           border: 1px solid #d0d0d0;
           border-radius: 5px;
-          .input1 {
+          .input1, .input2 {
             width: 30px;
             height: 30px;
             opacity: 0;
