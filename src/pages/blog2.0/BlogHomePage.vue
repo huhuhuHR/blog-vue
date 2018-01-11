@@ -25,7 +25,10 @@
               </li>
             </ul>
           </div>
-          <articleList :index="currentRouter"></articleList>
+          <articleList :index="currentRouter"
+                       :totalSize="myRouters.length"
+                       :tools="tools"
+                       @initTools="initTools"></articleList>
         </div>
       </div>
       <div class="right">
@@ -68,16 +71,16 @@
         registShow: false,
         loginShow: false,
         myRouters: [
-          '个人工具',
-          '我的文章',
-          '已分享链接',
           '热门',
           '最新',
           '评论',
-          '搜索'
+          '我的文章',
+          '已分享链接',
+          '个人工具',
         ],
         currentRouter: 0,
         selected: [],
+        tools: []
       };
     },
     mounted(){
@@ -91,6 +94,23 @@
         this.currentRouter = val;
         this.selected[val] = true;
         this.selected.push();
+        if (val === this.myRouters.length - 1) {
+          this.initTools();
+        }
+      },
+      initTools: function () {
+        this.$http.api({
+          url: '/huhuhu/ToolKit/selectTookies',
+          params: {'userId': '248886518218567680'},
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.tools = data.toolKitList;
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+          }.bind(this)
+        });
       },
       regist: function (v1, v2, v3) {
         let condition = Object.assign({}, {'blogName': v1, 'blogEmail': v2, 'blogPassword': v3});
@@ -119,20 +139,27 @@
       closeLogin: function () {
         this.loginShow = false;
       }
-    },
-    mounted() {
-    },
-    filters: {},
+    }
+    ,
+    mounted()
+    {
+    }
+    ,
+    filters: {}
+    ,
     components: {
       blogRegist,
       blogLogin,
       articleList,
       menbers,
       column
-    },
-    created() {
     }
-  };
+    ,
+    created()
+    {
+    }
+  }
+  ;
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .new-home-root {
@@ -213,7 +240,8 @@
               }
             }
             .selected {
-              background-color: blue;
+              color: #007fff;
+              font-weight: bold;
             }
           }
         }

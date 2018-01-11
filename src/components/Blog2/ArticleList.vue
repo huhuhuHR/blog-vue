@@ -1,12 +1,18 @@
 <template>
   <div class="list-body">
-    <div v-show="index===0">
-      ~
+    <!--工具-->
+    <div v-show="last" class="tools">
+      <div class="tools-item" v-for="item in tools" @click.stop="addCount(item.id)">
+        <a :href="item.url" target="_Blank">
+          {{item.urlName}}
+        </a>
+      </div>
     </div>
-    <div v-show="index===1">
-      @
-    </div>
-    <div v-show="index>1">
+    <!--搜索-->
+    <!--<div v-show="secondLast">-->
+    <!--@-->
+    <!--</div>-->
+    <div v-show="showElse">
       <ul>
         <li v-for="i in 10">
           <div class="content-box">
@@ -30,14 +36,48 @@
 <script>
   export default{
     data () {
-      return {
-        type: ''
-      };
+      return {};
+    },
+    mounted(){
+    },
+    methods: {
+      addCount(val){
+        this.$http.api({
+          url: '/huhuhu/ToolKit/updateCountById',
+          params: {
+            'userId': '248886518218567680',
+            'id': val
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.$emit('initTools');
+          }.bind(this),
+          errorCallback: function (data) {
+          }.bind(this)
+        });
+      }
+    },
+    computed: {
+      showElse(){
+        return !(this.index === this.totalSize - 1 || this.index === this.totalSize - 2);
+      },
+      last () {
+        return this.index === this.totalSize - 1;
+      }
     },
     props: {
       index: {
         type: Number,
         require: true
+      },
+      totalSize: {
+        type: Number,
+        require: true
+      },
+      tools: {
+        type: Array,
+        require: false
       }
     }
   };
@@ -86,6 +126,25 @@
             }
           }
         }
+      }
+    }
+    .tools {
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .tools-item {
+        width: 19%;
+        height: 50px;
+        margin: 20px;
+        border-radius: 20px;
+        background-color: #32CD32;
+        line-height: 50px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #FFFFFF;
       }
     }
   }
