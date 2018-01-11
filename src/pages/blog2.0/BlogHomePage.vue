@@ -1,20 +1,10 @@
 <template>
   <div class="new-home-root">
-    <div class="head">
-      <ul>
-        <li class="my-point">我的关注</li>
-        <li>java</li>
-        <li>vue</li>
-        <li>vue</li>
-        <li>vue</li>
-      </ul>
-      <div class="label">标签管理</div>
-    </div>
     <div class="myBody">
       <div class="left">
         <div class="write-share">
           <div class="item">
-            <img src="./1.jpeg"/>
+            <img src="../../components/Blog2/1.jpeg"/>
           </div>
           <div class="item">
             <i class="iconfont icon-wenzhang"></i>
@@ -29,88 +19,30 @@
         <div class="public-list">
           <div class="list-header">
             <ul>
-              <li>热门</li>
-              <li>最新</li>
-              <li>评论</li>
-            </ul>
-          </div>
-          <div class="list-body">
-            <ul>
-              <li v-for="i in 10">
-                <div class="content-box">
-                  <div class="info-box">
-                    <div class="info-row meta-row">
-                      芋道源码掘金Java群217878901>4小时前>java
-                    </div>
-                    <div class="info-row title-row">
-                      SpringCloud  Eureka 源码解析 —— 应用实例注册发现（六）之全量获取
-                    </div>
-                    <div class="info-row action-row">
-                      收藏-评论
-                    </div>
-                  </div>
-                </div>
+              <li
+                v-for="(item,index) in myRouters" @click="changeCurrentIndex(index)"
+                :class="{'selected': selected[index]}">{{item}}
               </li>
             </ul>
           </div>
+          <articleList :index="currentRouter"></articleList>
         </div>
       </div>
       <div class="right">
         <div class="login">
           <div class="login-head">
-            <span class="toLogin" @click="toLogin">登录</span>
-            <span @click="toRegist">注册</span>
-          </div>
-        </div>
-        <div class="user-hasLogin">
-          <div class="user-info">
-            <span>专栏：</span>霍荣
-          </div>
-          <div class="user-item">
-            <i class="iconfont icon-wenzhang"></i>
-            <span>我的文章</span>
-          </div>
-          <div class="user-item">
-            <i class="iconfont icon-shoucang"></i>
-            <span>我的收藏</span>
-          </div>
-          <div class="user-item">
-            <i class="iconfont icon-huaban"></i>
-            <span>我的分享</span>
-          </div>
-          <div class="user-item">
-            <i class="iconfont icon-xiai"></i>
-            <span>我的喜爱</span>
-          </div>
-          <div class="user-item">
-            <i class="iconfont icon-ttpodicon"></i>
-            <span>设置</span>
-          </div>
-        </div>
-        <div class="my-group">
-          <div class="group-orz">我的组织(10)</div>
-          <div class="current-orz">
-            当前组织：
-            <span>锐意</span>
-          </div>
-          <div class="switch-orz">
-            切换：<i class="iconfont icon-qiehuan"></i>
-          </div>
-        </div>
-        <div class="user-else">
-          <div class="user-else-head">
-            <span>成员(10)</span>
-          </div>
-          <div class="over-flow-scroll">
-            <div class="user-else-info" v-for="i in 10">
-              <img src="./1.jpeg"/>
-              <div class="introduce">
-                <div class="user-name">霍荣</div>
-                <div class="user-good-at">java</div>
-              </div>
+            <div v-if="false" class="noLogin">
+              <span class="toLogin" @click="toLogin">登录</span>
+              <span @click="toRegist">注册</span>
+            </div>
+            <div v-else class="hasLogin">
+              <span>已经登录</span>
+              <i class="iconfont icon-tuichu"></i>
             </div>
           </div>
         </div>
+        <column></column>
+        <menbers></menbers>
       </div>
     </div>
     <blog-regist
@@ -127,16 +59,39 @@
 <script>
   import blogRegist from '../../components/Blog2/Blog2Regist.vue';
   import blogLogin from '../../components/Blog2/Blog2ToLogin.vue';
-
+  import articleList from '../../components/Blog2/ArticleList.vue';
+  import menbers from '../../components/Blog2/Members.vue';
+  import column from '../../components/Blog2/myColumn.vue';
   export default {
     data() {
       return {
         registShow: false,
-        loginShow: false
+        loginShow: false,
+        myRouters: [
+          '个人工具',
+          '我的文章',
+          '已分享链接',
+          '热门',
+          '最新',
+          '评论',
+          '搜索'
+        ],
+        currentRouter: 0,
+        selected: [],
       };
+    },
+    mounted(){
+      this.selected = new Array(this.myRouters.length).fill(false);
     },
     computed: {},
     methods: {
+      changeCurrentIndex: function (val) {
+        this.selected[this.currentRouter] = false;
+        console.log(val);
+        this.currentRouter = val;
+        this.selected[val] = true;
+        this.selected.push();
+      },
       regist: function (v1, v2, v3) {
         let condition = Object.assign({}, {'blogName': v1, 'blogEmail': v2, 'blogPassword': v3});
         this.$http.api({
@@ -170,7 +125,10 @@
     filters: {},
     components: {
       blogRegist,
-      blogLogin
+      blogLogin,
+      articleList,
+      menbers,
+      column
     },
     created() {
     }
@@ -220,6 +178,7 @@
           display: flex;
           align-items: center;
           .item {
+            display: flex;
             color: #007fff;
             width: 70px;
             height: 50px;
@@ -233,6 +192,7 @@
             }
             i {
               font-size: 12px;
+              margin-right: 5px;
             }
           }
         }
@@ -252,51 +212,8 @@
                 border-right: none !important;
               }
             }
-          }
-          .list-body {
-            height: 92%;
-            overflow-y: scroll;
-            ul {
-              li {
-                border-bottom: 1px solid rgba(178, 186, 194, .15);
-                .content-box {
-                  display: flex;
-                  align-self: center;
-                  padding: 20px 30px;
-                  .info-box {
-                    -webkit-box-flex: 1;
-                    -ms-flex: 1 1 auto;
-                    flex: 1 1 auto;
-                    -webkit-box-orient: vertical;
-                    -webkit-box-direction: normal;
-                    -ms-flex-direction: column;
-                    flex-direction: column;
-                    -webkit-box-pack: center;
-                    -ms-flex-pack: center;
-                    justify-content: center;
-                    min-width: 0;
-                    .info-row {
-                      padding: 5px 0;
-                      :first-child {
-                        padding-top: 0;
-                      }
-                      :last-child {
-                        padding-bottom: 0;
-                      }
-                    }
-                    .meta-row {
-                      font-size: 12px;
-                      color: #b2bac2;
-                    }
-                    .title-row {
-                      font-size: 14px;
-                      font-weight: 600;
-                      line-height: 1.2;
-                      color: #2e3135;
-                    }
-                  }
-                }
-              }
+            .selected {
+              background-color: blue;
             }
           }
         }
@@ -309,102 +226,24 @@
           margin-bottom: 10px;
           background-color: #ffffff;
           .login-head {
-            font-size: 16px;
-            color: #007fff;
-            padding: 12.5px 0 12.5px 10px;
-            border-bottom: 1px solid rgba(178, 186, 194, .15);
-            .toLogin:after {
-              content: "\B7";
-              margin: 2px;
-            }
-          }
-        }
-        .user-hasLogin {
-          margin-bottom: 10px;
-          background-color: #ffffff;
-          font-size: 16px;
-          padding: 10px;
-          border-bottom: 1px solid rgba(178, 186, 194, .15);
-          .user-info {
-            span {
-              font-weight: 500;
-              color: #b71ed7;
-            }
-          }
-          :last-child {
-            margin-bottom: 0 !important;
-          }
-          .user-item {
-            border-top: 1px solid rgba(178, 186, 194, .15);
-            border-bottom: 1px solid rgba(178, 186, 194, .15);
-            border-radius: 2px;
-            padding: 10px 0;
-            margin-bottom: 2px;
-            font-size: 12px;
-            color: #007fff;
-            i {
-              font-size: 12px;
-              color: #000000;
-            }
-          }
-        }
-        .my-group {
-          background-color: #ffffff;
-          padding: 10px;
-          margin-bottom: 10px;
-          .group-orz {
-            font-size: 16px;
-            font-weight: 600;
-          }
-          .current-orz {
-            font-size: 12px;
-            span {
+            .noLogin {
+              font-size: 16px;
               color: #007fff;
-            }
-          }
-          .switch-orz {
-            font-size: 12px;
-          }
-        }
-        .user-else {
-          background-color: #ffffff;
-          .user-else-head {
-            font-weight: 500;
-            font-size: 16px;
-            padding: 10px;
-            border-bottom: 1px solid rgba(178, 186, 194, .15);
-          }
-          .over-flow-scroll {
-            max-height: 254.5px;
-            overflow-y: scroll;
-            .user-else-info {
-              padding: 10px;
-              display: flex;
+              padding: 12.5px 0 12.5px 10px;
               border-bottom: 1px solid rgba(178, 186, 194, .15);
-              img {
-                height: 36px;
-                width: 36px;
-                border-radius: 36px;
+              .toLogin:after {
+                content: "\B7";
+                margin: 2px;
               }
-              .introduce {
-                margin-left: 5px;
-                width: 80%;
-                .user-name {
-                  width: 100%;
-                  font-size: 14px;
-                  color: #333;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                }
-                .user-good-at {
-                  width: 100%;
-                  color: #909090;
-                  font-size: 12px;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                }
+            }
+            .hasLogin {
+              text-align: center;
+              height: 48px;
+              line-height: 48px;
+              font-size: 16px;
+              color: #007fff;
+              span {
+                margin-right: 10px;
               }
             }
           }
