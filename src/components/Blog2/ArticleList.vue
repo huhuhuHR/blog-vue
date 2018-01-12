@@ -16,23 +16,18 @@
         <div class="addSpace" v-if="isLeaveTwo"></div>
       </div>
     </div>
-    <!--搜索-->
-    <!--<div v-show="secondLast">-->
-    <!--@-->
-    <!--</div>-->
     <div v-show="showElse">
       <ul>
-        <li v-for="i in 10">
-          <div class="content-box">
+        <li v-for="share in shareDetail">
+          <div class="content-box" @click="toUrl(share.shareUrl)">
             <div class="info-box">
               <div class="info-row meta-row">
-                芋道源码掘金Java群217878901>4小时前>java
+                {{share.shareTitle}}
               </div>
               <div class="info-row title-row">
-                SpringCloud Eureka 源码解析 —— 应用实例注册发现（六）之全量获取
+                {{share.shareDesc}}
               </div>
               <div class="info-row action-row">
-                收藏-评论
               </div>
             </div>
           </div>
@@ -51,6 +46,9 @@
     mounted(){
     },
     methods: {
+      toUrl (val) {
+        window.open(val);
+      },
       searchValue (){
         this.$emit('searchValue', this.searchKey);
       },
@@ -73,7 +71,7 @@
     },
     computed: {
       showElse(){
-        return !(this.index === this.totalSize - 1 || this.index === this.totalSize - 2);
+        return !(this.index === this.totalSize - 1);
       },
       last () {
         return this.index === this.totalSize - 1;
@@ -97,6 +95,10 @@
         default: 0
       },
       tools: {
+        type: Array,
+        require: false
+      },
+      shareDetail: {
         type: Array,
         require: false
       }

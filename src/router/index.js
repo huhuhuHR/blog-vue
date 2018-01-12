@@ -13,7 +13,7 @@ const router = new Router({
     {
       path: '/',
       name: 'homePage',
-      redirect: '/blog2/home'
+      redirect: '/blog'
     },
   ].concat(blog2Router).concat(dmo)
 });

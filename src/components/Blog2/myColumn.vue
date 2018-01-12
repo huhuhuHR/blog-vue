@@ -4,20 +4,12 @@
       <span>专栏：</span>霍荣
     </div>
     <div class="user-item">
-      <i class="iconfont icon-wenzhang"></i>
-      <span>我的文章</span>
-    </div>
-    <div class="user-item">
       <i class="iconfont icon-shoucang"></i>
       <span>我的收藏</span>
     </div>
     <div class="user-item">
       <i class="iconfont icon-huaban"></i>
       <span>我的分享</span>
-    </div>
-    <div class="user-item">
-      <i class="iconfont icon-xiai"></i>
-      <span>我的喜爱</span>
     </div>
     <div class="user-item">
       <i class="iconfont icon-ttpodicon"></i>

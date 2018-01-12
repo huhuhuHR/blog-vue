@@ -6,13 +6,9 @@
           <div class="item">
             <img src="../../components/Blog2/1.jpeg"/>
           </div>
-          <div class="item">
-            <i class="iconfont icon-wenzhang"></i>
-            写文章
-          </div>
-          <div class="item">
+          <div class="item" @click="toShare">
             <i class="iconfont icon-huaban"></i>
-            分享链接
+            收藏链接
           </div>
         </div>
         <div style="width: 100%;height: 10px;background-color: #b2bac2;"></div>
@@ -28,6 +24,7 @@
           <articleList :index="currentRouter"
                        :totalSize="myRouters.length"
                        :tools="tools"
+                       :shareDetail="shareDetail"
                        @initTools="initTools"
                        @searchValue="searchValue"></articleList>
         </div>
@@ -35,7 +32,7 @@
       <div class="right">
         <div class="login">
           <div class="login-head">
-            <div v-if="false" class="noLogin">
+            <div v-if="true" class="noLogin">
               <span class="toLogin" @click="toLogin">登录</span>
               <span @click="toRegist">注册</span>
             </div>
@@ -74,22 +71,27 @@
         loginShow: false,
         myRouters: [
           '热门',
-          '最新',
-          '评论',
-          '我的文章',
-          '已分享链接',
+          '最新分享',
           '个人工具',
         ],
         currentRouter: 0,
         selected: [],
-        tools: []
+        tools: [],
+        shareDetail: []
       };
     },
     mounted(){
       this.selected = new Array(this.myRouters.length).fill(false);
+      this.currentRouter = this.myRouters.indexOf('个人工具');
+      this.selected[this.currentRouter] = true;
+      this.selected.push();
+      this.initTools();
     },
     computed: {},
     methods: {
+      toShare() {
+        this.$router.push({path: 'share'});
+      },
       searchValue (val) {
         this.$http.api({
           url: '/huhuhu/ToolKit/search',
@@ -112,8 +114,12 @@
         this.currentRouter = val;
         this.selected[val] = true;
         this.selected.push();
-        if (val === this.myRouters.length - 1) {
+        if (val === this.myRouters.indexOf('个人工具')) {
           this.initTools();
+        } else if (val === this.myRouters.indexOf('最新分享')) {
+          this.getNewestShare("0");
+        } else if (val === this.myRouters.indexOf('热门')) {
+          this.getNewestShare("1");
         }
       },
       initTools: function () {
@@ -124,6 +130,22 @@
           useLoadLayer: true,
           successCallback: function (data) {
             this.tools = data.toolKitList;
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+          }.bind(this)
+        });
+      },
+      getNewestShare: function (val) {
+        this.$http.api({
+          url: '/huhuhu/share/selectNewestShare',
+          params: {
+            type: val
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.shareDetail = data.shares;
           }.bind(this),
           errorCallback: function (data) {
             doOperationFailture(this);
@@ -157,14 +179,7 @@
       closeLogin: function () {
         this.loginShow = false;
       }
-    }
-    ,
-    mounted()
-    {
-    }
-    ,
-    filters: {}
-    ,
+    },
     components: {
       blogRegist,
       blogLogin,
@@ -172,12 +187,7 @@
       menbers,
       column
     }
-    ,
-    created()
-    {
-    }
-  }
-  ;
+  };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .new-home-root {

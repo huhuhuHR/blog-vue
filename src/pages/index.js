@@ -17,6 +17,7 @@ import theLifeCycle from './Demo/TheLifeCycle.vue';
 import operationDemo from './Demo/OperationDemo.vue';
 import vueEditDemo from './Demo/vueEditDemo.vue';
 import uploadExcel from './Demo/uploadExcel.vue';
+import toShare from './blog2.0/ToShare.vue';
 
 export {
   // login,
@@ -37,5 +38,6 @@ export {
   vueEditDemo,
   home,
   blog2,
-  uploadExcel
+  uploadExcel,
+  toShare
 }
