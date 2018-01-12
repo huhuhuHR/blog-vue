@@ -28,13 +28,14 @@
           <articleList :index="currentRouter"
                        :totalSize="myRouters.length"
                        :tools="tools"
-                       @initTools="initTools"></articleList>
+                       @initTools="initTools"
+                       @searchValue="searchValue"></articleList>
         </div>
       </div>
       <div class="right">
         <div class="login">
           <div class="login-head">
-            <div v-if="false" class="noLogin">
+            <div v-if="true" class="noLogin">
               <span class="toLogin" @click="toLogin">登录</span>
               <span @click="toRegist">注册</span>
             </div>
@@ -65,6 +66,7 @@
   import articleList from '../../components/Blog2/ArticleList.vue';
   import menbers from '../../components/Blog2/Members.vue';
   import column from '../../components/Blog2/myColumn.vue';
+  import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
   export default {
     data() {
       return {
@@ -88,6 +90,22 @@
     },
     computed: {},
     methods: {
+      searchValue (val) {
+        this.$http.api({
+          url: '/huhuhu/ToolKit/search',
+          params: {
+            'searchKey': val,
+            'userId': '248886518218567680'
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.tools = data.toolKitList;
+          }.bind(this),
+          errorCallback: function (data) {
+          }.bind(this)
+        });
+      },
       changeCurrentIndex: function (val) {
         this.selected[this.currentRouter] = false;
         console.log(val);

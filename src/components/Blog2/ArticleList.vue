@@ -1,11 +1,19 @@
 <template>
   <div class="list-body">
     <!--工具-->
-    <div v-show="last" class="tools">
-      <div class="tools-item" v-for="item in tools" @click.stop="addCount(item.id)">
-        <a :href="item.url" target="_Blank">
-          {{item.urlName}}
-        </a>
+    <div v-show="last">
+      <div class="search" @keyup.enter="searchValue">
+        <input placeholder="输入..." v-model="searchKey"/>
+        <i class="iconfont icon-sousuo"></i>
+      </div>
+      <div class="tools">
+        <div class="tools-item iconName-box" v-for="item in tools" @click.stop="addCount(item.id)">
+          <a :href="item.url" target="_Blank">
+            {{item.urlName}}
+          </a>
+        </div>
+        <div class="addSpace" v-if="isLeaveThree"></div>
+        <div class="addSpace" v-if="isLeaveTwo"></div>
       </div>
     </div>
     <!--搜索-->
@@ -36,11 +44,16 @@
 <script>
   export default{
     data () {
-      return {};
+      return {
+        searchKey: ''
+      };
     },
     mounted(){
     },
     methods: {
+      searchValue (){
+        this.$emit('searchValue', this.searchKey);
+      },
       addCount(val){
         this.$http.api({
           url: '/huhuhu/ToolKit/updateCountById',
@@ -64,6 +77,13 @@
       },
       last () {
         return this.index === this.totalSize - 1;
+      },
+      isLeaveThree () {
+        var length = this.tools.length;
+        return length % 4 === 3 || length % 4 === 2;
+      },
+      isLeaveTwo () {
+        return this.tools.length % 4 === 2;
       }
     },
     props: {
@@ -73,7 +93,8 @@
       },
       totalSize: {
         type: Number,
-        require: true
+        require: true,
+        default: 0
       },
       tools: {
         type: Array,
@@ -84,7 +105,7 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .list-body {
-    height: 92%;
+    height: 91%;
     overflow-y: scroll;
     ul {
       li {
@@ -128,11 +149,36 @@
         }
       }
     }
+    .search {
+      display: flex;
+      margin: 20px 37px 0 37px;
+      input {
+        width: 90%;
+        height: 50px;
+        padding: 0 50px 0 10px;
+        font-size: 16px;
+        color: #999;
+      }
+      i {
+        position: relative;
+        font-size: 50px;
+        color: #007fff;
+      }
+    }
     .tools {
       padding: 10px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      .iconName-box {
+        cursor: pointer;
+        background-color: #8c8c8c;
+        display: inline-block;
+        a {
+          text-decoration: none;
+          color: #FFFFFF;
+        }
+      }
       .tools-item {
         width: 19%;
         height: 50px;
@@ -145,6 +191,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
         color: #FFFFFF;
+      }
+      .addSpace {
+        width: 19%;
+        height: 50px;
+        margin: 20px;
       }
     }
   }
