@@ -4,7 +4,7 @@
     <div v-show="last">
       <div class="search" @keyup.enter="searchValue">
         <input placeholder="输入..." v-model="searchKey"/>
-        <i class="iconfont icon-sousuo"></i>
+        <i class="iconfont icon-sousuo" @click="searchKey"></i>
       </div>
       <div class="tools">
         <div class="tools-item iconName-box" v-for="item in tools" @click.stop="addCount(item.id)">
