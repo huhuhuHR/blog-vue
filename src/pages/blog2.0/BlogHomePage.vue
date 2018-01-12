@@ -35,7 +35,7 @@
       <div class="right">
         <div class="login">
           <div class="login-head">
-            <div v-if="true" class="noLogin">
+            <div v-if="false" class="noLogin">
               <span class="toLogin" @click="toLogin">登录</span>
               <span @click="toRegist">注册</span>
             </div>
