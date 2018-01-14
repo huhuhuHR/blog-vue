@@ -17,13 +17,14 @@
       <div class="inputbox">
         <input type="password" placeholder="密码" v-model="userPassword"/>
       </div>
+      <div class="error">{{error}}</div>
       <button class="btn" @click="toRegist">注册</button>
     </div>
   </div>
 </template>
 <script>
   import MaskLayer from '../operationDialog/MaskLayer.vue';
-
+  import {checkEmail} from '../../utils/CommonUtils';
   export default {
     data() {
       return {
@@ -36,6 +37,10 @@
       registShow: {
         type: Boolean,
         require: true
+      },
+      error: {
+        type: String,
+        require: false
       }
     },
     computed: {},
@@ -44,6 +49,25 @@
         this.$emit('closeRegist');
       },
       toRegist: function () {
+        if (!this.userName) {
+          console.log('用户名');
+          this.$emit('changeError', '用户名不能为空！');
+          return;
+        }
+        if (!this.userEmail) {
+          console.log('邮件名');
+          this.$emit('changeError', '邮件名不能为空！');
+          return;
+        }
+        if (!this.userPassword) {
+          console.log('密码');
+          this.$emit('changeError', '密码不能为空！');
+          return;
+        }
+        if (!checkEmail(this.userEmail)) {
+          this.$emit('changeError', '不合法邮件地址！');
+          return;
+        }
         this.$emit('regist', this.userName, this.userEmail, this.userPassword);
       }
     },
@@ -89,6 +113,11 @@
           outline: none;
           box-sizing: border-box;
         }
+      }
+      .error {
+        color: red;
+        position: relative;
+        top: -10px;
       }
       .btn {
         width: 100%;

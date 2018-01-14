@@ -32,13 +32,16 @@
       <div class="right">
         <div class="login">
           <div class="login-head">
-            <div v-if="true" class="noLogin">
+            <div v-if="userState === '0'" class="noLogin">
               <span class="toLogin" @click="toLogin">登录</span>
               <span @click="toRegist">注册</span>
             </div>
-            <div v-else class="hasLogin">
+            <div v-if="userState === '1'" class="toactive" @click="toActiveWithCookieUUID">
+              <span>去激活</span>
+            </div>
+            <div v-if="userState === '2'" class="hasLogin">
               <span>已经登录</span>
-              <i class="iconfont icon-tuichu"></i>
+              <i class="iconfont icon-tuichu" @click="loginOut"></i>
             </div>
           </div>
         </div>
@@ -49,11 +52,16 @@
     <blog-regist
       :registShow="registShow"
       @closeRegist="closeRegist"
+      :error="reigistError"
       @regist="regist"
+      @changeError="changeError"
     ></blog-regist>
     <blog-login
       :loginShow="loginShow"
       @closeLogin="closeLogin"
+      @goToLogin="goToLogin"
+      :loginError="loginError"
+      @changeLoginError="changeLoginError"
     ></blog-login>
   </div>
 </template>
@@ -64,6 +72,22 @@
   import menbers from '../../components/Blog2/Members.vue';
   import column from '../../components/Blog2/myColumn.vue';
   import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
+  import {
+    saveCookie,
+    clearCookie,
+    TOKEN_KEY,
+    getCookieValue,
+    refresh,
+    myCookie,
+    setCookie,
+    UUID,
+    ONE_DAY
+  } from '../../auth/index';
+  import {
+    CHANE_STATE_USER,
+    CHANE_STATE_USERID,
+  } from '../../store/mutation-types';
+
   export default {
     data() {
       return {
@@ -77,7 +101,11 @@
         currentRouter: 0,
         selected: [],
         tools: [],
-        shareDetail: []
+        shareDetail: [],
+        reigistError: '',
+        loginError: '',
+        userId: myCookie.userId,
+        userState: myCookie.userState
       };
     },
     mounted(){
@@ -86,9 +114,54 @@
       this.selected[this.currentRouter] = true;
       this.selected.push();
       this.initTools();
+      // userState- 0游客;1注册未激活2注册已经激活/已登录
+      refresh();
     },
     computed: {},
     methods: {
+      toActiveWithCookieUUID(){
+        var uuid = getCookieValue(UUID);
+        console.log('uuid:' + uuid);
+        this.$router.push({path: '/blog/active', query: {'uuid': uuid}});
+      },
+      changeLoginError(val){
+        this.loginError = val;
+      },
+      goToLogin (name, pssword){
+        this.$http.api({
+          url: '/huhuhu/regist/getLoginInfo',
+          params: {
+            'name': name,
+            'password': pssword
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            if (data) {
+              if (data.result === '0') {
+                this.loginError = data.msg;
+              } else if (data.result === '1') {
+                this.userId = data.userId;
+                this.userState = '2';
+                this.closeLogin();
+                saveCookie(data.userId, this.userState);
+              } else if (data.result === '2') {
+                console.log("未激活");
+                this.loginError = data.msg;
+                this.closeLogin();
+                this.$router.push({path: '/blog/active', query: {'uuid': data.uuid}});
+              }
+            }
+          }.bind(this),
+          errorCallback: function (data) {
+            clearCookie();
+            doOperationFailture(this);
+          }.bind(this)
+        });
+      },
+      loginOut(){
+        clearCookie();
+      },
       toShare() {
         this.$router.push({path: 'share'});
       },
@@ -160,12 +233,37 @@
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
-            console.log("注册成功，查收邮件！！！")
+            if (data) {
+              var result = data.result;
+              if (result === '2') {
+                console.log('注册成功');
+//                0游客;1注册未激活2注册已经激活/已登录
+                this.userState = '1';
+                saveCookie(data.userId, '1');
+                this.closeRegist();
+                setCookie(UUID, data.uuid, ONE_DAY);
+                this.$router.push({path: '/blog/active', query: {'uuid': data.uuid}});
+              } else if (result === '0') {
+                this.reigistError = '用户名已经存在';
+              } else if (result === '1') {
+                this.reigistError = '邮件已存在';
+              } else if (result === '3' || result === '4') {
+                this.reigistError = '系统异常';
+              } else if (result === '5') {
+                this.reigistError = '激活邮件发送失败';
+              } else if (result === '6') {
+                this.reigistError = data.checkResult;
+              }
+            }
           }.bind(this),
           errorCallback: function (data) {
-            console.log("注册失败！！！")
+            console.log("注册失败！！！");
+            clearCookie();
           }.bind(this)
         });
+      },
+      changeError(val){
+        this.reigistError = val;
       },
       toRegist: function () {
         this.registShow = true;
@@ -290,6 +388,16 @@
               .toLogin:after {
                 content: "\B7";
                 margin: 2px;
+              }
+            }
+            .toactive {
+              text-align: center;
+              height: 48px;
+              line-height: 48px;
+              font-size: 16px;
+              color: #007fff;
+              span {
+                margin-right: 10px;
               }
             }
             .hasLogin {

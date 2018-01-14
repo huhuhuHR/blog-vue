@@ -4,7 +4,8 @@
 import {
   blog2,
   home,
-  toShare
+  toShare,
+  active
 } from '../pages/index';
 
 const blog2Router = [
@@ -23,6 +24,11 @@ const blog2Router = [
         path: 'share',
         component: toShare,
         meta: {title: 'share'}
+      },
+      {
+        path: 'active',
+        component: active,
+        meta: {title: 'active'}
       }
     ]
   }

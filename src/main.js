@@ -8,10 +8,10 @@ import auth from './auth';
 import http from './http/http';
 import store from './store';
 import {sync} from 'vuex-router-sync';
-import VueParticles from 'vue-particles'
-Vue.use(VueParticles);
+// import VueParticles from 'vue-particles'
+// Vue.use(VueParticles);
 http.config(Vue);
-auth.checkAuth();
+auth.refresh();
 
 // rem.initFontSize();
 Vue.prototype.HOST = '/huhuhu';

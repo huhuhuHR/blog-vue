@@ -9,12 +9,13 @@
         </div>
       </div>
       <div class="inputbox">
-        <input placeholder="请输入用户名"/>
+        <input placeholder="用户名/邮箱" v-model="name"/>
       </div>
       <div class="inputbox">
-        <input type="password" placeholder="密码"/>
+        <input type="password" placeholder="密码" v-model="password"/>
       </div>
-      <button class="btn">登录</button>
+      <div class="error">{{loginError}}</div>
+      <button class="btn" @click="goToLogin">登录</button>
     </div>
   </div>
 </template>
@@ -23,18 +24,36 @@
 
   export default {
     data() {
-      return {};
+      return {
+        name: '',
+        password: ''
+      };
     },
     props: {
       loginShow: {
         type: Boolean,
         require: true
+      },
+      loginError: {
+        type: String,
+        require: false
       }
     },
     computed: {},
     methods: {
       closeLogin: function () {
         this.$emit('closeLogin');
+      },
+      goToLogin: function () {
+        if (this.name === '') {
+          this.$emit('changeLoginError', '用户名不能为空');
+          return;
+        }
+        if (this.password === '') {
+          this.$emit('changeLoginError', '密码不能为空');
+          return;
+        }
+        this.$emit('goToLogin', this.name, this.password);
       }
     },
     mounted() {
@@ -80,6 +99,11 @@
           outline: none;
           box-sizing: border-box;
         }
+      }
+      .error {
+        color: red;
+        position: relative;
+        top: -10px;
       }
       .btn {
         width: 100%;

@@ -12,8 +12,13 @@ const checkParms = (params) => {
     }
   }
 };
+const checkEmail = (val) => {
+  var regex = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+  return regex.test(val);
+};
 
 module.exports = {
   isEmpty,
-  checkParms
+  checkParms,
+  checkEmail
 };

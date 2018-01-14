@@ -18,6 +18,7 @@ import operationDemo from './Demo/OperationDemo.vue';
 import vueEditDemo from './Demo/vueEditDemo.vue';
 import uploadExcel from './Demo/uploadExcel.vue';
 import toShare from './blog2.0/ToShare.vue';
+import active from './blog2.0/Active.vue';
 
 export {
   // login,
@@ -39,5 +40,6 @@ export {
   home,
   blog2,
   uploadExcel,
-  toShare
+  toShare,
+  active
 }

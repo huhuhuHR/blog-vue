@@ -6,8 +6,8 @@ import store from '../store';
 // / Override timeout default for the library
 // Now all requests will wait 10 seconds before timing out
 const globalConfig = (axios) => {
-  //设置超时时间
-  axios.defaults.timeout = 60000;
+  //设置超时时间 2分钟
+  axios.defaults.timeout = 120000;
 };
 
 const transformRequest = (axios) => {
@@ -109,9 +109,8 @@ const api = ({url, method = 'POST', params = {}, emulateJSON = false, useLoadLay
     if (error.response) {
       errorCallback && errorCallback(error.response);
     } else {
-      console.error('[Error]', error.message);
+      console.error(error);
     }
-    console.error(error.config);
   });
 };
 const uploadApi = ({url, method = 'POST', params = new FormData(), useLoadLayer = true, successCallback, errorCallback}) => {
@@ -137,9 +136,8 @@ const uploadApi = ({url, method = 'POST', params = new FormData(), useLoadLayer 
       errorCallback && errorCallback(error.response);
     } else {
       // 客户端代码异常（request 预处理、 successCallback 执行报错）或 请求超时
-      console.error('[Error]', error.message);
+      console.error(error);
     }
-    console.error(error.config);
   });
 };
 export default {

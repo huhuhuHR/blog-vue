@@ -1,19 +1,35 @@
-const TOKEN_KEY = 'uuid';
-const TOKEN_KEY_EXPIRE_TIME = 1000 * 60 * 60;
-
-const checkAuth = () => {
-  let token = getCookieValue(TOKEN_KEY);
-  cookie.authenticated = !!token;
-};
+const TOKEN_KEY = 'token';
+const UUID = 'uuid';
+const ONE_HOUR = 60 * 60 * 1000;
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 const clearCookie = () => {
-  setCookie(cookie.cookieName, null, -1);
+  setCookie(TOKEN_KEY, null, -1);
+  myCookie.userId = '';
+  myCookie.userState = '0';
+  window.location.reload();
 };
-const saveCookie = (value, id) => {
-  let name = TOKEN_KEY;
-  let expireTime = TOKEN_KEY_EXPIRE_TIME;
-  setCookie(name, value, expireTime);
-  cookie.accountId = id;
+
+const saveCookie = (userId, userState) => {
+  var cookie = userId + '-' + userState;
+  console.log('setCookie:' + myCookie);
+  setCookie(TOKEN_KEY, cookie, ONE_DAY);
+  myCookie.userId = userId;
+  myCookie.userState = userState;
+};
+
+const refresh = () => {
+  var cookies = getCookieValue(TOKEN_KEY);
+  console.log('cookies:' + cookies);
+  if (cookies) {
+    var array = cookies.split('-');
+    if (array) {
+      myCookie.userId = array[0];
+      myCookie.userState = array[1];
+      console.log('refresh-userId:' + myCookie.userId);
+      console.log('refresh-userState:' + myCookie.userState);
+    }
+  }
 };
 const getCookieValue = (name) => {
   var cookieValues = new RegExp('(^| )' + name + '=([^;]*)(;|$)').exec(document.cookie);
@@ -25,17 +41,20 @@ const setCookie = (name, value, expireTime) => {
   expireTime && (expiresDate = new Date(), expiresDate.setTime(expiresDate.getTime() + expireTime));
   document.cookie = name + '=' + value + (expiresDate ? '; expires=' + expiresDate.toGMTString() : '');
 };
-const cookie = {
-  authenticated: false,
-  cookieName: '',
-  accountId: ''
+const myCookie = {
+  userId: '',
+  userState: '0'//默认0游客；1注册未激活；2注册已经激活/已登录
 };
-
-export default {
-  cookie,
-  checkAuth,
+// auth
+module.exports = {
+  myCookie,
+  refresh,
   saveCookie,
-  clearCookie,
+  setCookie,
   getCookieValue,
-  TOKEN_KEY
+  clearCookie,
+  TOKEN_KEY,
+  ONE_HOUR,
+  ONE_DAY,
+  UUID
 };
