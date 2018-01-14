@@ -6,7 +6,7 @@
           <div class="item">
             <img src="../../components/Blog2/1.jpeg"/>
           </div>
-          <div class="item" @click="toShare">
+          <div class="item" @click="toShare" v-if="shareShow">
             <i class="iconfont icon-huaban"></i>
             收藏链接
           </div>
@@ -45,7 +45,8 @@
             </div>
           </div>
         </div>
-        <column></column>
+        <column v-if="shareShow"
+                @deal="deal"></column>
         <menbers></menbers>
       </div>
     </div>
@@ -105,8 +106,9 @@
         reigistError: '',
         loginError: '',
         userId: myCookie.userId,
-        userState: myCookie.userState
-      };
+        userState: myCookie.userState,
+        shareShow: false
+      }
     },
     mounted(){
       this.selected = new Array(this.myRouters.length).fill(false);
@@ -116,9 +118,14 @@
       this.initTools();
       // userState- 0游客;1注册未激活2注册已经激活/已登录
       refresh();
+      console.log('userID:' + this.userId);
+      this.shareShow = this.userState === '2' && this.userId;
     },
     computed: {},
     methods: {
+      deal () {
+        this.$router.push({path: '/blog/manage'});
+      },
       toActiveWithCookieUUID(){
         var uuid = getCookieValue(UUID);
         console.log('uuid:' + uuid);
@@ -154,7 +161,6 @@
             }
           }.bind(this),
           errorCallback: function (data) {
-            clearCookie();
             doOperationFailture(this);
           }.bind(this)
         });
@@ -170,7 +176,7 @@
           url: '/huhuhu/ToolKit/search',
           params: {
             'searchKey': val,
-            'userId': '248886518218567680'
+            'userId': ''
           },
           emulateJSON: true,
           useLoadLayer: true,
@@ -198,7 +204,7 @@
       initTools: function () {
         this.$http.api({
           url: '/huhuhu/ToolKit/selectTookies',
-          params: {'userId': '248886518218567680'},
+          params: {'userId': ''},
           emulateJSON: true,
           useLoadLayer: true,
           successCallback: function (data) {
@@ -258,7 +264,6 @@
           }.bind(this),
           errorCallback: function (data) {
             console.log("注册失败！！！");
-            clearCookie();
           }.bind(this)
         });
       },

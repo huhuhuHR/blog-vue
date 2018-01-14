@@ -5,30 +5,36 @@ import {
   blog2,
   home,
   toShare,
-  active
+  active,
+  manage
 } from '../pages/index';
 
 const blog2Router = [
   {
     path: '/blog',
     component: blog2,
-    meta: {title: 'blog例子'},
+    meta: {title: '我的'},
     redirect: '/blog/home',
     children: [
       {
         path: 'home',
         component: home,
-        meta: {title: 'blog2'}
+        meta: {title: '博客'}
       },
       {
         path: 'share',
         component: toShare,
-        meta: {title: 'share'}
+        meta: {title: '恩系那个'}
       },
       {
         path: 'active',
         component: active,
-        meta: {title: 'active'}
+        meta: {title: '激活'}
+      },
+      {
+        path: 'manage',
+        component: manage,
+        meta: {title: '管理'}
       }
     ]
   }

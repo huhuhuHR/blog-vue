@@ -56,7 +56,6 @@
         this.$http.api({
           url: '/huhuhu/ToolKit/updateCountById',
           params: {
-            'userId': '248886518218567680',
             'id': val
           },
           emulateJSON: true,
@@ -145,7 +144,7 @@
               font-size: 14px;
               font-weight: 600;
               line-height: 1.2;
-              color: #2e3135;
+              color: #999999;
             }
           }
         }

@@ -36,12 +36,16 @@
   </div>
 </template>
 <script>
+  import {
+    myCookie
+  } from '../../auth/index';
   export default{
     data () {
       return {
         url: '',
         title: '',
-        desc: ''
+        desc: '',
+        userId: myCookie.userId
       };
     },
     methods: {
@@ -52,7 +56,7 @@
             shareUrl: this.url,
             shareTitle: this.title,
             shareDesc: this.desc,
-            userId: '248886518218567680'
+            userId: this.userId
           },
           emulateJSON: true,
           useLoadLayer: true,

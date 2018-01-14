@@ -1,28 +1,20 @@
 <template>
   <div class="user-hasLogin">
-    <div class="user-info">
-      <span>专栏：</span>霍荣
-    </div>
-    <div class="user-item">
-      <i class="iconfont icon-shoucang"></i>
-      <span>我的收藏</span>
-    </div>
-    <div class="user-item">
-      <i class="iconfont icon-huaban"></i>
-      <span>我的分享</span>
-    </div>
-    <div class="user-item">
+    <div class="user-item" @click="deal">
       <i class="iconfont icon-ttpodicon"></i>
-      <span>设置</span>
+      <span>管理</span>
     </div>
   </div>
 </template>
 <script>
   export default{
     data () {
-      return {
-        msg: ''
-      };
+      return {};
+    },
+    methods: {
+      deal(){
+        this.$emit('deal');
+      }
     }
   };
 </script>

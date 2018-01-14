@@ -1,12 +1,12 @@
 <template>
   <div class="Active-item">
     <div class="box" @keyup.enter="toActive">
-      <input placeholder="口令" v-model="activeKey"/>
+      <input placeholder="激活口令" v-model="activeKey"/>
     </div>
   </div>
 </template>
 <script>
-  import {saveCookie, getCookieValue, UUID, clearCookie} from '../../auth/index';
+  import {saveCookie, getCookieValue, UUID} from '../../auth/index';
   export default{
     data () {
       return {
