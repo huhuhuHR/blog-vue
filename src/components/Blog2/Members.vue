@@ -22,6 +22,9 @@
         memberSize: 0
       };
     },
+    mounted(){
+      this.getMembers();
+    },
     methods: {
       getMembers(){
         this.$http.api({
