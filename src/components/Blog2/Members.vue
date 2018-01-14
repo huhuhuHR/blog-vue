@@ -1,14 +1,14 @@
 <template>
   <div class="user-else">
     <div class="user-else-head">
-      <span>网站成员(10)</span>
+      <span>网站成员({{memberSize}})</span>
     </div>
     <div class="over-flow-scroll">
-      <div class="user-else-info" v-for="i in 10">
+      <div class="user-else-info" v-for="member in members">
         <img src="./1.jpeg"/>
         <div class="introduce">
-          <div class="user-name">霍荣</div>
-          <div class="user-good-at">java</div>
+          <div class="user-name">{{member.name}}</div>
+          <div class="user-good-at">{{member.email}}</div>
         </div>
       </div>
     </div>
@@ -18,8 +18,24 @@
   export default{
     data () {
       return {
-        msg: ''
+        members: [],
+        memberSize: 0
       };
+    },
+    methods: {
+      getMembers(){
+        this.$http.api({
+          url: '/huhuhu/regist/getMembers',
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.memberSize = data.size;
+            this.members = data.members;
+          }.bind(this),
+          errorCallback: function (data) {
+          }.bind(this)
+        });
+      }
     }
   };
 </script>
