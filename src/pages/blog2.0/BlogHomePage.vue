@@ -28,7 +28,8 @@
                        @initTools="initTools"
                        @searchValue="searchValue"
                        @getNewestShare="getNewestShare"
-                       :currentRouter="currentRouter"></articleList>
+                       :currentRouter="currentRouter"
+                       @searchKeyFunction="searchKeyFunction"></articleList>
         </div>
       </div>
       <div class="right">
@@ -112,12 +113,12 @@
         shareShow: false
       }
     },
-    mounted(){
+    mounted() {
       this.selected = new Array(this.myRouters.length).fill(false);
-      this.currentRouter = this.myRouters.indexOf('个人工具');
+      this.currentRouter = this.myRouters.indexOf('热门');
       this.selected[this.currentRouter] = true;
       this.selected.push();
-      this.initTools();
+      this.getNewestShare(this.currentRouter);
       // userState- 0游客;1注册未激活2注册已经激活/已登录
       refresh();
       console.log('userID:' + this.userId);
@@ -125,18 +126,35 @@
     },
     computed: {},
     methods: {
-      deal () {
+      searchKeyFunction(val1, val2) {
+        this.$http.api({
+          url: '/huhuhu/share/selectNewestShare',
+          params: {
+            type: val1,
+            searchKey: val2
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.shareDetail = data.shares;
+          }.bind(this),
+          errorCallback: function (data) {
+            doOperationFailture(this);
+          }.bind(this)
+        });
+      },
+      deal() {
         this.$router.push({path: '/blog/manage'});
       },
-      toActiveWithCookieUUID(){
+      toActiveWithCookieUUID() {
         var uuid = getCookieValue(UUID);
         console.log('uuid:' + uuid);
         this.$router.push({path: '/blog/active', query: {'uuid': uuid}});
       },
-      changeLoginError(val){
+      changeLoginError(val) {
         this.loginError = val;
       },
-      goToLogin (name, pssword){
+      goToLogin(name, pssword) {
         this.$http.api({
           url: '/huhuhu/regist/getLoginInfo',
           params: {
@@ -168,13 +186,13 @@
           }.bind(this)
         });
       },
-      loginOut(){
+      loginOut() {
         clearCookie();
       },
       toShare() {
         this.$router.push({path: 'share'});
       },
-      searchValue (val) {
+      searchValue(val) {
         this.$http.api({
           url: '/huhuhu/ToolKit/search',
           params: {
@@ -199,9 +217,9 @@
         if (val === this.myRouters.indexOf('个人工具')) {
           this.initTools();
         } else if (val === this.myRouters.indexOf('最新分享')) {
-          this.getNewestShare("0");
-        } else if (val === this.myRouters.indexOf('热门')) {
           this.getNewestShare("1");
+        } else if (val === this.myRouters.indexOf('热门')) {
+          this.getNewestShare("0");
         }
       },
       initTools: function () {
@@ -271,7 +289,7 @@
           }.bind(this)
         });
       },
-      changeError(val){
+      changeError(val) {
         this.reigistError = val;
       },
       toRegist: function () {

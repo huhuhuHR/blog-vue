@@ -3,8 +3,8 @@
     <!--工具-->
     <div v-show="last">
       <div class="search" @keyup.enter="searchValue">
-        <input placeholder="输入..." v-model="searchKey"/>
-        <i class="iconfont icon-sousuo" @click="searchKey"></i>
+        <input placeholder="输入工具名称..." v-model="searchKey"/>
+        <i class="iconfont icon-sousuo" @click="searchValue"></i>
       </div>
       <div class="tools">
         <div class="tools-item iconName-box" v-for="item in tools" @click.stop="addCount(item.id)">
@@ -17,6 +17,10 @@
       </div>
     </div>
     <div v-show="showElse">
+      <div class="search" @keyup.enter="searchKeyFunction">
+        <input placeholder="输入标题..." v-model="searchKeyTitle"/>
+        <i class="iconfont icon-sousuo" @click="searchKeyFunction"></i>
+      </div>
       <ul>
         <li v-for="share in shareDetail">
           <div class="content-box" @click="toUrl(share.shareUrl,share.shareId)">
@@ -41,16 +45,21 @@
   </div>
 </template>
 <script>
-  export default{
-    data () {
+  export default {
+    data() {
       return {
-        searchKey: ''
+        searchKey: '',
+        searchKeyTitle: ''
       };
     },
-    mounted(){
+    mounted() {
     },
     methods: {
-      toUrl (val, val1) {
+      searchKeyFunction() {
+        this.$emit('searchKeyFunction', this.currentRouter === 0 ? '0' : '1', this.searchKeyTitle);
+        this.searchKeyTitle = '';
+      },
+      toUrl(val, val1) {
         this.$http.api({
           url: '/huhuhu/share/addShareCount',
           params: {
@@ -63,13 +72,14 @@
           errorCallback: function (data) {
           }.bind(this)
         });
-        this.$emit('getNewestShare', this.currentRouter.toString());
+        this.$emit('getNewestShare', this.currentRouter === 0 ? '0' : '1');
         window.open(val);
       },
-      searchValue (){
+      searchValue() {
         this.$emit('searchValue', this.searchKey);
+        this.searchKey = '';
       },
-      addCount(val){
+      addCount(val) {
         this.$http.api({
           url: '/huhuhu/ToolKit/updateCountById',
           params: {
@@ -86,17 +96,17 @@
       }
     },
     computed: {
-      showElse(){
+      showElse() {
         return !(this.index === this.totalSize - 1);
       },
-      last () {
+      last() {
         return this.index === this.totalSize - 1;
       },
-      isLeaveThree () {
+      isLeaveThree() {
         var length = this.tools.length;
         return length % 4 === 3 || length % 4 === 2;
       },
-      isLeaveTwo () {
+      isLeaveTwo() {
         return this.tools.length % 4 === 2;
       }
     },

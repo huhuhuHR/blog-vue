@@ -34,21 +34,23 @@
   import {
     myCookie
   } from '../../auth/index';
-  export default{
-    data () {
+
+  export default {
+    data() {
       return {
         userId: myCookie.userId,
-        selected: [false, true],
+        selected: [true, false],
         shares: [],
         myTools: []
       };
     },
     computed: {},
-    mounted () {
-      console.log('userId:' + this.userId)
+    mounted() {
+      console.log('userId:' + this.userId);
+      this.select(0);
     },
     methods: {
-      toDelete (val, type) {
+      toDelete(val, type) {
         if (type === 0) {
           http.api({
             url: '/huhuhu/share/delteShares',
@@ -86,7 +88,7 @@
           });
         }
       },
-      select (index) {
+      select(index) {
         this.selected.fill(false);
         this.selected[index] = true;
         this.selected.push();
