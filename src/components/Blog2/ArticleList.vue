@@ -51,7 +51,6 @@
     },
     methods: {
       toUrl (val, val1) {
-        console.log('嘿嘿嘿：' + this.currentRouter);
         this.$http.api({
           url: '/huhuhu/share/addShareCount',
           params: {
