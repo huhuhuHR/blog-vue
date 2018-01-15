@@ -8,22 +8,17 @@
                  placeholder="分享网址：wwww.baidu.com"
                  v-model="url"/>
         </div>
-        <div class="url">
+        <div class="url" style="padding-bottom: 0;!important;">
           <input type="text"
                  placeholder="标题"
                  maxlength="128"
                  v-model="title"/>
         </div>
-        <div class="description-input">
-          <textarea placeholder="描述（140字以内）"
-                    maxlength="140"
-                    rows="4"
-                    v-model="desc"></textarea>
-        </div>
         <div class="label">
-          <div>标签:</div>
-          <input type="text" placeholder="可选填"/>
+          <div class="words">标签:</div>
+          <input type="text" placeholder="必填" v-model="label" maxlength="10"/>
         </div>
+        <div>{{error}}</div>
         <div class="submit" @click="submit">
           提交
         </div>
@@ -36,6 +31,7 @@
   </div>
 </template>
 <script>
+  import utils from '../../utils/CommonUtils';
   import {
     myCookie
   } from '../../auth/index';
@@ -44,29 +40,46 @@
       return {
         url: '',
         title: '',
-        desc: '',
-        userId: myCookie.userId
+        userId: myCookie.userId,
+        label: '',
+        error: ''
       };
     },
     methods: {
+      checkParams(){
+        if (utils.isEmpty(this.url)) {
+          this.error = 'url必填';
+        } else if (!utils.isURL(this.url)) {
+          this.error = '无效url';
+        } else if (utils.isEmpty(this.label)) {
+          this.error = '标签必填';
+        } else if (utils.isEmpty(this.title)) {
+          this.error = '标题必填';
+        } else {
+          return true;
+        }
+        return false;
+      },
       submit () {
-        this.$http.api({
-          url: this.HOST + '/share/toShare',
-          params: {
-            shareUrl: this.url,
-            shareTitle: this.title,
-            shareDesc: this.desc,
-            userId: this.userId
-          },
-          emulateJSON: true,
-          useLoadLayer: true,
-          successCallback: function (data) {
-            this.$router.push({path: 'home'});
-          }.bind(this),
-          errorCallback: function (data) {
-            console.log("fail")
-          }.bind(this)
-        });
+        if (this.checkParams) {
+          this.$http.api({
+            url: this.HOST + '/share/toShare',
+            params: {
+              shareUrl: this.url,
+              shareTitle: this.title,
+              shareDesc: this.label,
+              userId: this.userId
+            },
+            emulateJSON: true,
+            useLoadLayer: true,
+            successCallback: function (data) {
+              this.$router.push({path: 'home'});
+            }.bind(this),
+            errorCallback: function (data) {
+              console.log("fail")
+            }.bind(this)
+          });
+        }
       }
     }
   };
@@ -112,6 +125,9 @@
           font-size: 16px;
           color: #999;
           margin: 10px 0;
+          .words {
+            margin-right: 5px;
+          }
           input {
             font-size: 12px;
             background-color: #FFFFFF;

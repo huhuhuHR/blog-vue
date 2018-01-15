@@ -26,7 +26,9 @@
                        :tools="tools"
                        :shareDetail="shareDetail"
                        @initTools="initTools"
-                       @searchValue="searchValue"></articleList>
+                       @searchValue="searchValue"
+                       @getNewestShare="getNewestShare"
+                       :currentRouter="currentRouter"></articleList>
         </div>
       </div>
       <div class="right">
@@ -152,6 +154,7 @@
                 this.userState = '2';
                 this.closeLogin();
                 saveCookie(data.userId, this.userState);
+                window.location.reload();
               } else if (data.result === '2') {
                 console.log("未激活");
                 this.loginError = data.msg;
@@ -216,6 +219,7 @@
         });
       },
       getNewestShare: function (val) {
+        console.log('刷新？？？' + val);
         this.$http.api({
           url: '/huhuhu/share/selectNewestShare',
           params: {

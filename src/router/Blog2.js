@@ -24,7 +24,7 @@ const blog2Router = [
       {
         path: 'share',
         component: toShare,
-        meta: {title: '恩系那个'}
+        meta: {title: '分享'}
       },
       {
         path: 'active',

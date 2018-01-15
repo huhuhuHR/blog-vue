@@ -19,15 +19,19 @@
     <div v-show="showElse">
       <ul>
         <li v-for="share in shareDetail">
-          <div class="content-box" @click="toUrl(share.shareUrl)">
+          <div class="content-box" @click="toUrl(share.shareUrl,share.shareId)">
             <div class="info-box">
               <div class="info-row meta-row">
-                {{share.shareTitle}}
+                标题：{{share.shareTitle}}
               </div>
               <div class="info-row title-row">
-                {{share.shareDesc}}
-              </div>
-              <div class="info-row action-row">
+                <span class="label-box">{{share.shareDesc}}</span>
+                <span>-</span>
+                <span>分享人({{share.userName}})</span>
+                <span>-</span>
+                <span>分享时间({{share.dayString}})</span>
+                <span>-</span>
+                <span>阅读次数({{share.recordCount}})</span>
               </div>
             </div>
           </div>
@@ -46,7 +50,21 @@
     mounted(){
     },
     methods: {
-      toUrl (val) {
+      toUrl (val, val1) {
+        console.log('嘿嘿嘿：' + this.currentRouter);
+        this.$http.api({
+          url: '/huhuhu/share/addShareCount',
+          params: {
+            'shareId': val1
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+          }.bind(this),
+          errorCallback: function (data) {
+          }.bind(this)
+        });
+        this.$emit('getNewestShare', this.currentRouter.toString());
         window.open(val);
       },
       searchValue (){
@@ -100,6 +118,10 @@
       shareDetail: {
         type: Array,
         require: false
+      },
+      currentRouter: {
+        type: Number,
+        require: false
       }
     }
   };
@@ -137,14 +159,21 @@
               }
             }
             .meta-row {
-              font-size: 12px;
-              color: #b2bac2;
+              font-size: 16px;
             }
             .title-row {
               font-size: 14px;
               font-weight: 600;
               line-height: 1.2;
               color: #999999;
+              .label-box {
+                height: 20px;
+                padding: 5px;
+                text-align: center;
+                background-color: #02ac1a;
+                color: #FFFFFF;
+                border-radius: 5px;
+              }
             }
           }
         }
