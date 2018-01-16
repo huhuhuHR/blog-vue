@@ -141,6 +141,7 @@
       li {
         border-bottom: 1px solid rgba(178, 186, 194, .15);
         .content-box {
+          cursor:pointer;
           display: flex;
           align-self: center;
           padding: 20px 30px;
