@@ -40,10 +40,10 @@
       border-radius: 2px;
       padding: 10px 0;
       margin-bottom: 2px;
-      font-size: 12px;
+      font-size: 16px;
       color: #007fff;
       i {
-        font-size: 12px;
+        font-size: 16px;
         color: #000000;
         margin-right: 5px;
       }
