@@ -100,7 +100,7 @@
         myRouters: [
           '热门',
           '最新分享',
-          '个人工具',
+          '快捷入口',
         ],
         currentRouter: 0,
         selected: [],
@@ -214,7 +214,7 @@
         this.currentRouter = val;
         this.selected[val] = true;
         this.selected.push();
-        if (val === this.myRouters.indexOf('个人工具')) {
+        if (val === this.myRouters.indexOf('快捷入口')) {
           this.initTools();
         } else if (val === this.myRouters.indexOf('最新分享')) {
           this.getNewestShare("1");

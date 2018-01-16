@@ -2,7 +2,7 @@
   <div class="manage-item">
     <div class="head">
       <div :class="{myShare: true,'selected': selected[0]}" @click="select(0)">我的分享</div>
-      <div :class="{myTool: true,'selected': selected[1]}" @click="select(1)">我的工具</div>
+      <div :class="{myTool: true,'selected': selected[1]}" @click="select(1)">快捷入口</div>
     </div>
     <div class="content">
       <div class="tools" v-show="selected[0]">
