@@ -57,7 +57,6 @@
     methods: {
       searchKeyFunction() {
         this.$emit('searchKeyFunction', this.currentRouter === 0 ? '0' : '1', this.searchKeyTitle);
-        this.searchKeyTitle = '';
       },
       toUrl(val, val1) {
         this.$http.api({
@@ -77,7 +76,6 @@
       },
       searchValue() {
         this.$emit('searchValue', this.searchKey);
-        this.searchKey = '';
       },
       addCount(val) {
         this.$http.api({
