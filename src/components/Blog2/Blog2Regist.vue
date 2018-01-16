@@ -1,7 +1,7 @@
 <template>
   <div class="regist-root" v-show="registShow">
     <mask-layer></mask-layer>
-    <div class="regist">
+    <div class="regist" @keyup.enter="toRegist">
       <div class="regist-head">
         <div>注册</div>
         <div @click="closeRegist">
@@ -17,6 +17,12 @@
       <div class="inputbox">
         <input type="password" placeholder="密码" v-model="userPassword"/>
       </div>
+      <div class="inputbox">
+        <input type="password"
+               placeholder="重复密码"
+               v-model="userPasswordRepeat"
+               v-on:blur="checkPassword"/>
+      </div>
       <div class="error">{{error}}</div>
       <button class="btn" @click="toRegist">注册</button>
     </div>
@@ -25,12 +31,14 @@
 <script>
   import MaskLayer from '../operationDialog/MaskLayer.vue';
   import {checkEmail} from '../../utils/CommonUtils';
+
   export default {
     data() {
       return {
         userName: '',
         userEmail: '',
-        userPassword: ''
+        userPassword: '',
+        userPasswordRepeat: ''
       };
     },
     props: {
@@ -43,12 +51,41 @@
         require: false
       }
     },
-    computed: {},
+    watch: {
+      userName(newVal, oldVal) {
+        this.hasChage(newVal, oldVal);
+      },
+      userEmail(newVal, oldVal) {
+        this.hasChage(newVal, oldVal);
+      },
+      userPassword(newVal, oldVal) {
+        this.hasChage(newVal, oldVal);
+      },
+      userPasswordRepeat(newVal, oldVal) {
+        this.hasChage(newVal, oldVal);
+      }
+    },
     methods: {
+      hasChage(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.$emit('changeError', '');
+        }
+      },
+      checkPassword() {
+        if (this.userPassword != this.userPasswordRepeat) {
+          this.$emit('changeError', '密码不一致!');
+        } else {
+          this.$emit('changeError', '');
+        }
+      },
       closeRegist: function () {
         this.$emit('closeRegist');
       },
       toRegist: function () {
+        if (this.userPassword != this.userPasswordRepeat) {
+          this.$emit('changeError', '密码不一致!');
+          return;
+        }
         if (!this.userName) {
           console.log('用户名');
           this.$emit('changeError', '用户名不能为空！');
@@ -87,7 +124,7 @@
       padding: 20px;
       background-color: #ffffff;
       width: 300px;
-      height: 265px;
+      height: 320px;
       position: absolute;
       right: 0;
       left: 0;
@@ -120,6 +157,7 @@
         top: -10px;
       }
       .btn {
+        cursor: pointer;
         width: 100%;
         height: 40px;
         color: #fff;

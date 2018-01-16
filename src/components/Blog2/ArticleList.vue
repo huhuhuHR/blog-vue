@@ -202,6 +202,7 @@
         position: relative;
         font-size: 50px;
         color: #007fff;
+        cursor:pointer;
       }
     }
     .tools {
