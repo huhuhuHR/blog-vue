@@ -358,6 +358,7 @@
           display: flex;
           align-items: center;
           .item {
+            cursor: pointer;
             display: flex;
             color: #007fff;
             width: 70px;
@@ -384,6 +385,7 @@
             ul {
               display: flex;
               li {
+                cursor: pointer;
                 padding: 0 16px;
                 font-size: 14px;
                 border-right: 1px solid hsla(0, 0%, 59%, .2);
@@ -416,6 +418,9 @@
                 content: "\B7";
                 margin: 2px;
               }
+              span {
+                cursor: pointer;
+              }
             }
             .toactive {
               text-align: center;
@@ -423,11 +428,15 @@
               line-height: 48px;
               font-size: 16px;
               color: #007fff;
+              cursor: pointer;
               span {
                 margin-right: 10px;
               }
             }
             .hasLogin {
+              i {
+                cursor: pointer;
+              }
               text-align: center;
               height: 48px;
               line-height: 48px;

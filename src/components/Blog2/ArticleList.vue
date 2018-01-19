@@ -7,8 +7,8 @@
         <i class="iconfont icon-sousuo" @click="searchValue"></i>
       </div>
       <div class="tools">
-        <div class="tools-item iconName-box" v-for="item in tools" @click.stop="addCount(item.id)">
-          <a :href="item.url" target="_Blank">
+        <div class="tools-item iconName-box" v-for="item in tools">
+          <a :href="item.url" target="_Blank" @click.stop="addCount(item.id)">
             {{item.urlName}}
           </a>
         </div>
@@ -141,6 +141,7 @@
       li {
         border-bottom: 1px solid rgba(178, 186, 194, .15);
         .content-box {
+          cursor:pointer;
           display: flex;
           align-self: center;
           padding: 20px 30px;
@@ -200,6 +201,7 @@
         position: relative;
         font-size: 50px;
         color: #007fff;
+        cursor:pointer;
       }
     }
     .tools {

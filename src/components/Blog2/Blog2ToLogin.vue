@@ -1,7 +1,7 @@
 <template>
   <div class="login-root" v-show="loginShow">
     <mask-layer></mask-layer>
-    <div class="login">
+    <div class="login" @keyup.enter="goToLogin">
       <div class="login-head">
         <div>登录</div>
         <div @click="closeLogin">
@@ -106,6 +106,7 @@
         top: -10px;
       }
       .btn {
+        cursor:pointer;
         width: 100%;
         height: 40px;
         color: #fff;

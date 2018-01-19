@@ -35,6 +35,7 @@
       margin-bottom: 0 !important;
     }
     .user-item {
+      cursor:pointer;
       border-top: 1px solid rgba(178, 186, 194, .15);
       border-bottom: 1px solid rgba(178, 186, 194, .15);
       border-radius: 2px;
