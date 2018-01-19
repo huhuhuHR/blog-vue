@@ -26,7 +26,6 @@
     "underscore": "^1.8.3",
     "url-search-params": "^0.6.1",
     "vue": "^2.5.2",
-    "vue-cropperjs": "^2.1.1",
     "vue-lazyload": "^1.0.0-rc7",
     "vue-router": "^2.5.3",
     "vue-server-renderer": "^2.3.3",
@@ -36,7 +35,8 @@
     "vue-scroller": "^2.2.0",
     "vue-particles": "^1.0.9",
     "vue2-editor": "^2.0.26",
-    "webpack-jarvis": "^0.2.2"
+    "webpack-jarvis": "^0.2.2",
+    "vue-cropper": "^0.2.9"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

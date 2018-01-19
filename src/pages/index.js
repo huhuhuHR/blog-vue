@@ -11,6 +11,7 @@ import home from './blog2.0/BlogHomePage.vue';
 // import projectRecord from './blog/ProjectRecord.vue';
 // import photoWall from './blog/PhotoWall.vue';
 import Demo from './Demo/Demo.vue';
+import vueSropper from "./Demo/VueSropper.vue";
 import vuexDemo from './Demo/VuexDemo.vue'
 import ValidateCode from './Demo/ValidateCode.vue'
 import theLifeCycle from './Demo/TheLifeCycle.vue';
@@ -43,5 +44,6 @@ export {
   uploadExcel,
   toShare,
   active,
-  manage
+  manage,
+  vueSropper
 }

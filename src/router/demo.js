@@ -8,14 +8,15 @@ import {
   theLifeCycle,
   operationDemo,
   vueEditDemo,
-  uploadExcel
+  uploadExcel,
+  vueSropper
 } from '../pages/index';
 const demoRouter = [
   {
     path: '/demo',
     component: Demo,
     meta: {title: 'blog例子'},
-    redirect: '/demo/vueEditDemo',
+    redirect: '/demo/vueSropper',
     children: [
       {
         path: 'vuexDemo',
@@ -51,6 +52,11 @@ const demoRouter = [
         path: 'uploadExcel',
         component: uploadExcel,
         meta: {title: 'uploadExcel'}
+      },
+      {
+        path: 'vueSropper',
+        component: vueSropper,
+        meta: {title: '裁图'}
       }
     ]
   }

@@ -53,6 +53,13 @@ module.exports = {
         pathRewrite: {
           '^/huhuhu': '' //需要rewrite重写的.需要项目名字就加，不需要就不加
         }
+      },
+      '/nginximage': {
+        target: 'http://localhost:7002', // 接口域名
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          '^/nginximage': 'image' //需要rewrite重写的.需要项目名字就加，不需要就不加
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
