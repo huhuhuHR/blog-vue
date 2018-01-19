@@ -11,6 +11,8 @@ var baseWebpackConfig = require('./webpack.base.conf');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 // webpack错误信息提示插件
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const Jarvis = require('webpack-jarvis');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 // add hot-reload related code to entry chunks
 // 将 Hol-reload 热重载的客户端代码添加到 webpack.base.conf 的 对应 entry 中，一起打包
@@ -47,6 +49,10 @@ module.exports = merge(baseWebpackConfig, {
       inject: true
     }),
     // webpack错误信息提示插件
-    new FriendlyErrorsPlugin()
+    new FriendlyErrorsPlugin(),
+    new Jarvis({
+      port: 1337 // optional: set a port
+    }),
+    new BundleAnalyzerPlugin()
   ]
 });
