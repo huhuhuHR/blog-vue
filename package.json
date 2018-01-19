@@ -36,8 +36,7 @@
     "vue-scroller": "^2.2.0",
     "vue-particles": "^1.0.9",
     "vue2-editor": "^2.0.26",
-    "webpack-jarvis": "^0.2.2",
-    "webpack-bundle-analyzer": "^2.9.2"
+    "webpack-jarvis": "^0.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

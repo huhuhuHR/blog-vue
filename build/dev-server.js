@@ -6,6 +6,8 @@ var config = require('../config');
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
+console.log('我的运行环境：' + process.env.NODE_ENV);
+
 // 可以强制打开浏览器并跳转到指定 url 的插件
 // https://github.com/sindresorhus/opn
 var opn = require('opn');
@@ -16,9 +18,9 @@ var express = require('express');
 
 var webpack = require('webpack');
 /*
-   http-proxy-middleware 是一个 node 代理中间件，可以将http请求代理到其他服务器
-   详情文档：https://github.com/chimurai/http-proxy-middleware
-*/
+ http-proxy-middleware 是一个 node 代理中间件，可以将http请求代理到其他服务器
+ 详情文档：https://github.com/chimurai/http-proxy-middleware
+ */
 var proxyMiddleware = require('http-proxy-middleware');
 // 使用 dev 开发环境的配置
 var webpackConfig = require('./webpack.dev.conf');
@@ -40,12 +42,12 @@ var compiler = webpack(webpackConfig);
 // 可以将编译后的文件暂存到内存中的插件
 // https://github.com/webpack/webpack-dev-middleware
 /*
-    webpack-dev-middleware
-    用来在内存中生成打包好的文件，而不用写到磁盘上，它提供从 webpack 到服务器的文件传输，用来配合进行热重载
+ webpack-dev-middleware
+ 用来在内存中生成打包好的文件，而不用写到磁盘上，它提供从 webpack 到服务器的文件传输，用来配合进行热重载
 
-    第一个参数：webpack 实例
-    第二个参数：配置 只有 publicPath 必填，
-    其他参考文档 https://www.npmjs.com/package/webpack-dev-middleware
+ 第一个参数：webpack 实例
+ 第二个参数：配置 只有 publicPath 必填，
+ 其他参考文档 https://www.npmjs.com/package/webpack-dev-middleware
  */
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   // 公共路径，与webpack的publicPath一样
@@ -56,11 +58,11 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 // Hot-reload 热重载插件
 // https://github.com/glenjamin/webpack-hot-middleware
 /*
-   webpack-hot-middleware
-   用来接受 webpack 传递来的更新，并将其反应到浏览器客户端，需要与 webpack-dev-middleware 一起使用
+ webpack-hot-middleware
+ 用来接受 webpack 传递来的更新，并将其反应到浏览器客户端，需要与 webpack-dev-middleware 一起使用
 
-   使用文档：https://www.npmjs.com/package/webpack-hot-middleware
-*/
+ 使用文档：https://www.npmjs.com/package/webpack-hot-middleware
+ */
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {
   },
