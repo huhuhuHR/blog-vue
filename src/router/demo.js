@@ -9,7 +9,8 @@ import {
   operationDemo,
   vueEditDemo,
   uploadExcel,
-  vueSropper
+  vueSropper,
+  imageSelect
 } from '../pages/index';
 const demoRouter = [
   {
@@ -57,6 +58,11 @@ const demoRouter = [
         path: 'vueSropper',
         component: vueSropper,
         meta: {title: '裁图'}
+      },
+      {
+        path: 'imageSelect',
+        component: imageSelect,
+        meta: {title: '上传图片'}
       }
     ]
   }

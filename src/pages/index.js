@@ -12,6 +12,7 @@ import home from './blog2.0/BlogHomePage.vue';
 // import photoWall from './blog/PhotoWall.vue';
 import Demo from './Demo/Demo.vue';
 import vueSropper from "./Demo/VueSropper.vue";
+import imageSelect from "./Demo/ImageSelect.vue";
 import vuexDemo from './Demo/VuexDemo.vue'
 import ValidateCode from './Demo/ValidateCode.vue'
 import theLifeCycle from './Demo/TheLifeCycle.vue';
@@ -45,5 +46,6 @@ export {
   toShare,
   active,
   manage,
-  vueSropper
+  vueSropper,
+  imageSelect
 }

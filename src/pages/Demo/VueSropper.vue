@@ -3,6 +3,11 @@
     <div class="way1">
       <input id="imgPicker" type="file" @change="changeExcel()"/>
       <img id="preview"/>
+      <div @click="getImg">获取img参数</div>
+    </div>
+    <div class="way1">
+      <img src="../../components/Blog2/1.jpeg" id="way2"/>
+      <div @click="getImgWay2">获取img参数</div>
     </div>
     <div class="vueScropper-item">
       <div class="cut" v-show="!showPre">
@@ -52,6 +57,14 @@
       };
     },
     methods: {
+      getImgWay2 () {
+        var img = document.querySelector('#way2');
+        console.log(img.src);
+      },
+      getImg () {
+        var img = document.querySelector('#preview');
+        console.log(img.src);
+      },
       changeExcel () {
         var my_this = this;
         var _this = document.querySelector('#imgPicker');
@@ -136,7 +149,6 @@
 <style scoped lang="less" rel="stylesheet/less">
   .way1 {
     width: 700px;
-    height: 200px;
     margin: auto;
     background-color: #FFFFFF;
   }
