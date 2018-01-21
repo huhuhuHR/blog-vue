@@ -1,13 +1,15 @@
 <template>
   <div>
     <div class="way1">
-      <input id="imgPicker" type="file" @change="changeExcel()"/>
-      <img id="preview"/>
-      <div @click="getImg">获取img参数</div>
-    </div>
-    <div class="way1">
-      <img src="../../components/Blog2/1.jpeg" id="way2"/>
-      <div @click="getImgWay2">获取img参数</div>
+      <div class="params" @click="getImg">获取img参数</div>
+      <div class="box">
+        <input id="imgPicker" type="file" @change="changeExcel()"/>
+        <i class="iconfont icon-icon02"></i>
+      </div>
+      <div class="min">
+        <div class="pre" @click="toggleShow">预览</div>
+        <img id="preview" v-show="showWayOneImg"/>
+      </div>
     </div>
     <div class="vueScropper-item">
       <div class="cut" v-show="!showPre">
@@ -53,10 +55,14 @@
         fixedNumber: [1, 1],
         fixed: true,
         showPre: false,
-        startTag: false
+        startTag: false,
+        showWayOneImg: false
       };
     },
     methods: {
+      toggleShow () {
+        this.showWayOneImg = !this.showWayOneImg;
+      },
       getImgWay2 () {
         var img = document.querySelector('#way2');
         console.log(img.src);
@@ -148,9 +154,51 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .way1 {
-    width: 700px;
+    width: 740px;
     margin: auto;
     background-color: #FFFFFF;
+    .min {
+      min-height: 100px;
+      margin-top: 100px;
+      .pre {
+        width: 40px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 5px;
+        background-color: #0000cc;
+        color: #FFFFFF;
+        text-align: center;
+      }
+    }
+    .params {
+      font-size: 30px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .box {
+      border: 1px solid gainsboro;
+      box-sizing: border-box;
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      margin: 5px 5px 5px 1px;
+      float: left;
+      text-align: center;
+      display: table;
+      position: relative;
+      background-color: #02ac1a;
+      #imgPicker {
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: -1px;
+      }
+      i {
+        font-size: 30px;
+        color: #FFFFFF;
+      }
+    }
   }
 
   .vueScropper-item {
