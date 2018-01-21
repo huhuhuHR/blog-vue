@@ -1,34 +1,37 @@
 <template>
-  <div class="vueScropper-item">
-    <div v-show="false">
-      <img src="../blog2.0/1.jpeg" ref="myImage"/>
+  <div>
+    <div class="way1">
+      <input id="imgPicker" type="file" @change="changeExcel()"/>
+      <img id="preview"/>
     </div>
-    <div class="cut" v-show="!showPre">
-      <vueCropper
-        ref="cropper"
-        :img="sourceImage"
-        :outputSize="outputSize"
-        :outputType="outputType"
-        :fixedNumber="fixedNumber"
-        :fixed="fixed"
-      ></vueCropper>
-    </div>
-    <div class="cut" v-show="showPre">
-      <img :src="base64Image"/>
-    </div>
-    <div class="flex-box" v-if="!startTag">
-      <div class="item" @click="start">开始截图</div>
-    </div>
-    <div class="flex-box" v-if="startTag">
-      <div class="item" @click="cancel">取消截图</div>
-      <div class="item" @click="proportion(1)">1:1</div>
-      <div class="item" @click="proportion(2)">2:1</div>
-      <div class="item" @click="proportion(3)">3:4</div>
-      <div class="item" @click="proportion(4)">自定义</div>
-      <div class="item" @click="rigth">向右边旋转90度</div>
-      <div class="item" @click="left">向左边旋转90度</div>
-      <div class="item" @click="getBase64" v-if="!showPre">预览</div>
-      <div class="item" @click="cancelShowPre" v-if="showPre">取消预览</div>
+    <div class="vueScropper-item">
+      <div class="cut" v-show="!showPre">
+        <vueCropper
+          ref="cropper"
+          :img="sourceImage"
+          :outputSize="outputSize"
+          :outputType="outputType"
+          :fixedNumber="fixedNumber"
+          :fixed="fixed"
+        ></vueCropper>
+      </div>
+      <div class="cut" v-show="showPre">
+        <img :src="base64Image"/>
+      </div>
+      <div class="flex-box" v-if="!startTag">
+        <div class="item" @click="start">开始截图</div>
+      </div>
+      <div class="flex-box" v-if="startTag">
+        <div class="item" @click="cancel">取消截图</div>
+        <div class="item" @click="proportion(1)">1:1</div>
+        <div class="item" @click="proportion(2)">2:1</div>
+        <div class="item" @click="proportion(3)">3:4</div>
+        <div class="item" @click="proportion(4)">自定义</div>
+        <div class="item" @click="rigth">向右边旋转90度</div>
+        <div class="item" @click="left">向左边旋转90度</div>
+        <div class="item" @click="getBase64" v-if="!showPre">预览</div>
+        <div class="item" @click="cancelShowPre" v-if="showPre">取消预览</div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +52,24 @@
       };
     },
     methods: {
+      changeExcel () {
+        var my_this = this;
+        var _this = document.querySelector('#imgPicker');
+        if (_this.files.length === 0) {
+          document.querySelector('#preview').src = '';
+          return;
+        }
+        //实例化一个FileReader
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          //当reader加载时，把图片的内容赋值给
+          document.querySelector('#preview').src = e.target.result;
+          my_this.sourceImage = e.target.result;
+//          console.log(my_this.sourceImage);
+        };
+        //读取选中的图片，并转换成dataURL格式
+        reader.readAsDataURL(_this.files[0]);
+      },
       proportion(val){
         if (val === 1) {
           this.fixedNumber = [1, 1];
@@ -106,9 +127,6 @@
       }
     },
     mounted () {
-      var _this = this.$refs.myImage;
-
-      console.log('data:' + _this.image().base64Image);
     },
     components: {
       VueCropper
@@ -116,6 +134,13 @@
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
+  .way1 {
+    width: 700px;
+    height: 200px;
+    margin: auto;
+    background-color: #FFFFFF;
+  }
+
   .vueScropper-item {
     display: flex;
     padding: 20px;
