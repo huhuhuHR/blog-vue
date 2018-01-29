@@ -24,14 +24,29 @@
         </div>
       </div>
       <div class="image-box">
-        <!--<img src="./1.jpeg"/>-->
-        <div>点击上传图片</div>
+        <vc :baseImage="baseImage"></vc>
+      </div>
+      <div class="image-operation">
+        <div class="box">
+          开始截图
+        </div>
+        <div class="box">
+          取消截图
+        </div>
+        <div class="box">
+          保存
+        </div>
+        <div class="upload-image">
+          上传图片
+          <input type="file" class="inputImage" @change="changeImage"/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
   import utils from '../../utils/CommonUtils';
+  import vc from '../../components/Blog2/VC.vue';
   import {
     myCookie
   } from '../../auth/index';
@@ -42,10 +57,27 @@
         title: '',
         userId: myCookie.userId,
         label: '',
-        error: ''
+        error: '',
+        baseImage: ''
       };
     },
+    components: {
+      vc
+    },
     methods: {
+      changeImage(){
+        var my_this = this;
+        var _this = document.querySelector('.inputImage');
+        //实例化一个FileReader
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          //当reader加载时，把图片的内容赋值给
+          my_this.baseImage = e.target.result;
+//          console.log(my_this.sourceImage);
+        };
+        //读取选中的图片，并转换成dataURL格式
+        reader.readAsDataURL(_this.files[0]);
+      },
       checkParams(){
         if (utils.isEmpty(this.url)) {
           this.error = 'url必填';
@@ -159,6 +191,40 @@
         img {
           width: 100%;
           height: 100%;
+        }
+      }
+      .image-operation {
+        margin-left: 10px;
+        .upload-image {
+          border: 1px solid #007fff;
+          background-color: #007fff;
+          color: #FFFFFF;
+          text-align: center;
+          position: absolute;
+          width: 60px;
+          height: 20px;
+          line-height: 20px;
+          .inputImage {
+            position: relative;
+            top: -20px;
+            left: 0;
+            width: 60px;
+            height: 20px;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 1111;
+          }
+        }
+        .box {
+          width: 60px;
+          height: 20px;
+          border: 1px solid #007fff;
+          background-color: #007fff;
+          color: #FFFFFF;
+          line-height: 20px;
+          text-align: center;
+          margin-bottom: 20px;
+          cursor: pointer;
         }
       }
     }
