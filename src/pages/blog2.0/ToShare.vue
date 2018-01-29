@@ -212,6 +212,10 @@
         }
       }
       .image-operation {
+        img {
+          width: 100%;
+          height: 100%;
+        }
         margin-left: 10px;
         .upload-image {
           border: 1px solid #007fff;
@@ -243,10 +247,6 @@
           text-align: center;
           margin-bottom: 20px;
           cursor: pointer;
-        }
-        img {
-          width: 100%;
-          height: 100%;
         }
       }
     }
