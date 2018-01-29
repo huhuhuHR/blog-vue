@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div class="regist-root" v-show="registShow">
     <mask-layer></mask-layer>
     <div class="regist" @keyup.enter="toRegist">

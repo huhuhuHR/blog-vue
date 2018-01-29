@@ -23,23 +23,29 @@
           提交
         </div>
       </div>
-      <div class="image-box">
-        <vc :baseImage="baseImage"></vc>
+      <div class="image-box" v-if="!hasBase64ImageTag">
+        <vc :baseImage="baseImage"
+            :currentSate="currentSate"
+            @getBase64Image="getBase64Image"
+        ></vc>
       </div>
-      <div class="image-operation">
-        <div class="box">
+      <div class="image-operation" v-if="!hasBase64ImageTag">
+        <div class="box" @click="changeSate(1)">
           开始截图
         </div>
-        <div class="box">
+        <div class="box" @click="changeSate(2)">
           取消截图
         </div>
-        <div class="box">
+        <div class="box" @click="changeSate(3)">
           保存
         </div>
         <div class="upload-image">
           上传图片
           <input type="file" class="inputImage" @change="changeImage"/>
         </div>
+      </div>
+      <div class="image-operation" v-if="hasBase64ImageTag">
+        <img :src="base64Image">
       </div>
     </div>
   </div>
@@ -58,13 +64,25 @@
         userId: myCookie.userId,
         label: '',
         error: '',
-        baseImage: ''
+        baseImage: '',
+        currentSate: 0,
+        base64Image: '',
+        hasBase64ImageTag: false
       };
     },
     components: {
       vc
     },
     methods: {
+      getBase64Image(val){
+        this.base64Image = val;
+        console.log(this.base64Image);
+        this.hasBase64ImageTag = true;
+      },
+      changeSate(val){
+        console.log(val);
+        this.currentSate = val;
+      },
       changeImage(){
         var my_this = this;
         var _this = document.querySelector('.inputImage');
@@ -225,6 +243,10 @@
           text-align: center;
           margin-bottom: 20px;
           cursor: pointer;
+        }
+        img {
+          width: 100%;
+          height: 100%;
         }
       }
     }
