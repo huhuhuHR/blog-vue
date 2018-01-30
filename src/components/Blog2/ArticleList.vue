@@ -147,6 +147,7 @@
         justify-content: space-between;
         .image {
           margin-right: 10px;
+          margin-left: 10px;
           img {
             width: 80px;
             height: 80px;
