@@ -39,6 +39,9 @@
               </div>
             </div>
           </div>
+          <div class="image" v-if="share.imageId">
+            <img :src="share.imageId">
+          </div>
         </li>
       </ul>
     </div>
@@ -140,8 +143,16 @@
     ul {
       li {
         border-bottom: 1px solid rgba(178, 186, 194, .15);
+        display: flex;
+        justify-content: space-between;
+        .image {
+          img {
+            width: 100px;
+            height: 100px;
+          }
+        }
         .content-box {
-          cursor:pointer;
+          cursor: pointer;
           display: flex;
           align-self: center;
           padding: 20px 30px;
@@ -201,7 +212,7 @@
         position: relative;
         font-size: 50px;
         color: #007fff;
-        cursor:pointer;
+        cursor: pointer;
       }
     }
     .tools {

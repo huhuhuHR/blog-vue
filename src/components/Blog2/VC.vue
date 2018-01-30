@@ -40,11 +40,11 @@
       currentSate(newVal, oldVal){
         var _this = this;
         console.log(newVal);
-        console.log(newVal);
+        console.log(oldVal);
         if (newVal !== oldVal) {
           if (1 === newVal) {
             this.$refs.cropper.startCrop();
-          } else if (2 === newVal) {
+          } else if (2 === newVal || 4 === newVal) {
             this.$refs.cropper.clearCrop();
             this.$refs.cropper.stopCrop();
             this.base64Image = '';
@@ -55,7 +55,7 @@
               // do something
               _this.base64Image = data;
               _this.$emit('getBase64Image', this.base64Image);
-              this.$refs.cropper.clearCrop();
+              _this.$refs.cropper.clearCrop();
               _this.$refs.cropper.stopCrop();
             });
           }

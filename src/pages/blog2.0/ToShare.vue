@@ -45,7 +45,8 @@
         </div>
       </div>
       <div class="image-operation" v-if="hasBase64ImageTag">
-        <img :src="base64Image">
+        <img :src="base64Image" v-if="base64Image!=''">
+        <div class="box" @click="reUploadImage">重新裁图</div>
       </div>
     </div>
   </div>
@@ -67,23 +68,40 @@
         baseImage: '',
         currentSate: 0,
         base64Image: '',
-        hasBase64ImageTag: false
+        hasBase64ImageTag: false,
+        suffix: ''
       };
     },
     components: {
       vc
     },
     methods: {
+      reUploadImage () {
+        this.hasBase64ImageTag = false;
+      },
       getBase64Image(val){
         this.base64Image = val;
-        console.log(this.base64Image);
+//        console.log(this.base64Image);
         this.hasBase64ImageTag = true;
       },
       changeSate(val){
-        console.log(val);
+        if (this.currentSate === val) {
+          if (this.currentSate === 4) {
+            return;
+          }
+          val = val === 2 ? 4 : val === 4 ? 2 : val;
+        }
         this.currentSate = val;
       },
       changeImage(){
+        var imageSuffix = this.$el.getElementsByClassName('inputImage')[0].files[0];
+        var name = imageSuffix.name;
+        if (/\.(jpe?g|png)$/.test(name.toLowerCase())) {
+          var index = name.lastIndexOf('.');
+          this.suffix = (name.substring(index, name.length));
+        } else {
+          this.error = '图片只支持jpg，jpeg，png'
+        }
         var my_this = this;
         var _this = document.querySelector('.inputImage');
         //实例化一个FileReader
@@ -118,7 +136,9 @@
               shareUrl: this.url,
               shareTitle: this.title,
               shareDesc: this.label,
-              userId: this.userId
+              userId: this.userId,
+              base64Image: this.base64Image,
+              suffix: this.suffix
             },
             emulateJSON: true,
             useLoadLayer: true,
