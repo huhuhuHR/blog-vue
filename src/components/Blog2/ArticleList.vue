@@ -146,9 +146,11 @@
         display: flex;
         justify-content: space-between;
         .image {
+          margin-right: 10px;
           img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
+            margin-top: 10px;
           }
         }
         .content-box {
