@@ -1,5 +1,9 @@
 <template>
   <div class="list-body">
+    <MaskLayer v-show="currentBigImage!=''"></MaskLayer>
+    <div class="show-big" v-show="currentBigImage!=''">
+      <img :src="currentBigImage" @click="hideBigImage">
+    </div>
     <!--工具-->
     <div v-show="last">
       <div class="search" @keyup.enter="searchValue">
@@ -40,7 +44,7 @@
             </div>
           </div>
           <div class="image" v-if="share.imageId">
-            <img :src="share.imageId">
+            <img :src="share.imageId" @click="showCurrentBigImg(share.imageId)">
           </div>
         </li>
       </ul>
@@ -48,16 +52,24 @@
   </div>
 </template>
 <script>
+  import MaskLayer from '../../components/operationDialog/MaskLayer.vue';
   export default {
     data() {
       return {
         searchKey: '',
-        searchKeyTitle: ''
+        searchKeyTitle: '',
+        currentBigImage: ''
       };
     },
     mounted() {
     },
     methods: {
+      hideBigImage(){
+        this.currentBigImage = '';
+      },
+      showCurrentBigImg(val){
+        this.currentBigImage = val;
+      },
       searchKeyFunction() {
         this.$emit('searchKeyFunction', this.currentRouter === 0 ? '0' : '1', this.searchKeyTitle);
       },
@@ -111,6 +123,9 @@
         return this.tools.length % 4 === 2;
       }
     },
+    components: {
+      MaskLayer
+    },
     props: {
       index: {
         type: Number,
@@ -140,6 +155,23 @@
   .list-body {
     height: 91%;
     overflow-y: scroll;
+    .show-big {
+      padding: 20px;
+      background-color: #ffffff;
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      z-index: 1002;
+      img {
+        width: 400px;
+        height: 400px;
+      }
+    }
     ul {
       li {
         border-bottom: 1px solid rgba(178, 186, 194, .15);
