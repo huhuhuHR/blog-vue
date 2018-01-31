@@ -1,11 +1,16 @@
 <template>
   <div class="user-else">
+    <MaskLayer v-show="currentBigImage!=''"></MaskLayer>
+    <div class="show-big" v-show="currentBigImage!=''">
+      <img :src="currentBigImage" @click="hideBigImage">
+    </div>
     <div class="user-else-head">
       <span>网站成员({{memberSize}})</span>
     </div>
     <div class="over-flow-scroll">
       <div class="user-else-info" v-for="member in members">
-        <img src="./1.jpeg"/>
+        <img v-if="member.userImage" :src="member.userImage" @click="showCurrentBigImg(member.userImage)"/>
+        <img v-else src="./1.jpeg"/>
         <div class="introduce">
           <div class="user-name">{{member.name}}</div>
           <div class="user-good-at">{{member.email}}</div>
@@ -15,17 +20,25 @@
   </div>
 </template>
 <script>
+  import MaskLayer from '../../components/operationDialog/MaskLayer.vue';
   export default{
     data () {
       return {
         members: [],
-        memberSize: 0
+        memberSize: 0,
+        currentBigImage: ''
       };
     },
     mounted(){
       this.getMembers();
     },
     methods: {
+      showCurrentBigImg(val){
+        this.currentBigImage = val;
+      },
+      hideBigImage(){
+        this.currentBigImage = '';
+      },
       getMembers(){
         this.$http.api({
           url: '/huhuhu/regist/getMembers',
@@ -39,12 +52,32 @@
           }.bind(this)
         });
       }
+    },
+    components: {
+      MaskLayer
     }
   };
 </script>
 <style scoped lang="less" rel="stylesheet/less">
   .user-else {
     background-color: #ffffff;
+    .show-big {
+      padding: 20px;
+      background-color: #ffffff;
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      z-index: 1002;
+      img {
+        width: 400px;
+        height: 400px;
+      }
+    }
     .user-else-head {
       font-weight: 500;
       font-size: 16px;

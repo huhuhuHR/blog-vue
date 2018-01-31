@@ -3,8 +3,9 @@
     <div class="myBody">
       <div class="left">
         <div class="write-share">
-          <div class="item">
-            <img src="../../components/Blog2/1.jpeg"/>
+          <div class="item" @click="toggleImageUploadTag">
+            <img v-if="userImage === ''" src="../../components/Blog2/1.jpeg"/>
+            <img v-else :src="userImage"/>
           </div>
           <div class="item" @click="toShare" v-if="shareShow">
             <i class="iconfont icon-huaban"></i>
@@ -51,7 +52,9 @@
           </div>
         </div>
         <column v-if="shareShow"
-                @deal="deal"></column>
+                @deal="deal"
+                @goPersonInfo="goPersonInfo"
+        ></column>
         <menbers></menbers>
       </div>
     </div>
@@ -69,6 +72,11 @@
       :loginError="loginError"
       @changeLoginError="changeLoginError"
     ></blog-login>
+    <uploadImage
+      :uploadImage="uploadImageTag"
+      @toggleImageUploadTag="toggleImageUploadTag"
+      @upload="uploadImageFile">
+    </uploadImage>
   </div>
 </template>
 <script>
@@ -77,6 +85,7 @@
   import articleList from '../../components/Blog2/ArticleList.vue';
   import menbers from '../../components/Blog2/Members.vue';
   import column from '../../components/Blog2/myColumn.vue';
+  import uploadImage from './ChangeHeadImage.vue';
   import {doOperationSuccess, doOperationFailture} from '../../assets/js/operation';
   import {
     saveCookie,
@@ -114,7 +123,9 @@
         userState: myCookie.userState,
         shareShow: false,
         totalNum: 0,
-        totalPages: 0
+        totalPages: 0,
+        uploadImageTag: false,
+        userImage: myCookie.userImage
       }
     },
     mounted() {
@@ -130,6 +141,37 @@
     },
     computed: {},
     methods: {
+      uploadImageFile(val){
+        console.log('huhuhuhu');
+        console.log(val);
+        if (val === '') {
+          return;
+        }
+        this.$http.api({
+          url: this.HOST + '/share/uploadImag',
+          params: {
+            userId: this.userId,
+            dataImage: val
+          },
+          emulateJSON: true,
+          useLoadLayer: true,
+          successCallback: function (data) {
+            this.userImage = data.image;
+          }.bind(this),
+          errorCallback: function (data) {
+            console.log("fail")
+          }.bind(this)
+        });
+      },
+      toggleImageUploadTag(){
+        if (this.userState !== '2') {
+          return;
+        }
+        this.uploadImageTag = !this.uploadImageTag;
+      },
+      goPersonInfo(){
+        console.log('gopersoninfo');
+      },
       searchKeyFunction(val1, val2) {
         this.$http.api({
           url: '/huhuhu/share/selectNewestShare',
@@ -173,9 +215,10 @@
                 this.loginError = data.msg;
               } else if (data.result === '1') {
                 this.userId = data.userId;
+                this.userImage = data.userImage;
                 this.userState = '2';
                 this.closeLogin();
-                saveCookie(data.userId, this.userState);
+                saveCookie(data.userId, this.userState, data.userImage);
                 window.location.reload();
               } else if (data.result === '2') {
                 console.log("未激活");
@@ -274,7 +317,7 @@
                 console.log('注册成功');
 //                0游客;1注册未激活2注册已经激活/已登录
                 this.userState = '1';
-                saveCookie(data.userId, '1');
+                saveCookie(data.userId, '1', '');
                 this.closeRegist();
                 setCookie(UUID, data.uuid, ONE_DAY);
                 this.$router.push({path: '/blog/active', query: {'uuid': data.uuid}});
@@ -317,7 +360,8 @@
       blogLogin,
       articleList,
       menbers,
-      column
+      column,
+      uploadImage
     }
   };
 </script>

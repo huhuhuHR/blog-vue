@@ -7,15 +7,17 @@ const clearCookie = () => {
   setCookie(TOKEN_KEY, null, -1);
   myCookie.userId = '';
   myCookie.userState = '0';
+  myCookie.userImage = '';
   window.location.reload();
 };
 
-const saveCookie = (userId, userState) => {
-  var cookie = userId + '-' + userState;
+const saveCookie = (userId, userState, userImage) => {
+  var cookie = userId + '-' + userState + '-' + userImage;
   console.log('setCookie:' + myCookie);
   setCookie(TOKEN_KEY, cookie, ONE_DAY);
   myCookie.userId = userId;
   myCookie.userState = userState;
+  myCookie.userImage = userImage;
 };
 
 const refresh = () => {
@@ -26,6 +28,7 @@ const refresh = () => {
     if (array) {
       myCookie.userId = array[0];
       myCookie.userState = array[1];
+      myCookie.userImage = array[2];
       console.log('refresh-userId:' + myCookie.userId);
       console.log('refresh-userState:' + myCookie.userState);
     }
@@ -42,6 +45,7 @@ const setCookie = (name, value, expireTime) => {
   document.cookie = name + '=' + value + (expiresDate ? '; expires=' + expiresDate.toGMTString() : '');
 };
 const myCookie = {
+  userImage: '',
   userId: '',
   userState: '0'//默认0游客；1注册未激活；2注册已经激活/已登录
 };

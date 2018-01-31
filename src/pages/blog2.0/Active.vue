@@ -35,7 +35,7 @@
           useLoadLayer: true,
           successCallback: function (data) {
             if (data) {
-              saveCookie(data.userId, '2');
+              saveCookie(data.userId, '2', '');
             }
             this.$router.go(-1);
           }.bind(this),

@@ -6,7 +6,8 @@ import {
   home,
   toShare,
   active,
-  manage
+  manage,
+  personInfo,
 } from '../pages/index';
 
 const blog2Router = [
@@ -35,6 +36,11 @@ const blog2Router = [
         path: 'manage',
         component: manage,
         meta: {title: '管理'}
+      },
+      {
+        path: 'personInfo',
+        component: personInfo,
+        meta: {title: '个人资料'}
       }
     ]
   }

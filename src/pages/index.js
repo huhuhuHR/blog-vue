@@ -22,7 +22,8 @@ import uploadExcel from './Demo/uploadExcel.vue';
 import toShare from './blog2.0/ToShare.vue';
 import active from './blog2.0/Active.vue';
 import manage from './blog2.0/Manage.vue';
-
+import personInfo from './blog2.0/PersonInfo.vue';
+import headImage from './blog2.0/ChangeHeadImage.vue';
 export {
   // login,
   // homePage,
@@ -47,5 +48,7 @@ export {
   active,
   manage,
   vueSropper,
-  imageSelect
+  imageSelect,
+  personInfo,
+  headImage
 }

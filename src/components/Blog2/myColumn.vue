@@ -4,6 +4,10 @@
       <i class="iconfont icon-ttpodicon"></i>
       <span>管理</span>
     </div>
+    <!--<div class="user-item">-->
+    <!--<i class="iconfont icon-tubiaorenji" @click="goPerson"></i>-->
+    <!--<span>个人资料</span>-->
+    <!--</div>-->
   </div>
 </template>
 <script>
@@ -14,6 +18,9 @@
     methods: {
       deal(){
         this.$emit('deal');
+      },
+      goPerson(){
+        this.$emit('goPersonInfo');
       }
     }
   };
@@ -35,7 +42,7 @@
       margin-bottom: 0 !important;
     }
     .user-item {
-      cursor:pointer;
+      cursor: pointer;
       border-top: 1px solid rgba(178, 186, 194, .15);
       border-bottom: 1px solid rgba(178, 186, 194, .15);
       border-radius: 2px;
