@@ -70,10 +70,15 @@
     },
     mounted () {
       var pageSize = 1;
-      var currentPage = 1;
+      var currentPage = 10;
       var starIndex = 0;
       var totalPage = this.shareDetail % pageSize === 0 ? (this.shareDetail / pageSize) : (this.shareDetail / pageSize) + 1;
       var totalNum = this.shareDetail.size;
+      console.log('pageSize:' + pageSize);
+      console.log('currentPage:' + currentPage);
+      console.log('starIndex:' + starIndex);
+      console.log('totalPage:' + totalPage);
+      console.log('totalNum:' + totalNum);
       this.PageBean = {
         currentPage: currentPage,
         pageSize: pageSize,
@@ -89,11 +94,14 @@
         let scrollHeight = doc.scrollHeight;
         let clientHeight = doc.clientHeight;
         if (scrollTop >= scrollHeight - clientHeight) {
-          if (this.PageBean.currentPage >= this.PageBean.totalPages) {
+          if (this.PageBean.currentPage > this.PageBean.totalPages) {
+            console.log('没有更多了');
             return false;
           }
           this.PageBean.starIndex += this.PageBean.pageSize;
           this.PageBean.currentPage += 1;
+          console.log('load-starIndex-' + this.PageBean.starIndex);
+          console.log('load-currentPage-' + this.PageBean.currentPage);
         }
       },
       hideBigImage(){
