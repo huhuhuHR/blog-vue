@@ -1,5 +1,5 @@
 <template>
-  <div class="list-body">
+  <div class="list-body" id="load">
     <MaskLayer v-show="currentBigImage!=''"></MaskLayer>
     <div class="show-big" v-show="currentBigImage!=''">
       <img :src="currentBigImage" @click="hideBigImage">
@@ -26,7 +26,7 @@
         <i class="iconfont icon-sousuo" @click="searchKeyFunction"></i>
       </div>
       <ul>
-        <li v-for="share in shareDetail">
+        <li v-for="(share,index) in shareDetail" v-if="index<=(PageBean.currentPage)*(PageBean.pageSize)">
           <div class="content-box" @click="toUrl(share.shareUrl,share.shareId)">
             <div class="info-box">
               <div class="info-row meta-row">
@@ -58,12 +58,44 @@
       return {
         searchKey: '',
         searchKeyTitle: '',
-        currentBigImage: ''
+        currentBigImage: '',
+        PageBean: {
+          currentPage: 1,
+          pageSize: 1,
+          totalPage: 1,
+          starIndex: 0,
+          totalNum: 0
+        }
       };
     },
-    mounted() {
+    mounted () {
+      var pageSize = 1;
+      var currentPage = 1;
+      var starIndex = 0;
+      var totalPage = this.shareDetail % pageSize === 0 ? (this.shareDetail / pageSize) : (this.shareDetail / pageSize) + 1;
+      var totalNum = this.shareDetail.size;
+      this.PageBean = {
+        currentPage: currentPage,
+        pageSize: pageSize,
+        totalPage: totalPage,
+        starIndex: starIndex,
+        totalNum: totalNum
+      };
     },
     methods: {
+      loadMore: function () {
+        let doc = document.getElementById('load');
+        let scrollTop = doc.scrollTop;
+        let scrollHeight = doc.scrollHeight;
+        let clientHeight = doc.clientHeight;
+        if (scrollTop >= scrollHeight - clientHeight) {
+          if (this.PageBean.currentPage >= this.PageBean.totalPages) {
+            return false;
+          }
+          this.PageBean.starIndex += this.PageBean.pageSize;
+          this.PageBean.currentPage += 1;
+        }
+      },
       hideBigImage(){
         this.currentBigImage = '';
       },
