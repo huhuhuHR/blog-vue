@@ -157,6 +157,7 @@
           useLoadLayer: true,
           successCallback: function (data) {
             this.userImage = data.image;
+            saveCookie(data.userId, this.userState, this.userImage);
           }.bind(this),
           errorCallback: function (data) {
             console.log("fail")
