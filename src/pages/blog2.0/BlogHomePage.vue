@@ -25,6 +25,8 @@
                        :totalSize="myRouters.length"
                        :tools="tools"
                        :shareDetail="shareDetail"
+                       :totalNum="totalNum"
+                       :totalPages="totalPages"
                        @initTools="initTools"
                        @searchValue="searchValue"
                        @getNewestShare="getNewestShare"
@@ -110,7 +112,9 @@
         loginError: '',
         userId: myCookie.userId,
         userState: myCookie.userState,
-        shareShow: false
+        shareShow: false,
+        totalNum: 0,
+        totalPages: 0
       }
     },
     mounted() {
@@ -247,6 +251,9 @@
           useLoadLayer: true,
           successCallback: function (data) {
             this.shareDetail = data.shares;
+            var Num = this.shareDetail.length;
+            this.totalNum = Num;
+            this.totalPages = Math.round(Num / 10);
           }.bind(this),
           errorCallback: function (data) {
             doOperationFailture(this);

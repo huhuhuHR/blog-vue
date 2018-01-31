@@ -1,5 +1,5 @@
-<template>
-  <div class="list-body" id="load">
+<template xmlns:v-on="http://www.w3.org/1999/xhtml">
+  <div class="list-body" id="load" v-on:scroll="loadMore">
     <MaskLayer v-show="currentBigImage!=''"></MaskLayer>
     <div class="show-big" v-show="currentBigImage!=''">
       <img :src="currentBigImage" @click="hideBigImage">
@@ -26,7 +26,7 @@
         <i class="iconfont icon-sousuo" @click="searchKeyFunction"></i>
       </div>
       <ul>
-        <li v-for="(share,index) in shareDetail" v-if="index<=(PageBean.currentPage)*(PageBean.pageSize)">
+        <li v-for="(share,index) in shareDetail" v-if="index<(currentPage)*(pageSize)">
           <div class="content-box" @click="toUrl(share.shareUrl,share.shareId)">
             <div class="info-box">
               <div class="info-row meta-row">
@@ -53,55 +53,51 @@
 </template>
 <script>
   import MaskLayer from '../../components/operationDialog/MaskLayer.vue';
+  import Vue from 'vue';
   export default {
     data() {
       return {
         searchKey: '',
         searchKeyTitle: '',
         currentBigImage: '',
-        PageBean: {
-          currentPage: 1,
-          pageSize: 1,
-          totalPage: 1,
-          starIndex: 0,
-          totalNum: 0
-        }
+        currentPage: 1,
+        pageSize: 10,
+        starIndex: 0,
+        loading: false
       };
     },
     mounted () {
-      var pageSize = 1;
-      var currentPage = 10;
-      var starIndex = 0;
-      var totalPage = this.shareDetail % pageSize === 0 ? (this.shareDetail / pageSize) : (this.shareDetail / pageSize) + 1;
-      var totalNum = this.shareDetail.size;
-      console.log('pageSize:' + pageSize);
-      console.log('currentPage:' + currentPage);
-      console.log('starIndex:' + starIndex);
-      console.log('totalPage:' + totalPage);
-      console.log('totalNum:' + totalNum);
-      this.PageBean = {
-        currentPage: currentPage,
-        pageSize: pageSize,
-        totalPage: totalPage,
-        starIndex: starIndex,
-        totalNum: totalNum
-      };
+    },
+    watch: {
+      shareDetail(){
+        this.currentPage = 1;
+        this.pageSize = 10;
+        this.starIndex = 0;
+      }
     },
     methods: {
       loadMore: function () {
+        if (this.loading) {
+          console.log('加载中');
+          return;
+        }
+        console.log(this.totalPages);
         let doc = document.getElementById('load');
         let scrollTop = doc.scrollTop;
         let scrollHeight = doc.scrollHeight;
         let clientHeight = doc.clientHeight;
         if (scrollTop >= scrollHeight - clientHeight) {
-          if (this.PageBean.currentPage > this.PageBean.totalPages) {
+          if (this.currentPage >= this.totalPages) {
             console.log('没有更多了');
             return false;
           }
-          this.PageBean.starIndex += this.PageBean.pageSize;
-          this.PageBean.currentPage += 1;
-          console.log('load-starIndex-' + this.PageBean.starIndex);
-          console.log('load-currentPage-' + this.PageBean.currentPage);
+          var _this = this;
+          this.loading = true;
+          _this.starIndex += _this.pageSize;
+          _this.currentPage += 1;
+          console.log('load-starIndex-' + _this.starIndex);
+          console.log('load-currentPage-' + _this.currentPage);
+          this.loading = false;
         }
       },
       hideBigImage(){
@@ -187,7 +183,15 @@
       currentRouter: {
         type: Number,
         require: false
-      }
+      },
+      totalPages: {
+        type: Number,
+        require: true
+      },
+      totalNum: {
+        type: Number,
+        require: true
+      },
     }
   };
 </script>
