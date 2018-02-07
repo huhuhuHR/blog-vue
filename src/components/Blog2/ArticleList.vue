@@ -22,7 +22,7 @@
     </div>
     <div v-show="showElse">
       <div class="search" @keyup.enter="searchKeyFunction">
-        <input placeholder="输入标题..." v-model="searchKeyTitle"/>
+        <input placeholder="标题..." v-model="searchKeyTitle"/>
         <i class="iconfont icon-sousuo" @click="searchKeyFunction"></i>
       </div>
       <ul>
@@ -30,7 +30,7 @@
           <div class="content-box" @click="toUrl(share.shareUrl,share.shareId)">
             <div class="info-box">
               <div class="info-row meta-row">
-                标题：{{share.shareTitle}}
+                关于：{{share.shareTitle}}
               </div>
               <div class="info-row title-row">
                 <span class="label-box">{{share.shareDesc}}</span>

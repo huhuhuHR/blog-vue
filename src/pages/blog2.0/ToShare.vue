@@ -10,7 +10,7 @@
         </div>
         <div class="url" style="padding-bottom: 0;!important;">
           <input type="text"
-                 placeholder="标题"
+                 placeholder="关于"
                  maxlength="128"
                  v-model="title"/>
         </div>
@@ -122,7 +122,7 @@
         } else if (utils.isEmpty(this.label)) {
           this.error = '标签必填';
         } else if (utils.isEmpty(this.title)) {
-          this.error = '标题必填';
+          this.error = '关于必填';
         } else {
           return true;
         }
