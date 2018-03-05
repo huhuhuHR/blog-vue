@@ -10,7 +10,8 @@ import {
   vueEditDemo,
   uploadExcel,
   vueSropper,
-  imageSelect
+  imageSelect,
+  jsonpDemo
 } from '../pages/index';
 const demoRouter = [
   {
@@ -63,6 +64,11 @@ const demoRouter = [
         path: 'imageSelect',
         component: imageSelect,
         meta: {title: '上传图片'}
+      },
+      {
+        path: 'jsonpDemo',
+        component: jsonpDemo,
+        meta: {title: 'jsonp'}
       }
     ]
   }

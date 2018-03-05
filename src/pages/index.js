@@ -24,6 +24,7 @@ import active from './blog2.0/Active.vue';
 import manage from './blog2.0/Manage.vue';
 import personInfo from './blog2.0/PersonInfo.vue';
 import headImage from './blog2.0/ChangeHeadImage.vue';
+import jsonpDemo from './Demo/jsonp.vue'
 export {
   // login,
   // homePage,
@@ -50,5 +51,6 @@ export {
   vueSropper,
   imageSelect,
   personInfo,
-  headImage
+  headImage,
+  jsonpDemo
 }
